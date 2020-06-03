@@ -5,9 +5,20 @@
 {% block body %}
     <h1>Détails du projet</h1>
 
-    {{ include('project/_form.html.twig', {'button_label': 'Update'}) }}
+    <section class="sheet">
 
-    <a href="{{ path('project_index') }}">back to list</a>
+        {{ include('project/_form.html.twig', {'button_label': 'Enregistrer le projet'}) }}
 
-    {{ include('project/_delete_form.html.twig') }}
+
+        <div class="container">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary form-btn"> Enregistrer les modifications </button>
+                <a class="btn btn-primary form-btn" href="{{ path('project_index') }}">Revenir à la liste des projets</a>
+            </div>
+
+        </div>
+
+        {{ include('project/_delete_form.html.twig') }}
+
+    </section>
 {% endblock %}

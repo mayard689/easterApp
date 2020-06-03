@@ -1,5 +1,10 @@
-label{
-  color:red;
+.project-header{
+  padding-top:$padding-large;
+  padding-bottom:$padding-large;
+}
+
+.button-panel{
+  display:flex;
 }
 
 .skill{
