@@ -27,6 +27,13 @@ a {
     color: $warm-color;
 }
 
+.button-panel{
+    display:flex;
+    justify-content: end;
+    padding-top:$padding-large;
+    padding-bottom:$padding-large;
+}
+
 .form-btn{
     margin-left:$margin;
     margin-right:0;
@@ -37,4 +44,9 @@ a {
     height:100vh;
     display:flex;
     flex-direction:column;
+}
+
+input, textarea{
+    border:hidden;
+    border-bottom:thin solid $light-color;
 }
