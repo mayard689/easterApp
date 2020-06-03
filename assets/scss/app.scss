@@ -2,9 +2,10 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-    background-color: $secondary-color;
+    background-color: $light-color;
+    color: $dark-color;
 }
 
 a {
-    color: $warm-color;
+    color: $dark-color;
 }
