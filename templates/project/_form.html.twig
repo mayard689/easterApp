@@ -1,4 +1,39 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+
+   <div class="container">
+      <div class="row">
+         <div class="col-8">
+            {{ form_row(form.name) }}
+         </div>
+         <div class="col-4">
+            {{ form_row(form.date) }}
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-12">
+            {{ form_row(form.description) }}
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-1">
+            {{ form_row(form.confirmed) }}
+         </div>
+         <div class="col-1">
+            {{ form_row(form.expert) }}
+         </div>
+         <div class="col-1">
+            {{ form_row(form.junior) }}
+         </div>
+      </div>
+   </div>
+
+
+
+
+
+
     <button class="btn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}
