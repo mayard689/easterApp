@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FeaturesController!{% endblock %}
+
+{% block body %}
+    <h1>{{ title }}</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Nom de la fonctionnalité</th>
+            <th scope="col">Catégorie de la fonctionnalité</th>
+            <th scope="col">Charge estimée</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Authentification</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">Navbar</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">Profil</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
