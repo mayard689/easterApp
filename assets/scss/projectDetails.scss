@@ -1,0 +1,34 @@
+label{
+  color:red;
+}
+
+.skill{
+  display:flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  label{
+    width:100px;
+
+    &::before{
+      content:'% ';
+    }
+  }
+
+  input{
+    width : 3em;
+  }
+}
+
+.description{
+
+  textarea{
+    width:100%;
+  }
+
+}
+
+.date{
+  display:flex;
+  justify-content: end;
+}
