@@ -1,9 +1,22 @@
+
+/* colors */
+$dark:#222222;
+$primary:#046077;
+$secondary:#043341;
+$light:#F0EFEA;
+
 $dark-color: #222222;
 $primary-color: #046077;
 $secondary-color: #043341;
 $light-color: #F0EFEA;
 
+$background-color:white;
 $shadow-light: 0 0 20px $light-color;
 $border-light: 2px solid $primary-color;
 
+/* paddings and margins */
+$padding-large:40px;
+$margin:20px;
+
+/* sizes */
 $size: 14px;
