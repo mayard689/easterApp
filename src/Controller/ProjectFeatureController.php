@@ -18,10 +18,10 @@ class ProjectFeatureController extends AbstractController
     /**
      * @Route("/", name="project_feature_index", methods={"GET"})
      */
-    public function index(ProjectFeatureRepository $projectFeatureRepository): Response
+    public function index(ProjectFeatureRepository $projectFeatureRepos): Response
     {
         return $this->render('project_feature/index.html.twig', [
-            'project_features' => $projectFeatureRepository->findAll(),
+            'project_features' => $projectFeatureRepos->findAll(),
         ]);
     }
 
