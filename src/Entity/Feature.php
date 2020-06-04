@@ -32,6 +32,10 @@ class Feature
      * @ORM\Column(type="float")
      * @Assert\NotBlank(message="Veuillez indiquer un datage pour cette fonctionnalité !")
      * @Assert\Positive(message="Le datage doit être supérieur à 0 !")
+     * @Assert\Type(
+     *     type="float",
+     *     message="Le datage {{ value }} doit être de type {{ type }}."
+     * )
      */
     private $day;
 

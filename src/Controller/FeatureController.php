@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FeatureController extends AbstractController
 {
+    const MAX_PER_PAGE = 10;
     /**
      * @Route("/features", name="features")
      * @return Response
@@ -20,7 +21,7 @@ class FeatureController extends AbstractController
             ->findBy(
                 [],
                 ['name' => 'ASC'],
-                10
+                self::MAX_PER_PAGE
             );
 
         return $this->render('feature/index.html.twig', [

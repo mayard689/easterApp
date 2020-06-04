@@ -24,10 +24,9 @@
                 <button><i class="fas fa-pencil-alt"></i></button>
             </td>
         </tr>
-        {% endfor %}
-        {% if features is empty %}
+        {% else %}
             <td>Pas de fonctionnalités enregistrées !</td>
-        {% endif %}
+        {% endfor %}
         </tbody>
     </table>
     <div class="d-flex justify-content-center fixed-bottom mb-5">
