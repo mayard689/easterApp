@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ApplicationRepository::class)
+ * @UniqueEntity("name",
+ *               errorPath="name",
+ *               message="Le nom de l'application {{ value }} existe déjà. Veuillez en indiquer un autre.")
  */
 class Application
 {
@@ -21,6 +24,8 @@ class Application
 
     /**
      * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\NotBlank(message="Veuillez indiquer un nom pour ce nouveau type d'application.")
      */
     private $name;
 
