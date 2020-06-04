@@ -1,8 +1,10 @@
 .menu {
+    position: absolute;
     box-shadow: $shadow-light;
     display: inline-block;
     text-align: center;
     height: 100vh;
+    background-color: $background-color;
 }
 
 .menu-wrapper {
@@ -17,7 +19,7 @@
 .menu-wrapper .fa-project-diagram,
 .menu-wrapper .fa-user-friends {
     font-size: 1.25rem;
-    color: $secondary-color;
+    color: $secondary;
 }
 
 .menu-wrapper > * {
@@ -27,8 +29,8 @@
 .menu-wrapper .logo, .menu-wrapper .exit {
     font-size: 3rem;
     padding: 1rem;
-    background-color: $primary-color;
-    color: $light-color;
+    background-color: $primary;
+    color: $light;
 }
 
 .menu-wrapper .exit {
@@ -48,29 +50,28 @@
 }
 
 .menu-wrapper ul a {
+    position: relative;
     display: inline-block;
     width: 100%;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    background-color: #fff;
+    background-color: $background-color;
+    z-index: 2;
 }
-
-.menu-wrapper span {
+.menu span {
     position: absolute;
+    width: max-content;
+    background-color: $primary;
+    color: $background-color;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: #FFF;
-    padding: .5rem 1rem;
-    top: 0;
-    right: 0;
-    display: block;
-    width: max-content;
+    padding: .5rem;
     box-shadow: $shadow-light;
-    z-index: -1;
+    border-radius: $radius-light-right;
+    right: 0;
+    z-index: 1;
     transition: all .3s ease;
-    border-bottom: $border-light;
 }
-
-.menu-wrapper ul li:hover span {
+.menu-wrapper li:hover span {
     transform: translateX(100%);
 }
