@@ -4,7 +4,7 @@
 
 body {
     background-color: $background-color;
-    color:$dark-color;
+    color:$dark;
 }
 
 h1{
@@ -44,7 +44,7 @@ p{
 
 input, textarea{
     border:hidden;
-    border-bottom:thin solid $light-color;
+    border-bottom:thin solid $light;
 }
 
 label{
