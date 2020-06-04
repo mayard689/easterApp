@@ -80,7 +80,7 @@ class Project
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -116,7 +116,7 @@ class Project
         return $this->expert;
     }
 
-    public function setExpert(int $expert): self
+    public function setExpert(?int $expert): self
     {
         $this->expert = $expert;
 
@@ -128,7 +128,7 @@ class Project
         return $this->confirmed;
     }
 
-    public function setConfirmed(int $confirmed): self
+    public function setConfirmed(?int $confirmed): self
     {
         $this->confirmed = $confirmed;
 
@@ -140,7 +140,7 @@ class Project
         return $this->junior;
     }
 
-    public function setJunior(int $junior): self
+    public function setJunior(?int $junior): self
     {
         $this->junior = $junior;
 
