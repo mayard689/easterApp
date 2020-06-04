@@ -19,6 +19,14 @@
          </div>
       </div>
 
+      <div class="row  form-group">
+         <div class="col-12 application">
+            {{ form_label(form.application, "Une application de type : ") }}
+            {{ form_widget(form.application) }}
+            {{ form_errors(form.application) }}
+         </div>
+      </div>
+
       <div class="row form-group">
          <div class="col-sm-12 col-md-3 col-lg-2 skill">
             {{ form_widget(form.junior) }}
@@ -33,8 +41,8 @@
             {{ form_label(form.confirmed, "Confirmé") }}
          </div>
       </div>
-      <div class="row">
 
+      <div class="row">
          {{ form_errors(form.expert) }}
          {{ form_errors(form.junior) }}
          {{ form_errors(form.confirmed) }}
@@ -46,7 +54,6 @@
       </div>
 
    </div>
-
 
 {{ form_end(form) }}
 
