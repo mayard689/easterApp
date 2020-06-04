@@ -8,6 +8,7 @@
       <div class="row">
          <div class="col-8">
             {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
          </div>
 
          {%  if edit is defined and edit=='true'%}
@@ -35,9 +36,10 @@
       </div>
 
       <div class="row">
-         <div class="col-12 description">
+         <div class="col-12 application">
             {{ form_label(form.application, "Une application de type : ") }}
             {{ form_widget(form.application) }}
+            {{ form_errors(form.application) }}
          </div>
       </div>
 

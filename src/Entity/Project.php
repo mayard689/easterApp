@@ -68,8 +68,7 @@ class Project
     /**
      * @ORM\ManyToOne(targetEntity=Application::class, inversedBy="projects")
      *
-     * @Assert\Choice(callback={"App\Repository\ApplicationRepository", "findAll"})
-
+     * @Assert\Valid
      */
     private $application;
 
