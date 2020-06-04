@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FeaturesController extends AbstractController
+class FeatureController extends AbstractController
 {
     /**
      * @Route("/features", name="features")
@@ -17,16 +17,13 @@ class FeaturesController extends AbstractController
     {
         $features = $this->getDoctrine()
             ->getRepository(Feature::class)
-            ->findAll();
-
-        if (!$features) {
-            throw $this->createNotFoundException(
-                'No features found in program\'s table.'
+            ->findBy(
+                [],
+                ['name' => 'ASC'],
+                10
             );
-        }
-        return $this->render('features/index.html.twig', [
-            'controller_name' => 'FeaturesController',
-            'title' => 'Liste des Fonctionnalités Récurrentes',
+
+        return $this->render('feature/index.html.twig', [
             'features' => $features,
         ]);
     }

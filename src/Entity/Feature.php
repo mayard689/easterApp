@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FeatureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FeatureRepository::class)
@@ -19,21 +20,33 @@ class Feature
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez indiquer un nom pour cette fonctionnalité !")
+     * @Assert\Length(
+     *     max=255,
+     *     maxMessage="Votre nom de fonctionnalité ne doit pas dépasser {{ limit }} caractères !"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Veuillez indiquer un datage pour cette fonctionnalité !")
+     * @Assert\Positive(message="Le datage doit être supérieur à 0 !")
      */
     private $day;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Veuillez indiquer une description pour cette fonctionnalité !")
+     * @Assert\Length(
+     *     max=255,
+     *     maxMessage="La description ne doit pas dépasser {{ limit }} caractères ! "
+     * )
      */
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="features")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="feature")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

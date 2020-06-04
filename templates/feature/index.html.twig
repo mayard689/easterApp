@@ -3,8 +3,8 @@
 {% block title %}Big Bill | Fonctionnalités{% endblock %}
 
 {% block body %}
-    <h1>{{ title }}</h1>
-    <table class="table">
+    <h1>Liste des Fonctionnalités Récurrentes</h1>
+    <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">Nom de la fonctionnalité</th>
@@ -25,6 +25,9 @@
             </td>
         </tr>
             {% endfor %}
+        {% if features is empty %}
+            <td>Pas de fonctionnalités enregistrées !</td>
+        {% endif %}
         </tbody>
     </table>
     <div class="d-flex justify-content-center fixed-bottom mb-5">
