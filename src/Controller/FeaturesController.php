@@ -14,7 +14,7 @@ class FeaturesController extends AbstractController
     {
         return $this->render('features/index.html.twig', [
             'controller_name' => 'FeaturesController',
-            'title' => 'Fonctionnalités récurrentes'
+            'title' => 'Liste des Fonctionnalités Récurrentes'
         ]);
     }
 }
