@@ -53,13 +53,14 @@
   background-color: #FFF;
   padding: .5rem 1rem;
   top: 0;
-  left: -300%;
-  display: ruby;
+  right: 0;
+  display: block;
+  width: max-content;
   box-shadow: $shadow-light;
   z-index: -1;
   transition: all .3s ease;
   border-bottom: $border-light;
 }
-.menu-wrapper ul li:hover span{
-  left: 100%;
+.menu-wrapper ul li:hover span {
+  transform: translateX(100%);
 }
