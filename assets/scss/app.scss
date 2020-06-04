@@ -3,15 +3,15 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-  color: $dark-color;
-  font-size: $size;
+    color: $dark-color;
+    font-size: $size;
 }
 
 a, a:hover {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 .main {
-  display: flex;
+    display: flex;
 }
