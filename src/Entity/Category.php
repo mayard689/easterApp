@@ -79,7 +79,6 @@ class Category
     {
         if ($this->features->contains($feature)) {
             $this->features->removeElement($feature);
-            // set the owning side to null (unless already changed)
             if ($feature->getCategory() === $this) {
                 $feature->setCategory(null);
             }
