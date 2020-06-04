@@ -1,0 +1,52 @@
+
+{{ form_start(form) }}
+
+   <div class="project-header container">
+
+      <div class="row">
+         <div class="col-sm-12 col-md-3 form-group name">
+            {{ form_label(form.name, "Nom du projet") }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+         </div>
+
+      </div>
+
+      <div class="row">
+         <div class="col-12 form-group description">
+            {{ form_label(form.description, "Description du projet") }}
+            {{ form_widget(form.description) }}
+         </div>
+      </div>
+
+      <div class="row form-group">
+         <div class="col-sm-12 col-md-3 col-lg-2 skill">
+            {{ form_widget(form.junior) }}
+            {{ form_label(form.junior, "Junior") }}
+         </div>
+         <div class="col-sm-12 col-md-3 col-lg-2 skill">
+            {{ form_widget(form.expert) }}
+            {{ form_label(form.expert, "Expert") }}
+         </div>
+         <div class="col-sm-12 col-md-3 col-lg-3 skill">
+            {{ form_widget(form.confirmed) }}
+            {{ form_label(form.confirmed, "Confirmé") }}
+         </div>
+      </div>
+      <div class="row">
+
+         {{ form_errors(form.expert) }}
+         {{ form_errors(form.junior) }}
+         {{ form_errors(form.confirmed) }}
+      </div>
+
+      <div class="button-panel">
+         <button class="btn btn-primary form-btn"> Enregistrer les modifications </button>
+         <a class="btn btn-primary form-btn" href="{{ path('project_index') }}">Revenir à la liste des projets</a>
+      </div>
+
+   </div>
+
+
+{{ form_end(form) }}
+
