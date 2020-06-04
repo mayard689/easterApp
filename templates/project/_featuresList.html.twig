@@ -16,10 +16,15 @@
     <tbody>
     {% for projectFeature in form.projectFeatures %}
         <tr>
-            <th scope="row">
-                <h2>{{ project.projectFeatures[loop.index-1].feature.name}}</h2>
+            <th class="w-50" scope="row">
+                <p class="feature-name">{{ project.projectFeatures[loop.index-1].feature.name}}</p>
                 {{ form_widget(projectFeature.feature, {'attr': {'class': 'hidden-field'}}) }}
                 {{ form_errors(projectFeature.feature) }}
+
+                <div class="description small" colspan="3">
+                    {{ form_widget(projectFeature.description) }}
+                    {{ form_errors(projectFeature.description) }}
+                </div>
             </th>
 
             <td class="text-center">
@@ -27,7 +32,7 @@
             </td>
 
             <td class="text-center load">
-                {{ form_widget(projectFeature.day) }} (j*h)
+                {{ form_widget(projectFeature.day) }}
                 {{ form_errors(projectFeature.day) }}
             </td>
 
@@ -35,14 +40,6 @@
 
             </td>
         </tr>
-
-        <tr>
-            <td class="feature-description" colspan="3">
-                {{ form_row(projectFeature.description) }}
-            </td>
-
-        </tr>
-
     {% else %}
         <td>Pas de fonctionnalités enregistrées !</td>
     {% endfor %}

@@ -3,10 +3,16 @@
 @import "~bootstrap/scss/bootstrap";
 @import "projectDetails.scss";
 
+@font-face {
+    font-family: 'Helvetica';
+    src: url(../fonts/_H_HelveticaNeueInterface_2.ttf) format('truetype');
+}
+
 body {
     background-color: $background-color;
     color:$dark;
     display:flex;
+    font-family: 'Helvetica';
 }
 
 h1{
@@ -53,6 +59,14 @@ input, textarea, select{
 label{
     color:$primary;
     font-size: $size;
+    text-transform: capitalize;
+}
+
+.feature-name{
+    font-size: $size-large;
+    color:$primary;
+    text-transform: capitalize;
+    margin-bottom:0;
 }
 
 a, a:hover {

@@ -26,6 +26,8 @@ class ProjectFeature
      *     type="float",
      *     message="La valeur {{ value }} n'est pas de type {{ type }}."
      * )
+     * @Assert\PositiveOrZero
+     *
      */
     private $day;
 
