@@ -15,32 +15,16 @@
         </thead>
         <tbody>
         <tr>
-            <th scope="row">Authentification</th>
-            <td class="text-center">XXXX</td>
-            <td class="text-center">x j.h</td>
-            <td  class="text-center">
-                <button><i class="fas fa-trash-alt"></i></button>
-                <button><i class="fas fa-pencil-alt"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Navbar</th>
-            <td class="text-center">XXXX</td>
-            <td class="text-center">x j.h</td>
+            {% for feature in features %}
+            <th scope="row">{{ feature.name }}</th>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
             <td class="text-center">
                 <button><i class="fas fa-trash-alt"></i></button>
                 <button><i class="fas fa-pencil-alt"></i></button>
             </td>
         </tr>
-        <tr>
-            <th scope="row">Profil</th>
-            <td class="text-center">XXXX</td>
-            <td class="text-center">x j.h</td>
-            <td class="text-center">
-                <button><i class="fas fa-trash-alt"></i></button>
-                <button><i class="fas fa-pencil-alt"></i></button>
-            </td>
-        </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div class="d-flex justify-content-center fixed-bottom mb-5">
