@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ProjectRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
  */
 class Project
 {
@@ -19,6 +20,14 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\NotBlank(message="Veuillez indiquer le nom du projet.")
+     * @Assert\Length(
+     *      max = 100,
+     *      maxMessage = "Le nom du projet ne doit pas dépasser {{ limit }} caractères",
+     *      min=1,
+     *      minMessage = "Le nom du projet doit faire au moins 1 caractère",
+     * )
      */
     private $name;
 
@@ -34,16 +43,25 @@ class Project
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\LessThanOrEqual(100, message="La valeur de 'expert' ne doit pas excéder {{ compared_value }}")
+     * @Assert\GreaterThanOrEqual(0, message="La valeur de 'expert' doit être supérieure à {{ compared_value }}")
      */
     private $expert;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\LessThanOrEqual(100, message="La valeur de 'confirmé' ne doit pas excéder {{ compared_value }}")
+     * @Assert\GreaterThanOrEqual(0, message="La valeur de 'confirmé' doit être supérieure à {{ compared_value }}")
      */
     private $confirmed;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\LessThanOrEqual(100, message="La valeur de 'junior' ne doit pas excéder {{ compared_value }}")
+     * @Assert\GreaterThanOrEqual(0, message="La valeur de 'junior' doit être supérieure à {{ compared_value }}")
      */
     private $junior;
 
