@@ -19,6 +19,7 @@ h1{
 h2{
     font-size: 18px;
     color:$primary;
+    text-transform: capitalize;
 }
 
 p{
@@ -61,4 +62,17 @@ a, a:hover {
 
 .main {
     width:100%;
+}
+
+.table-striped>tbody>tr:nth-child(odd){
+    background-color:$light;
+}
+
+thead{
+    background-color:$primary;
+    color:$light;
+}
+
+table{
+    border:thin solid $primary;
 }

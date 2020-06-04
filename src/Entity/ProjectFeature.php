@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProjectFeatureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectFeatureRepository::class)
@@ -19,23 +20,35 @@ class ProjectFeature
 
     /**
      * @ORM\Column(type="float")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *     type="float",
+     *     message="La valeur {{ value }} n'est pas de type {{ type }}."
+     * )
      */
     private $day;
 
     /**
      * @ORM\Column(type="text")
+     *
+     * @Assert\NotBlank
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectFeatures")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank
      */
     private $project;
 
     /**
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="projectFeatures")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank
      */
     private $feature;
 
