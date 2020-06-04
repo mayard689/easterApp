@@ -67,8 +67,13 @@ class Project
 
     /**
      * @ORM\ManyToOne(targetEntity=Application::class, inversedBy="projects")
+     *
+     * @Assert\Choice(callback={"App\Repository\ApplicationRepository", "findAll"})
+
      */
     private $application;
+
+
 
     public function getId(): ?int
     {

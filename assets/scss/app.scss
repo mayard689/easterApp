@@ -46,7 +46,8 @@ a {
     flex-direction:column;
 }
 
-input, textarea{
+input, textarea, select{
     border:hidden;
     border-bottom:thin solid $light-color;
+    background:transparent;
 }
