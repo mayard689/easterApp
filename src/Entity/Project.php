@@ -65,6 +65,11 @@ class Project
      */
     private $junior;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Application::class, inversedBy="projects")
+     */
+    private $application;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +143,18 @@ class Project
     public function setJunior(int $junior): self
     {
         $this->junior = $junior;
+
+        return $this;
+    }
+
+    public function getApplication(): ?Application
+    {
+        return $this->application;
+    }
+
+    public function setApplication(?Application $application): self
+    {
+        $this->application = $application;
 
         return $this;
     }
