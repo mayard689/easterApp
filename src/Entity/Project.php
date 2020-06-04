@@ -21,7 +21,7 @@ class Project
     /**
      * @ORM\Column(type="string", length=100)
      *
-     * @Assert\NotBlank(message="Veuillez indiquer le nom du projet.")
+     * @Assert\NotBlank()
      * @Assert\Length(
      *      max = 100,
      *      maxMessage = "Le nom du projet ne doit pas dépasser {{ limit }} caractères",
