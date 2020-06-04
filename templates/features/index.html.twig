@@ -17,7 +17,7 @@
         <tr>
             {% for feature in features %}
             <th scope="row">{{ feature.name }}</th>
-            <td class="text-center"></td>
+            <td class="text-center">{{ feature.category.name }}</td>
             <td class="text-center"></td>
             <td class="text-center">
                 <button><i class="fas fa-trash-alt"></i></button>
@@ -28,6 +28,6 @@
         </tbody>
     </table>
     <div class="d-flex justify-content-center fixed-bottom mb-5">
-        <i class="fas fa-chevron-left"></i>1 2 3 4 5 6<i class="fas fa-chevron-right"></i>
+        <i class="fas fa-chevron-left"></i><i class="fas fa-chevron-right"></i>
     </div>
 {% endblock %}
