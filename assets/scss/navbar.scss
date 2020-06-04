@@ -58,6 +58,7 @@
     background-color: $background-color;
     z-index: 2;
 }
+
 .menu span {
     position: absolute;
     width: max-content;
@@ -72,6 +73,7 @@
     z-index: 1;
     transition: all .3s ease;
 }
+
 .menu-wrapper li:hover span {
     transform: translateX(100%);
 }
