@@ -3,20 +3,20 @@
     padding-bottom:$padding-large;
 }
 
-.skill{
-    display:flex;
+.skill {
+    display: flex;
     align-items: baseline;
 
-    label{
-        width:100px;
+    label {
+        width: 100px;
 
-        &::before{
-            content:'% ';
+        &::before {
+            content: '% ';
         }
     }
 
-    input{
-        width : 2em;
+    input {
+        width: 2em;
     }
 
     /* remove number input arrows Chrome, Safari, Edge, Opera */
@@ -33,11 +33,9 @@
 }
 
 .description{
-
     textarea{
         width:100%;
     }
-
 }
 
 .date{

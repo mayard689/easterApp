@@ -9,12 +9,14 @@
     {% endblock %}
 </head>
 <body>
+
 {% include 'parts/_navbar.html.twig' %}
 <main class="main">
     <div class="container">
         {% block body %}{% endblock %}
     </div>
 </main>
+
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
