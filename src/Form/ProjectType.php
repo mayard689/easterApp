@@ -17,7 +17,6 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('date')
             ->add('description')
             ->add('expert')
             ->add('confirmed')

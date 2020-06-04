@@ -4,10 +4,14 @@ namespace App\Entity;
 
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
+ * @UniqueEntity("name",
+ *               errorPath="name",
+ *               message="Le nom de projet {{ value }} existe déjà. Veuillez en indiquer un autre.")
  */
 class Project
 {
@@ -24,9 +28,7 @@ class Project
      * @Assert\NotBlank()
      * @Assert\Length(
      *      max = 100,
-     *      maxMessage = "Le nom du projet ne doit pas dépasser {{ limit }} caractères",
-     *      min=1,
-     *      minMessage = "Le nom du projet doit faire au moins 1 caractère",
+     *      maxMessage = "Le nom du projet ne doit pas dépasser {{ limit }} caractères"
      * )
      */
     private $name;
@@ -44,6 +46,7 @@ class Project
     /**
      * @ORM\Column(type="integer")
      *
+     * @Assert\NotBlank(message="Veuillez indiquer le pourcentage de ressources 'expertes' dans le projet.")
      * @Assert\LessThanOrEqual(100, message="La valeur de 'expert' ne doit pas excéder {{ compared_value }}")
      * @Assert\GreaterThanOrEqual(0, message="La valeur de 'expert' doit être supérieure à {{ compared_value }}")
      */
@@ -52,6 +55,7 @@ class Project
     /**
      * @ORM\Column(type="integer")
      *
+     * @Assert\NotBlank(message="Veuillez indiquer le pourcentage de ressources 'confirmées' dans le projet.")
      * @Assert\LessThanOrEqual(100, message="La valeur de 'confirmé' ne doit pas excéder {{ compared_value }}")
      * @Assert\GreaterThanOrEqual(0, message="La valeur de 'confirmé' doit être supérieure à {{ compared_value }}")
      */
@@ -60,6 +64,7 @@ class Project
     /**
      * @ORM\Column(type="integer")
      *
+     * @Assert\NotBlank(message="Veuillez indiquer le pourcentage de ressources 'juniors' dans le projet.")
      * @Assert\LessThanOrEqual(100, message="La valeur de 'junior' ne doit pas excéder {{ compared_value }}")
      * @Assert\GreaterThanOrEqual(0, message="La valeur de 'junior' doit être supérieure à {{ compared_value }}")
      */
@@ -68,11 +73,10 @@ class Project
     /**
      * @ORM\ManyToOne(targetEntity=Application::class, inversedBy="projects")
      *
+     * @Assert\NotBlank(message="Le type d'application choisi est invalide.")
      * @Assert\Valid
      */
     private $application;
-
-
 
     public function getId(): ?int
     {
@@ -84,7 +88,7 @@ class Project
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -120,7 +124,7 @@ class Project
         return $this->expert;
     }
 
-    public function setExpert(int $expert): self
+    public function setExpert(?int $expert): self
     {
         $this->expert = $expert;
 
@@ -132,7 +136,7 @@ class Project
         return $this->confirmed;
     }
 
-    public function setConfirmed(int $confirmed): self
+    public function setConfirmed(?int $confirmed): self
     {
         $this->confirmed = $confirmed;
 
@@ -144,7 +148,7 @@ class Project
         return $this->junior;
     }
 
-    public function setJunior(int $junior): self
+    public function setJunior(?int $junior): self
     {
         $this->junior = $junior;
 

@@ -4,7 +4,7 @@
 
 body {
     background-color: $background-color;
-    color:$dark-color;
+    color:$dark;
 }
 
 h1{
@@ -21,10 +21,6 @@ h2{
 
 p{
     font-size:14px;
-}
-
-a {
-    color: $warm-color;
 }
 
 .button-panel{
@@ -48,6 +44,10 @@ a {
 
 input, textarea, select{
     border:hidden;
-    border-bottom:thin solid $light-color;
     background:transparent;
+    border-bottom:thin solid $light;
+}
+
+label{
+    color:$primary;
 }

@@ -2,40 +2,24 @@
 {{ form_start(form) }}
 
    <div class="project-header container">
+
       <div class="row">
-         {{ form_errors(form) }}
-      </div>
-      <div class="row">
-         <div class="col-8">
+         <div class="col-sm-12 col-md-3 form-group name">
+            {{ form_label(form.name, "Nom du projet") }}
             {{ form_widget(form.name) }}
             {{ form_errors(form.name) }}
          </div>
 
-         {%  if edit is defined and edit=='true'%}
-            <div style="display:none">
-               {{ form_widget(form.date) }}
-            </div>
-            <div class="col-4 date">
-               Estimation commencée le :
-               {{ form.date.vars.value.day }}/
-               {{ form.date.vars.value.month }}/
-               {{ form.date.vars.value.year }}
-            </div>
-         {%  else %}
-            <div>
-               {{ form_widget(form.date) }}
-            </div>
-         {% endif %}
-
       </div>
 
       <div class="row">
-         <div class="col-12 description">
+         <div class="col-12 form-group description">
+            {{ form_label(form.description, "Description du projet") }}
             {{ form_widget(form.description) }}
          </div>
       </div>
 
-      <div class="row">
+      <div class="row  form-group">
          <div class="col-12 application">
             {{ form_label(form.application, "Une application de type : ") }}
             {{ form_widget(form.application) }}
@@ -43,7 +27,7 @@
          </div>
       </div>
 
-      <div class="row">
+      <div class="row form-group">
          <div class="col-sm-12 col-md-3 col-lg-2 skill">
             {{ form_widget(form.junior) }}
             {{ form_label(form.junior, "Junior") }}
@@ -57,8 +41,8 @@
             {{ form_label(form.confirmed, "Confirmé") }}
          </div>
       </div>
-      <div class="row">
 
+      <div class="row">
          {{ form_errors(form.expert) }}
          {{ form_errors(form.junior) }}
          {{ form_errors(form.confirmed) }}
@@ -70,7 +54,6 @@
       </div>
 
    </div>
-
 
 {{ form_end(form) }}
 
