@@ -8,23 +8,8 @@
       <div class="row">
          <div class="col-8">
             {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
          </div>
-
-         {%  if edit is defined and edit=='true'%}
-            <div style="display:none">
-               {{ form_widget(form.date) }}
-            </div>
-            <div class="col-4 date">
-               Estimation commencée le :
-               {{ form.date.vars.value.day }}/
-               {{ form.date.vars.value.month }}/
-               {{ form.date.vars.value.year }}
-            </div>
-         {%  else %}
-            <div>
-               {{ form_widget(form.date) }}
-            </div>
-         {% endif %}
 
       </div>
 
