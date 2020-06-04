@@ -7,6 +7,7 @@ use App\Entity\Project;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,6 +23,10 @@ class ProjectType extends AbstractType
             ->add('confirmed')
             ->add('junior')
             ->add('application', EntityType::class, ['class'=>Application::class, 'choice_label'=>'name'])
+            ->add('projectFeatures', CollectionType::class, [
+                'entry_type' => ProjectFeatureType::class,
+                'entry_options' => ['label' => false],
+            ])
         ;
     }
 

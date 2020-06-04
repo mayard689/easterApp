@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -77,6 +79,16 @@ class Project
      * @Assert\Valid
      */
     private $application;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProjectFeature::class, mappedBy="project", orphanRemoval=true)
+     */
+    private $projectFeatures;
+
+    public function __construct()
+    {
+        $this->projectFeatures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -163,6 +175,37 @@ class Project
     public function setApplication(?Application $application): self
     {
         $this->application = $application;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjectFeature[]
+     */
+    public function getProjectFeatures(): Collection
+    {
+        return $this->projectFeatures;
+    }
+
+    public function addProjectFeature(ProjectFeature $projectFeature): self
+    {
+        if (!$this->projectFeatures->contains($projectFeature)) {
+            $this->projectFeatures[] = $projectFeature;
+            $projectFeature->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectFeature(ProjectFeature $projectFeature): self
+    {
+        if ($this->projectFeatures->contains($projectFeature)) {
+            $this->projectFeatures->removeElement($projectFeature);
+            // set the owning side to null (unless already changed)
+            if ($projectFeature->getProject() === $this) {
+                $projectFeature->setProject(null);
+            }
+        }
 
         return $this;
     }

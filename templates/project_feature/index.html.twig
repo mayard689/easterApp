@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProjectFeature index{% endblock %}
+
+{% block body %}
+    <h1>ProjectFeature index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Day</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project_feature in project_features %}
+            <tr>
+                <td>{{ project_feature.id }}</td>
+                <td>{{ project_feature.day }}</td>
+                <td>{{ project_feature.description }}</td>
+                <td>
+                    <a href="{{ path('project_feature_show', {'id': project_feature.id}) }}">show</a>
+                    <a href="{{ path('project_feature_edit', {'id': project_feature.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('project_feature_new') }}">Create new</a>
+{% endblock %}

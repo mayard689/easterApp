@@ -1,0 +1,94 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\ProjectFeatureRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=ProjectFeatureRepository::class)
+ */
+class ProjectFeature
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $day;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectFeatures")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $project;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="projectFeatures")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $feature;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getDay(): ?float
+    {
+        return $this->day;
+    }
+
+    public function setDay(float $day): self
+    {
+        $this->day = $day;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): self
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    public function getFeature(): ?Feature
+    {
+        return $this->feature;
+    }
+
+    public function setFeature(?Feature $feature): self
+    {
+        $this->feature = $feature;
+
+        return $this;
+    }
+}
