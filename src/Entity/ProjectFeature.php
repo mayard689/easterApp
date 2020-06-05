@@ -64,7 +64,7 @@ class ProjectFeature
         return $this->day;
     }
 
-    public function setDay(float $day): self
+    public function setDay(?float $day): self
     {
         $this->day = $day;
 
@@ -76,7 +76,7 @@ class ProjectFeature
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
