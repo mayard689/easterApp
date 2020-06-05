@@ -1,0 +1,49 @@
+.project-header{
+    padding-top:$padding-large;
+    padding-bottom:$padding-large;
+}
+
+.skill {
+    display: flex;
+    align-items: baseline;
+
+    label {
+        width: 100px;
+
+        &::before {
+            content: '% ';
+        }
+    }
+
+    input {
+        width: 2em;
+    }
+
+    /* remove number input arrows Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* remove number input arrows Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+}
+
+.description{
+    textarea{
+        width:100%;
+    }
+}
+
+.date{
+    display:flex;
+    justify-content: end;
+}
+
+.name{
+    display:flex;
+    flex-direction: column;
+}

@@ -1,0 +1,79 @@
+.menu {
+    position: absolute;
+    box-shadow: $shadow-light;
+    display: inline-block;
+    text-align: center;
+    height: 100vh;
+    background-color: $background-color;
+}
+
+.menu-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.menu-wrapper .fa-cog,
+.menu-wrapper .fa-address-card,
+.menu-wrapper .fa-project-diagram,
+.menu-wrapper .fa-user-friends {
+    font-size: 1.25rem;
+    color: $secondary;
+}
+
+.menu-wrapper > * {
+    display: inline-block;
+}
+
+.menu-wrapper .logo, .menu-wrapper .exit {
+    font-size: 3rem;
+    padding: 1rem;
+    background-color: $primary;
+    color: $light;
+}
+
+.menu-wrapper .exit {
+    font-size: 2rem;
+}
+
+.menu-wrapper ul {
+    padding: 0;
+    margin: 0 0 auto;
+}
+
+.menu-wrapper ul li {
+    position: relative;
+    list-style-type: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.menu-wrapper ul a {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: $background-color;
+    z-index: 2;
+}
+
+.menu span {
+    position: absolute;
+    width: max-content;
+    background-color: $primary;
+    color: $background-color;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: .5rem;
+    box-shadow: $shadow-light;
+    border-radius: $radius-light-right;
+    right: 0;
+    z-index: 1;
+    transition: all .3s ease;
+}
+
+.menu-wrapper li:hover span {
+    transform: translateX(100%);
+}

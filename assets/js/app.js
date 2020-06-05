@@ -9,4 +9,7 @@
 require('../scss/app.scss');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
+const $ = require('jquery');
+
+// load the JS bootstrap part - note that bootstrap doesn't export anything
+require('bootstrap');
