@@ -24,7 +24,7 @@ class ProjectFeature
      * @Assert\NotBlank
      * @Assert\Type(
      *     type="float",
-     *     message="La valeur {{ value }} n'est pas de type {{ type }}."
+     *     message="La valeur {{value}} n'est pas de type {{type}}."
      * )
      * @Assert\PositiveOrZero
      *
@@ -34,7 +34,6 @@ class ProjectFeature
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank
      */
     private $description;
 

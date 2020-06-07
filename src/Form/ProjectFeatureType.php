@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Feature;
+use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

@@ -82,6 +82,8 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectFeature::class, mappedBy="project", orphanRemoval=true)
+     *
+     * @Assert\Valid
      */
     private $projectFeatures;
 
@@ -112,7 +114,7 @@ class Project
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(?\DateTimeInterface $date): self
     {
         $this->date = $date;
 

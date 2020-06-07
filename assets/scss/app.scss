@@ -1,7 +1,6 @@
 @import "vars";
 @import "navbar";
 @import "~bootstrap/scss/bootstrap";
-@import "projectDetails.scss";
 
 @font-face {
     font-family: 'Helvetica';
@@ -20,6 +19,7 @@ h1{
     font-size: 48px;
     color:$secondary;
     padding:$padding-large;
+    margin:0;
 }
 
 h2{
@@ -29,7 +29,7 @@ h2{
 }
 
 p{
-    font-size:14px;
+    font-size:$size;
 }
 
 .button-panel{
@@ -51,22 +51,25 @@ p{
 }
 
 input, textarea, select{
-    border:hidden;
     background:transparent;
-    border-bottom:thin solid $light;
+    border:thin solid $light;
+    border-radius: 2px;
+    padding:0.25em;
+    height: max-content;
+    width: max-content;
+
+    &:focus, &:hover{
+        border : thin solid $primary;
+        background : $light;
+    }
 }
 
 label{
     color:$primary;
     font-size: $size;
     text-transform: capitalize;
-}
-
-.feature-name{
-    font-size: $size-large;
-    color:$primary;
-    text-transform: capitalize;
-    margin-bottom:0;
+    margin:0;
+    vertical-align: center;
 }
 
 a, a:hover {
@@ -82,11 +85,33 @@ a, a:hover {
     background-color:$light;
 }
 
+table{
+    border:thin solid $primary;
+    overflow: auto;
+    max-height:100px;
+    height:100px;
+    min-height:100px;
+}
+
 thead{
     background-color:$primary;
     color:$light;
+
+    tr{
+        th{
+            color:$light;
+        }
+    }
 }
 
-table{
-    border:thin solid $primary;
+th{
+    font-size: $size-large;
+    color:$primary;
+    text-transform: capitalize;
+}
+
+.table th, .table td{
+    vertical-align: middle;
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
 }
