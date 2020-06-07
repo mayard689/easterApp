@@ -35,9 +35,11 @@
         width:100%;
     }
 }
+
 .normal textarea{
     font-size:$size;
 }
+
 .small{
     font-size:$size-small;
 }
@@ -71,6 +73,7 @@
     color: grey;         /* adjust as needed */
     transition-duration: 1s;
 }
+
 .xcollapse-toggler.collapsed:after {
     /* symbol for "collapsed" panels */
     content: "\f063";    /* adjust as needed, taken from bootstrap.css */
@@ -84,6 +87,7 @@
     color: grey;
     transition-duration: 0.5s;
 }
+
 .collapse-toggler.collapsed:after {
     transform:rotateZ(0.25turn);
     transition-duration: 0.5s;
