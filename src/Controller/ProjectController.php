@@ -111,6 +111,7 @@ class ProjectController extends AbstractController
             $projectId=$project->getId();
             return $this->redirectToRoute('project_edit', ['id'=>$projectId]);
         }
+        
         return $this->redirectToRoute('project_index');
     }
 }
