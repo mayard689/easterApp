@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Service\ProjectCalculator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,20 +50,9 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_show", methods={"GET"})
-     */
-    public function show(Project $project): Response
-    {
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-            'load' => $this->calculateProjectLoad($project),
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Project $project): Response
+    public function edit(Request $request, Project $project, ProjectCalculator $projectCalculator): Response
     {
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
@@ -73,9 +63,11 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_index');
         }
 
+        $load=$projectCalculator->calculateProjectLoad($project);
+
         return $this->render('project/edit.html.twig', [
             'project' => $project,
-            'load' => $this->calculateProjectLoad($project),
+            'load' => $load,
             'form' => $form->createView(),
         ]);
     }
@@ -92,24 +84,5 @@ class ProjectController extends AbstractController
         }
 
         return $this->redirectToRoute('project_index');
-    }
-
-    public function calculateProjectLoad(Project $project) : float
-    {
-
-        //calculate project team mean velocity
-        $velocity=$project->getExpert()/100 * 1
-            + $project->getConfirmed()/100 * 1.5
-            + $project->getJunior()/100 * 2;
-
-        //get theoretical project load
-        $theoreticalLoad=0;
-        $features=$project->getProjectFeatures();
-        foreach ($features as $feature) {
-            $theoreticalLoad+=$feature->getDay();
-        }
-
-        //return
-        return round($theoreticalLoad * $velocity, 2);
     }
 }
