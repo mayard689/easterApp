@@ -1,3 +1,5 @@
+@import "vars";
+
 .project-header{
     padding-top:$padding-large;
     padding-bottom:$padding-large;
@@ -13,10 +15,6 @@
         &::before {
             content: '% ';
         }
-    }
-
-    input {
-        width: 2em;
     }
 
     /* remove number input arrows Chrome, Safari, Edge, Opera */
@@ -38,12 +36,59 @@
     }
 }
 
-.date{
-    display:flex;
-    justify-content: end;
+.normal textarea{
+    font-size:$size;
 }
 
-.name{
+.small{
+    font-size:$size-small;
+}
+
+.name, .description, .application, .ability{
     display:flex;
-    flex-direction: column;
+    align-items: center;
+}
+
+.input-align{
+    input{
+        width: 2.5em;
+        text-align:center;
+    }
+}
+
+.hidden-field{
+    display:none;
+}
+
+.project-header .form-group:last-child{
+    margin-bottom:0;
+}
+
+.xcollapse-toggler:after {
+    /* symbol for "opening" panels */
+    font-family: FontAwesome;  /* essential for enabling glyphicon */
+    content: "\f060";    /* adjust as needed, taken from bootstrap.css */
+    tbransform:rotateZ(-0.25turn);
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+    transition-duration: 1s;
+}
+
+.xcollapse-toggler.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f063";    /* adjust as needed, taken from bootstrap.css */
+    transition-duration: 1s;
+}
+
+.collapse-toggler:after {
+    font-family: FontAwesome;
+    content: "\f0d7";
+    float: right;
+    color: grey;
+    transition-duration: 0.5s;
+}
+
+.collapse-toggler.collapsed:after {
+    transform:rotateZ(0.25turn);
+    transition-duration: 0.5s;
 }
