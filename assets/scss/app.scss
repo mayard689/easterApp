@@ -14,7 +14,11 @@ body {
     font-family: 'Helvetica';
 }
 
-h1{
+.main {
+    margin-left: 65px;
+}
+
+h1 {
     text-align: center;
     font-size: 48px;
     color:$secondary;
@@ -22,7 +26,7 @@ h1{
     margin:0;
 }
 
-h2{
+h2 {
     font-size: 18px;
     color:$primary;
     text-transform: capitalize;
@@ -30,24 +34,26 @@ h2{
 
 p{
     font-size:$size;
+    color: $primary;
 }
 
-.button-panel{
-    display:flex;
+.button-panel {
+    display: flex;
     justify-content: end;
-    padding-top:$padding-large;
-    padding-bottom:$padding-large;
+    padding-top: $padding-large;
+    padding-bottom: $padding-large;
 }
 
-.form-btn{
-    margin-left:$margin;
-    margin-right:0;
+.form-btn {
+    margin-left: $margin;
+    margin-right: 0;
     justify-self: end;
 }
 
-.sheet{
-    display:flex;
-    flex-direction:column;
+.sheet {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 input, textarea, select, .input-like{
@@ -65,8 +71,8 @@ input, textarea, select, .input-like{
     }
 }
 
-label{
-    color:$primary;
+label {
+    color: $primary;
     font-size: $size;
     text-transform: capitalize;
     margin:0;

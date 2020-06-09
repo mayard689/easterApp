@@ -1,8 +1,10 @@
 .menu {
+    position: fixed;
     box-shadow: $shadow-light;
     display: inline-block;
     text-align: center;
     height: 100vh;
+    background-color: $background-color;
 }
 
 .menu-wrapper {
@@ -17,18 +19,19 @@
 .menu-wrapper .fa-project-diagram,
 .menu-wrapper .fa-user-friends {
     font-size: 1.25rem;
-    color: $secondary-color;
+    color: $secondary;
 }
 
 .menu-wrapper > * {
     display: inline-block;
 }
 
-.menu-wrapper .logo, .menu-wrapper .exit {
+.menu-wrapper .logo,
+.menu-wrapper .exit {
     font-size: 3rem;
     padding: 1rem;
-    background-color: $primary-color;
-    color: $light-color;
+    background-color: $primary;
+    color: $light;
 }
 
 .menu-wrapper .exit {
@@ -38,39 +41,40 @@
 .menu-wrapper ul {
     padding: 0;
     margin: 0 0 auto;
+
+    a {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        background-color: $background-color;
+        z-index: 2;
+    }
+
+    li {
+        position: relative;
+        list-style-type: none;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 }
 
-.menu-wrapper ul li {
-    position: relative;
-    list-style-type: none;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.menu-wrapper ul a {
-    display: inline-block;
-    width: 100%;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    background-color: #fff;
-}
-
-.menu-wrapper span {
+.menu .link-hover {
     position: absolute;
+    width: max-content;
+    background-color: $primary;
+    color: $background-color;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: #FFF;
-    padding: .5rem 1rem;
-    top: 0;
-    right: 0;
-    display: block;
-    width: max-content;
+    padding: .5rem;
     box-shadow: $shadow-light;
-    z-index: -1;
+    border-radius: $radius-light-right;
+    right: 0;
+    z-index: 1;
     transition: all .3s ease;
-    border-bottom: $border-light;
 }
 
-.menu-wrapper ul li:hover span {
+.menu-wrapper li:hover .link-hover {
     transform: translateX(100%);
 }
