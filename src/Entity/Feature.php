@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FeatureRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -55,6 +57,16 @@ class Feature
      */
     private $category;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjectFeature::class, mappedBy="feature", orphanRemoval=true)
+     */
+    private $projectFeatures;
+
+    public function __construct()
+    {
+        $this->projectFeatures = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +116,37 @@ class Feature
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjectFeature[]
+     */
+    public function getProjectFeatures(): Collection
+    {
+        return $this->projectFeatures;
+    }
+
+    public function addProjectFeature(ProjectFeature $projectFeature): self
+    {
+        if (!$this->projectFeatures->contains($projectFeature)) {
+            $this->projectFeatures[] = $projectFeature;
+            $projectFeature->setFeature($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectFeature(ProjectFeature $projectFeature): self
+    {
+        if ($this->projectFeatures->contains($projectFeature)) {
+            $this->projectFeatures->removeElement($projectFeature);
+            // set the owning side to null (unless already changed)
+            if ($projectFeature->getFeature() === $this) {
+                $projectFeature->setFeature(null);
+            }
+        }
 
         return $this;
     }
