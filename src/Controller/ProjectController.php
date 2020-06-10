@@ -98,7 +98,6 @@ class ProjectController extends AbstractController
      * @Route("Feature/{id}", name="project_feature_delete", methods="POST")
      */
     public function deleteProjectFeature(
-        Request $request,
         ProjectFeature $projectFeature,
         EntityManagerInterface $entityManager
     ): Response {
@@ -108,7 +107,7 @@ class ProjectController extends AbstractController
         /** @var Project */
         $project=$projectFeature->getProject();
         $projectId=$project->getId();
-        
+
         return $this->redirectToRoute('project_edit', ['id'=>$projectId]);
     }
 }
