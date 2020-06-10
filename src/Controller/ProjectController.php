@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\ProjectFeature;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,5 +86,22 @@ class ProjectController extends AbstractController
         }
 
         return $this->redirectToRoute('project_index');
+    }
+
+    /**
+     * @Route("Feature/{id}", name="project_feature_delete", methods="POST")
+     */
+    public function deleteProjectFeature(
+        ProjectFeature $projectFeature,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $entityManager->remove($projectFeature);
+        $entityManager->flush();
+
+        /** @var Project */
+        $project=$projectFeature->getProject();
+        $projectId=$project->getId();
+
+        return $this->redirectToRoute('project_edit', ['id'=>$projectId]);
     }
 }
