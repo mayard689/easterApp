@@ -107,12 +107,8 @@ class ProjectController extends AbstractController
 
         /** @var Project */
         $project=$projectFeature->getProject();
-        //if (!is_null($project)) {
-
-            $projectId=$project->getId();
-            return $this->redirectToRoute('project_edit', ['id'=>$projectId]);
-        //}
-
-        //return $this->redirectToRoute('project_index');
+        $projectId=$project->getId();
+        
+        return $this->redirectToRoute('project_edit', ['id'=>$projectId]);
     }
 }
