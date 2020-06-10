@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,8 +56,14 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Project $project, ProjectCalculator $projectCalculator): Response
-    {
+    public function edit(
+        Request $request,
+        Project $project,
+        ProjectCalculator $projectCalculator,
+        ObjectManager $manager
+    ): Response {
+        $featureCategories= $manager->getRepository(Category::class)->findAll();
+
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
@@ -71,6 +79,7 @@ class ProjectController extends AbstractController
             'project' => $project,
             'load' => $load,
             'form' => $form->createView(),
+            'featureCategories' => $featureCategories,
         ]);
     }
 
