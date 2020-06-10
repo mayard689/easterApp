@@ -8,10 +8,10 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Day</th>
+                <th>Nom</th>
+                <th>Charge</th>
                 <th>Description</th>
-                <th>actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,11 +28,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Pas de fonctionnalités disponible !</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('feature_new') }}">Create new</a>
+    <a href="{{ path('feature_new') }}">Nouveau</a>
 {% endblock %}
