@@ -102,16 +102,15 @@ class ProjectController extends AbstractController
         ProjectFeature $projectFeature,
         EntityManagerInterface $entityManager
     ): Response {
-        //$entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($projectFeature);
         $entityManager->flush();
 
         $project=$projectFeature->getProject();
-        if (!is_null($project)) {
+        //if (!is_null($project)) {
             $projectId=$project->getId();
             return $this->redirectToRoute('project_edit', ['id'=>$projectId]);
-        }
-        
-        return $this->redirectToRoute('project_index');
+        //}
+
+        //return $this->redirectToRoute('project_index');
     }
 }

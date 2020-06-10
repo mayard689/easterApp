@@ -82,7 +82,7 @@ class ProjectFeature
         return $this;
     }
 
-    public function getProject(): ?Project
+    public function getProject(): Project
     {
         return $this->project;
     }
