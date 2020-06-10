@@ -32,7 +32,8 @@
             </th>
 
             <td class="text-center">
-                Non renseignée
+                {{ form_widget(projectFeature.category) }}
+                {{ form_errors(projectFeature.category) }}
             </td>
 
             <td class="text-center input-align">
