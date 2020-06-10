@@ -56,13 +56,14 @@ p{
     flex-direction: column;
 }
 
-input, textarea, select{
+input, textarea, select, .input-like{
     background:transparent;
     border:thin solid $light;
     border-radius: 2px;
     padding:0.25em;
     height: max-content;
     width: max-content;
+    margin-bottom:0;
 
     &:focus, &:hover{
         border : thin solid $primary;

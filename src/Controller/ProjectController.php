@@ -6,6 +6,7 @@ use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Service\ProjectCalculator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,19 +52,9 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_show", methods={"GET"})
-     */
-    public function show(Project $project): Response
-    {
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Project $project): Response
+    public function edit(Request $request, Project $project, ProjectCalculator $projectCalculator): Response
     {
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
@@ -74,8 +65,11 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_index');
         }
 
+        $load=$projectCalculator->calculateProjectLoad($project);
+
         return $this->render('project/edit.html.twig', [
             'project' => $project,
+            'load' => $load,
             'form' => $form->createView(),
         ]);
     }

@@ -7,9 +7,15 @@
          <div class="col-sm-12 col-md-2 name">
             {{ form_label(form.name, "Nom du projet") }}
          </div>
-         <div class="col-sm-12 col-md-10 name">
+         <div class="col-sm-12 col-md-7 name">
             {{ form_widget(form.name) }}
             {{ form_errors(form.name) }}
+         </div>
+         <div class="col-sm-12 col-md-2 load d-flex justify-content-end">
+            <label>Charge Totale : </label>
+         </div>
+         <div class="col-sm-12 col-md-1 load d-flex justify-content-end">
+            <p class="input-like">{{ load }}</p>
          </div>
       </div>
 
