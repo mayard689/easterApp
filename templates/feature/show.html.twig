@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Feature{% endblock %}
+
+{% block body %}
+    <h1>Feature</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ feature.name }}</td>
+            </tr>
+            <tr>
+                <th>Day</th>
+                <td>{{ feature.day }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ feature.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('feature_index') }}">back to list</a>
+
+    <a href="{{ path('feature_edit', {'id': feature.id}) }}">edit</a>
+
+    {{ include('feature/_delete_form.html.twig') }}
+{% endblock %}
