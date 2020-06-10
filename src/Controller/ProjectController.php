@@ -105,8 +105,10 @@ class ProjectController extends AbstractController
         $entityManager->remove($projectFeature);
         $entityManager->flush();
 
+        /** @var Project */
         $project=$projectFeature->getProject();
         //if (!is_null($project)) {
+
             $projectId=$project->getId();
             return $this->redirectToRoute('project_edit', ['id'=>$projectId]);
         //}
