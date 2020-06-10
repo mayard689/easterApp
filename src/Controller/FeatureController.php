@@ -20,7 +20,7 @@ class FeatureController extends AbstractController
     /**
      * @Route("/", name="feature_index", methods={"GET"})
      */
-    public function index(FeatureRepository $featureRepository): Response
+    public function index(): Response
     {
         $features = $this->getDoctrine()
             ->getRepository(Feature::class)
