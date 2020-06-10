@@ -10,6 +10,7 @@
             <tr>
                 <th>Nom</th>
                 <th>Charge</th>
+                <th>Catégorie</th>
                 <th>Description</th>
                 <th></th>
             </tr>
@@ -19,6 +20,7 @@
             <tr>
                 <td>{{ feature.name }}</td>
                 <td>{{ feature.day }}</td>
+                <td>{{ feature.category.name }}</td>
                 <td>{{ feature.description }}</td>
                 <td>
                     <a class="btn btn-sm btn-primary" href="{{ path('feature_edit', {'id': feature.id}) }}">
