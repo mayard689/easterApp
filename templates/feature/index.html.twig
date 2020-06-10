@@ -21,8 +21,9 @@
                 <td>{{ feature.day }}</td>
                 <td>{{ feature.description }}</td>
                 <td>
-                    <a href="{{ path('feature_show', {'id': feature.id}) }}">show</a>
-                    <a href="{{ path('feature_edit', {'id': feature.id}) }}">edit</a>
+                    <a class="btn btn-sm btn-primary" href="{{ path('feature_edit', {'id': feature.id}) }}">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    </a>
                 </td>
             </tr>
         {% else %}
