@@ -6,9 +6,12 @@
     <h1>Détails du projet</h1>
 
     <section class="sheet">
-
         {% set edit='true' %}
-        {{ include('project/_form.html.twig', {'button_label': 'Enregistrer le projet'}) }}
+
+        {{ form_start(form) }}
+            {{ include('project/_form.html.twig') }}
+            {{ include('project/_buttonEditProject.html.twig') }}
+        {{ form_end(form) }}
 
         {{ include('project/_delete_form.html.twig') }}
 
