@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Project;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class ProjectCalculator
 {
@@ -27,5 +29,21 @@ class ProjectCalculator
 
         //return
         return round($theoreticalLoad * $velocity, 2);
+    }
+
+    public function getCategories(Project $project) : array
+    {
+        $featureCategories= [];
+        $projectFeatures=$project->getProjectFeatures();
+        foreach ($projectFeatures as $projectFeature) {
+            $category=$projectFeature->getCategory();
+            //
+            if (!in_array($category, $featureCategories)) {
+                $featureCategories[]=$category;
+            }
+
+        }
+
+        return $featureCategories;
     }
 }
