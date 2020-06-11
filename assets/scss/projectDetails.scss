@@ -64,22 +64,6 @@
     margin-bottom:0;
 }
 
-.xcollapse-toggler:after {
-    /* symbol for "opening" panels */
-    font-family: FontAwesome;  /* essential for enabling glyphicon */
-    content: "\f060";    /* adjust as needed, taken from bootstrap.css */
-    tbransform:rotateZ(-0.25turn);
-    float: right;        /* adjust as needed */
-    color: grey;         /* adjust as needed */
-    transition-duration: 1s;
-}
-
-.xcollapse-toggler.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\f063";    /* adjust as needed, taken from bootstrap.css */
-    transition-duration: 1s;
-}
-
 .collapse-toggler:after {
     font-family: FontAwesome;
     content: "\f0d7";
