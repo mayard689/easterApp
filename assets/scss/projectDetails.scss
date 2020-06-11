@@ -96,13 +96,13 @@
     -moz-appearance: none;
     font-size:10px;
     font-weight: bold;
-    background:$primary;
+    background: $primary;
 
     &:focus {
-        background:$primary;
+        background: $primary;
     }
-    
+
     &:hover {
-        background:darken($primary,5%);
+        background: darken($primary, 5%);
     }
 }
