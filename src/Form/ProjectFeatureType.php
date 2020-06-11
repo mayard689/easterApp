@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Feature;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
@@ -18,6 +19,7 @@ class ProjectFeatureType extends AbstractType
             ->add('feature', EntityType::class, ['class'=> Feature::class, 'choice_label'=>'name'])
             ->add('description')
             ->add('day')
+            ->add('category', EntityType::class, ['class'=> Category::class, 'choice_label'=>'name'])
         ;
     }
 
