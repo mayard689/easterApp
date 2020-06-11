@@ -122,3 +122,25 @@ th{
     padding-top:0.5rem;
     padding-bottom:0.5rem;
 }
+
+@mixin palette($index) {
+    /*background:$palette-#{$index};*/
+    $color : nth($palette-list, $index+1);
+    background:$color;
+
+    &:focus {
+        /*background:$palette-#{$index};*/
+        background:$color;
+    }
+
+    &:hover {
+        /*background:$palette-#{$index};*/
+        background:darken($color,20%);
+    }
+}
+
+@for $i from 0 through 4 {
+    .category-#{$i}{
+        @include palette($i);
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Feature;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
@@ -32,7 +33,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
                 $projectFeature->setFeature($features[$featureIndex]);
                 $projectFeature->setDescription($faker->paragraph(3));
                 $projectFeature->setDay(rand(0, 50)/4);
-                $projectFeature->setCategory($categories[rand(1, count($categories))]);
+                $projectFeature->setCategory($categories[rand(0, count($categories)-1)]);
 
                 unset($availableFeatures[$featureIndex]);
 

@@ -1,0 +1,35 @@
+<tr class="feature-line collapse show" id="collapseDescription{{ featureCategory.id }}">
+    <th class="w-50" scope="row">
+
+        <div class="ml-4">
+            <a class="collapse-toggler collapsed" data-toggle="collapse" href="#collapseDescription{{ loop.index }}" aria-expanded="false" aria-controls="collapseDescription{{ loop.index }}">
+                {{ projectFeature.vars.data.feature.name }}
+            </a>
+        </div>
+        <div class="collapse ml-4" id="collapseDescription{{ loop.index }}">
+            <div class="mt-3 description small" colspan="3">
+                {{ form_widget(projectFeature.description,{'attr': {'rows': '3'}}) }}
+                {{ form_errors(projectFeature.description) }}
+            </div>
+        </div>
+
+        {{ form_widget(projectFeature.feature, {'attr': {'class': 'hidden-field'}}) }}
+        {{ form_errors(projectFeature.feature) }}
+    </th>
+
+    <td class="text-center ">
+        {{ form_widget(projectFeature.category, {'attr': {'class': 'category category-'~featureCategoryIndex }})  }}
+        {{ form_errors(projectFeature.category) }}
+    </td>
+
+    <td class="text-center input-align">
+        {{ form_widget(projectFeature.day) }} j*h
+        {{ form_errors(projectFeature.day) }}
+    </td>
+
+    <td class="text-center">
+        <button title="Supprimer la fonctionnalité" class="btn btn-sm btn-primary" type="submit" formmethod="post" formaction="{{ path('project_feature_delete', {'id': projectFeature.vars.data.id}) }}">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+</tr>

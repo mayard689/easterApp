@@ -64,22 +64,6 @@
     margin-bottom:0;
 }
 
-.xcollapse-toggler:after {
-    /* symbol for "opening" panels */
-    font-family: FontAwesome;  /* essential for enabling glyphicon */
-    content: "\f060";    /* adjust as needed, taken from bootstrap.css */
-    tbransform:rotateZ(-0.25turn);
-    float: right;        /* adjust as needed */
-    color: grey;         /* adjust as needed */
-    transition-duration: 1s;
-}
-
-.xcollapse-toggler.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\f063";    /* adjust as needed, taken from bootstrap.css */
-    transition-duration: 1s;
-}
-
 .collapse-toggler:after {
     font-family: FontAwesome;
     content: "\f0d7";
@@ -91,4 +75,25 @@
 .collapse-toggler.collapsed:after {
     transform:rotateZ(0.25turn);
     transition-duration: 0.5s;
+
+}
+
+.feature-line{
+    transition:5s;
+}
+
+.feature-category{
+     background:$light;
+ }
+
+.category{
+    border-radius: 100px;
+    border: none;
+    text-align: center;
+    color:$light;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-size:10px;
+    font-weight: bold;
 }
