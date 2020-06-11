@@ -124,6 +124,8 @@ class ProjectController extends AbstractController
             $projectFeature->setDay($feature->getDay());
             $projectFeature->setCategory($feature->getCategory());
 
+            $feature->setIsStandard(false);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($projectFeature);
             $entityManager->persist($feature);

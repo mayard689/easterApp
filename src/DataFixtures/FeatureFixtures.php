@@ -34,6 +34,7 @@ class FeatureFixtures extends Fixture implements DependentFixtureInterface
             $feature->setDescription($faker->paragraph(3));
             $feature->setDay(rand(0, 50)/4);
             $feature->setCategory($categories[array_rand($categories)]);
+            $feature->setIsStandard(true);
 
             $manager->persist($feature);
 
