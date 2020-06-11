@@ -3,19 +3,20 @@
 {% block title %}Nouveau projet{% endblock %}
 
 {% block body %}
-    <div class="project-header container">
+    <h1>Nouveau projet</h1>
+
+    <section class="sheet">
         {{ form_start(form) }}
 
-        {% include 'project/_form.html.twig' %}
-        {% include 'project/_buttonNewProject.html.twig' %}
+        {% include 'project/_form.html.twig' with {'buttonName': 'Créer le projet'} %}
 
         {{ form_end(form) }}
-    </div>
+    </section>
 {% endblock %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('projectDetails') }}
     {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('projectDetails') }}
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
