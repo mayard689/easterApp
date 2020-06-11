@@ -1,4 +1,38 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="project-header container">
+    <div class="col-sm-12 col-md-2 name">
+        {{ form_label(form.name, "Nom") }}
+    </div>
+    <div class="col-sm-12 col-md-12">
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+    <div class="col-sm-12 col-md-2">
+        {{ form_label(form.day, "Charge") }}
+    </div>
+    <div class="col-sm-12 col-md-12 ">
+        {{ form_widget(form.day) }}
+        {{ form_errors(form.day) }}
+    </div>
+    <div class="col-sm-12 col-md-2 ">
+        {{ form_label(form.description, "Description") }}
+    </div>
+    <div class="col-sm-12 col-md-12 ">
+        {{ form_widget(form.description) }}
+        {{ form_errors(form.description) }}
+    </div>
+    <div class="col-sm-12 col-md-2 ">
+        {{ form_label(form.category, "Catégorie") }}
+    </div>
+    <div class="col-sm-12 col-md-12">
+        {{ form_widget(form.category) }}
+        {{ form_errors(form.category) }}
+    </div>
+</div>
+
+<div class="button-panel container">
+    <button class="btn btn-primary form-btn"> Enregistrer les modifications</button>
+    <a class="btn btn-outline-primary form-btn" href="{{ path('feature_index') }}">Revenir à la liste des
+        fonctionnalités</a>
+</div>
 {{ form_end(form) }}
