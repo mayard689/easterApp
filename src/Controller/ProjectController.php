@@ -63,8 +63,7 @@ class ProjectController extends AbstractController
         ObjectManager $manager
     ): Response {
         $featureCategories=$projectCalculator->getCategories($project);
-        //$featureCategories= $manager->getRepository(Category::class)->findAll();
-        //var_dump($featureCategories);exit();
+
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 

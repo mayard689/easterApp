@@ -41,7 +41,6 @@ class ProjectCalculator
             if (!in_array($category, $featureCategories)) {
                 $featureCategories[]=$category;
             }
-
         }
 
         return $featureCategories;
