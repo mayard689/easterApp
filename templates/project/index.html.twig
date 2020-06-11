@@ -20,8 +20,9 @@
                 <td class="text-center">{{ project.name }}</td>
                 <td class="text-center">{{ project.date ? project.date|date('d-m-Y') : '' }}</td>
                 <td class="text-center">{{ project.description }}</td>
-                <td class="text-center">
-                    <a title="Editer" class="btn btn-sm btn-primary" href="{{ path('project_edit', {'id': project.id}) }}">
+                <td class="btn-group">
+                    {{ include('project/_delete_form.html.twig') }}
+                    <a title="Editer" class="btn btn-sm btn-primary ml-2" href="{{ path('project_edit', {'id': project.id}) }}">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                 </td>
