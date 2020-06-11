@@ -6,6 +6,7 @@ use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,8 @@ class ProjectController extends AbstractController
 {
     /**
      * @Route("/", name="project_index", methods={"GET"})
+     * @param ProjectRepository $projectRepository
+     * @return Response
      */
     public function index(ProjectRepository $projectRepository): Response
     {
@@ -28,6 +31,9 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
      */
     public function new(Request $request): Response
     {
@@ -37,10 +43,11 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $project->setDate(new DateTime());
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         return $this->render('project/new.html.twig', [
