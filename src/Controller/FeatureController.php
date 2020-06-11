@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Feature;
 use App\Form\FeatureType;
-use App\Repository\FeatureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +36,8 @@ class FeatureController extends AbstractController
 
     /**
      * @Route("/new", name="feature_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -55,16 +56,6 @@ class FeatureController extends AbstractController
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="feature_show", methods={"GET"})
-     */
-    public function show(Feature $feature): Response
-    {
-        return $this->render('feature/show.html.twig', [
-            'feature' => $feature,
         ]);
     }
 
@@ -93,7 +84,7 @@ class FeatureController extends AbstractController
      */
     public function delete(Request $request, Feature $feature): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$feature->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $feature->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($feature);
             $entityManager->flush();
