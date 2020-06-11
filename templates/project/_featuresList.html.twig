@@ -10,7 +10,7 @@
     </thead>
     <tbody>
 
-    {% for featureCategoryIndex, featureCategory in featureCategories %}
+    {% for featureCategory in featureCategories %}
         <tr>
             <td colspan="4" class="feature-category w-50">
                 <div><a class="collapse-toggler" data-toggle="collapse" href="#collapseDescription{{ featureCategory.id }}" aria-expanded="true" aria-controls="collapseDescription{{ featureCategory.id }}">
@@ -24,11 +24,9 @@
             {% if featureCategory.id == projectFeature.vars.data.category.id %}
                 {{ include('project/_featureLine.html.twig') }}
             {%  endif %}
-        {% else %}
-            <td>Pas de fonctionnalités enregistrées !</td>
         {% endfor %}
     {% else %}
-        <td>Pas de fonctionnalités enregistrées !</td>
+        <td>Pas de fonctionnalité enregistrées !</td>
     {% endfor %}
 
     </tbody>

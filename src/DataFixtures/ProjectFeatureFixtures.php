@@ -52,6 +52,6 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
      */
     public function getDependencies()
     {
-        return [ProjectFixtures::class, FeatureFixtures::class];
+        return [ProjectFixtures::class, FeatureFixtures::class, CategoryFixture::class];
     }
 }

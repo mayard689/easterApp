@@ -18,4 +18,18 @@ class ProjectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Project::class);
     }
+
+    public function getCategories($project) : array
+    {
+        return $this->createQueryBuilder('project')
+            ->select('category.id, category.name')
+            ->andWhere('project.id = :project')
+            ->setParameter('project', $project->getId())
+            ->leftJoin('project.projectFeatures', 'project_feature')
+            ->leftJoin('project_feature.category', 'category')
+            ->groupBy('category.id')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

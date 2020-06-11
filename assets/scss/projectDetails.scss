@@ -96,4 +96,11 @@
     -moz-appearance: none;
     font-size:10px;
     font-weight: bold;
+    background:$primary;
+    &:focus {
+        background:$primary;
+    }
+    &:hover {
+        background:darken($primary,5%);
+    }
 }
