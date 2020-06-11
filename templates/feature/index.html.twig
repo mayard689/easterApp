@@ -4,16 +4,17 @@
 
 {% block body %}
     <h1>Liste des fonctionnalités récurrentes</h1>
-
+    <a class="btn btn-sm btn-primary float-right " href="{{ path('feature_new') }}"><i
+                class="fas fa-plus-circle"></i></a>
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Charge</th>
-                <th>Catégorie</th>
-                <th>Description</th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>Nom</th>
+            <th>Charge</th>
+            <th>Catégorie</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         {% for feature in features %}
@@ -36,5 +37,4 @@
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('feature_new') }}">Nouveau</a>
 {% endblock %}
