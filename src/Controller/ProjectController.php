@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use App\Form\ProjectType;
