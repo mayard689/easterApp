@@ -1,6 +1,4 @@
 
-{{ form_start(form) }}
-
    <div class="project-header container">
 
       <div class="row form-group">
@@ -15,7 +13,7 @@
             <label>Charge Totale : </label>
          </div>
          <div class="col-sm-12 col-md-1 load d-flex justify-content-end">
-            <p class="input-like">{{ load }}</p>
+            <p class="input-like">{{ load ?? 0 }}</p>
          </div>
       </div>
 
@@ -66,10 +64,8 @@
    <div class="container">
       {{ include('project/_featuresList.html.twig') }}
    </div>
-
    <div class="button-panel container">
-      <button class="btn btn-primary form-btn"> Enregistrer les modifications </button>
+      <button class="btn btn-primary form-btn">{{ buttonName }}</button>
       <a class="btn btn-outline-primary form-btn" href="{{ path('project_index') }}">Revenir à la liste des projets</a>
    </div>
 
-{{ form_end(form) }}

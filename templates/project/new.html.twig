@@ -1,11 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Project{% endblock %}
+{% block title %}Nouveau projet{% endblock %}
 
 {% block body %}
-    <h1>Create new Project</h1>
+    <h1>Nouveau projet</h1>
 
-    {{ include('project/_form.html.twig') }}
+    <section class="sheet">
+        {{ form_start(form) }}
 
-    <a href="{{ path('project_index') }}">back to list</a>
+        {% include 'project/_form.html.twig' with {'buttonName': 'Créer le projet'} %}
+
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('projectDetails') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}

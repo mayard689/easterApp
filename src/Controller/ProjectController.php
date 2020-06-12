@@ -7,6 +7,7 @@ use App\Entity\ProjectFeature;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +22,8 @@ class ProjectController extends AbstractController
 {
     /**
      * @Route("/", name="project_index", methods={"GET"})
+     * @param ProjectRepository $projectRepository
+     * @return Response
      */
     public function index(ProjectRepository $projectRepository): Response
     {
@@ -31,6 +34,9 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
      */
     public function new(Request $request): Response
     {
@@ -40,10 +46,11 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $project->setDate(new DateTime());
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         return $this->render('project/new.html.twig', [
@@ -73,7 +80,7 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_index');
         }
 
-        $load=$projectCalculator->calculateProjectLoad($project);
+        $load = $projectCalculator->calculateProjectLoad($project);
 
         return $this->render('project/edit.html.twig', [
             'project' => $project,
@@ -88,7 +95,7 @@ class ProjectController extends AbstractController
      */
     public function delete(Request $request, Project $project): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $project->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($project);
             $entityManager->flush();
@@ -99,6 +106,9 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("Feature/{id}", name="project_feature_delete", methods="POST")
+     * @param ProjectFeature         $projectFeature
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
     public function deleteProjectFeature(
         ProjectFeature $projectFeature,
@@ -108,9 +118,9 @@ class ProjectController extends AbstractController
         $entityManager->flush();
 
         /** @var Project */
-        $project=$projectFeature->getProject();
-        $projectId=$project->getId();
+        $project = $projectFeature->getProject();
+        $projectId = $project->getId();
 
-        return $this->redirectToRoute('project_edit', ['id'=>$projectId]);
+        return $this->redirectToRoute('project_edit', ['id' => $projectId]);
     }
 }

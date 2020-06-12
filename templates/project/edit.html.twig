@@ -7,15 +7,16 @@
 
     <section class="sheet">
 
-        {% set edit='true' %}
-        {{ include('project/_form.html.twig', {'button_label': 'Enregistrer le projet'}) }}
+        {{ form_start(form) }}
+        {% include 'project/_form.html.twig' with {'buttonName': 'Enregistrer les modifications'} %}
+        {{ form_end(form) }}
 
     </section>
 {% endblock %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('projectDetails') }}
     {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('projectDetails') }}
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
