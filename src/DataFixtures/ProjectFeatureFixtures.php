@@ -16,25 +16,30 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
     public function load(ObjectManager $manager)
     {
         $faker  =  Factory::create('fr_FR');
-        $projects= $manager->getRepository(Project::class)->findAll();
-        $features= $manager->getRepository(Feature::class)->findAll();
-        $categories= $manager->getRepository(Category::class)->findAll();
+        //$features= $manager->getRepository(Feature::class)->findAll();
+
+        $categoryMaxIndex=count(CategoryFixtures::CATEGORIES)-1;
+        $projectMaxIndex=count(ProjectFixtures::PROJECTS)-1;
+        $featureMaxIndex=count(FeatureFixtures::FEATURES)-1;
+        $featuresTabIndex=range(0, $featureMaxIndex);
 
         $featureCount=0;
-        foreach ($projects as $project) {
-            $availableFeatures=$features;
+        for ($projectIndex=0; $projectIndex<=$projectMaxIndex; $projectIndex++) {
+            $project=$this->getReference('project_'.$projectIndex);
 
-            $featureNumber=rand(1, count($availableFeatures));
+            $featureNumber=rand(3, $featureMaxIndex);
             for ($i=0; $i<$featureNumber; $i++) {
                 $projectFeature = new ProjectFeature();
                 $projectFeature->setProject($project);
-                $featureIndex=array_rand($availableFeatures);
-                $projectFeature->setFeature($features[$featureIndex]);
                 $projectFeature->setDescription($faker->paragraph(3));
                 $projectFeature->setDay(rand(0, 50)/4);
-                $projectFeature->setCategory($categories[rand(1, count($categories))]);
 
-                unset($availableFeatures[$featureIndex]);
+                $categoryIndex=rand(1, $categoryMaxIndex);
+                $chosenCategory=$this->getReference('category_'.$categoryIndex);
+                $projectFeature->setCategory($chosenCategory);
+
+                $featureIndex=array_rand($featuresTabIndex);
+                $projectFeature->setFeature($this->getReference('feature_'.$featuresTabIndex[$featureIndex]));
 
                 $manager->persist($projectFeature);
 
@@ -51,6 +56,6 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
      */
     public function getDependencies()
     {
-        return [ProjectFixtures::class, FeatureFixtures::class];
+        return [ProjectFixtures::class, FeatureFixtures::class, CategoryFixtures::class];
     }
 }
