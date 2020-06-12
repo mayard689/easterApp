@@ -16,13 +16,15 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
     public function load(ObjectManager $manager)
     {
         $faker  =  Factory::create('fr_FR');
-        $projects= $manager->getRepository(Project::class)->findAll();
+        //$projects= $manager->getRepository(Project::class)->findAll();
         $features= $manager->getRepository(Feature::class)->findAll();
 
         $categoryMaxIndex=count(CategoryFixtures::CATEGORIES)-1;
+        $projectMaxIndex=count(ProjectFixtures::PROJECTS)-1;
 
         $featureCount=0;
-        foreach ($projects as $project) {
+        for ($projectIndex=0; $projectIndex<=$projectMaxIndex; $projectIndex++) {
+            $project=$this->getReference('project_'.$projectIndex);
             $availableFeatures=$features;
 
             $featureNumber=rand(1, count($availableFeatures));
