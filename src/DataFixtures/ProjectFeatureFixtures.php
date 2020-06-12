@@ -16,22 +16,21 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
     public function load(ObjectManager $manager)
     {
         $faker  =  Factory::create('fr_FR');
-        $features= $manager->getRepository(Feature::class)->findAll();
+        //$features= $manager->getRepository(Feature::class)->findAll();
 
         $categoryMaxIndex=count(CategoryFixtures::CATEGORIES)-1;
         $projectMaxIndex=count(ProjectFixtures::PROJECTS)-1;
+        $featureMaxIndex=count(FeatureFixtures::FEATURES)-1;
+        $featuresTabIndex=range(0, $featureMaxIndex);
 
         $featureCount=0;
         for ($projectIndex=0; $projectIndex<=$projectMaxIndex; $projectIndex++) {
             $project=$this->getReference('project_'.$projectIndex);
-            $availableFeatures=$features;
 
-            $featureNumber=rand(1, count($availableFeatures));
+            $featureNumber=rand(3, $featureMaxIndex);
             for ($i=0; $i<$featureNumber; $i++) {
                 $projectFeature = new ProjectFeature();
                 $projectFeature->setProject($project);
-                $featureIndex=array_rand($availableFeatures);
-                $projectFeature->setFeature($features[$featureIndex]);
                 $projectFeature->setDescription($faker->paragraph(3));
                 $projectFeature->setDay(rand(0, 50)/4);
 
@@ -39,7 +38,8 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
                 $chosenCategory=$this->getReference('category_'.$categoryIndex);
                 $projectFeature->setCategory($chosenCategory);
 
-                unset($availableFeatures[$featureIndex]);
+                $featureIndex=array_rand($featuresTabIndex);
+                $projectFeature->setFeature($this->getReference('feature_'.$featuresTabIndex[$featureIndex]));
 
                 $manager->persist($projectFeature);
 
