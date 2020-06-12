@@ -3,6 +3,9 @@
 namespace App\Service;
 
 use App\Entity\Project;
+use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class ProjectCalculator
 {
