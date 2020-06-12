@@ -18,6 +18,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
         $faker  =  Factory::create('fr_FR');
         $projects= $manager->getRepository(Project::class)->findAll();
         $features= $manager->getRepository(Feature::class)->findAll();
+        $categories= $manager->getRepository(Category::class)->findAll();
 
         $featureCount=0;
         foreach ($projects as $project) {
@@ -31,6 +32,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
                 $projectFeature->setFeature($features[$featureIndex]);
                 $projectFeature->setDescription($faker->paragraph(3));
                 $projectFeature->setDay(rand(0, 50)/4);
+                $projectFeature->setCategory($categories[rand(1, count($categories))]);
 
                 unset($availableFeatures[$featureIndex]);
 

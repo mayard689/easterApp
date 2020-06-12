@@ -53,6 +53,11 @@ class ProjectFeature
      */
     private $feature;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class)
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +107,18 @@ class ProjectFeature
     public function setFeature(?Feature $feature): self
     {
         $this->feature = $feature;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
