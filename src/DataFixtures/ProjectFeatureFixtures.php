@@ -52,6 +52,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
                     $projectFeature->setFeature($this->getReference('specific_feature_'.$featureCount));
                 }
 
+
                 $manager->persist($projectFeature);
 
                 $this->addReference('specific_project_feature_'.$featureCount, $projectFeature);
