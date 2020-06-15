@@ -31,7 +31,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
 
         $categoryCount=count(CategoryFixtures::CATEGORIES);
         $projectCount=count(ProjectFixtures::PROJECTS);
-        $featureMaxIndex=FeatureFixtures::getProjectFeatureNumber();
+        $featureMaxIndex=FeatureFixtures::getProjectSpecificFeatureNumber();
 
         $featureCount=0;
         for ($projectIndex=0; $projectIndex<$projectCount; $projectIndex++) {

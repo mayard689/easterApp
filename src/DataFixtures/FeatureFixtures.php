@@ -22,11 +22,13 @@ class FeatureFixtures extends Fixture implements DependentFixtureInterface
         'Article',
     ];
 
-    private static $projectFeatureNumber=0;
-
-    public static function getProjectFeatureNumber()
+    const MEAN_SPECIFIC_FEATURE_PER_PROJECT=3;
+    const DESCRIPTION_LENGTH=3;//number of sentences in the description
+    const MAX_FEATURE_LOAD=12.5;
+    
+    public static function getProjectSpecificFeatureNumber() : int
     {
-        return self::$projectFeatureNumber;
+        return self::MEAN_SPECIFIC_FEATURE_PER_PROJECT * count(ProjectFixtures::PROJECTS);
     }
 
     public function load(ObjectManager $manager)
@@ -42,14 +44,13 @@ class FeatureFixtures extends Fixture implements DependentFixtureInterface
         $faker  =  Factory::create('fr_FR');
 
         $categoryMaxIndex=count(CategoryFixtures::CATEGORIES)-1;
-        $projectNumber=count(ProjectFixtures::PROJECTS)-1;
-        self::$projectFeatureNumber=5*$projectNumber;
+        $projectFeatureNumber=$this->getProjectSpecificFeatureNumber();
 
-        for ($i=0; $i<self::$projectFeatureNumber; $i++) {
+        for ($i=0; $i<$projectFeatureNumber; $i++) {
             $feature = new Feature();
             $feature->setName("_".$faker->word);
-            $feature->setDescription($faker->paragraph(3));
-            $feature->setDay(rand(0, 50)/4);
+            $feature->setDescription($faker->paragraph(self::DESCRIPTION_LENGTH));
+            $feature->setDay(rand(0, 4 * self::MAX_FEATURE_LOAD)/4);
             $feature->setIsStandard(false);
 
             $categoryIndex=rand(1, $categoryMaxIndex);
@@ -65,16 +66,19 @@ class FeatureFixtures extends Fixture implements DependentFixtureInterface
     private function loadStandardFeature(ObjectManager $manager)
     {
         $faker  =  Factory::create('fr_FR');
-        $categories= $manager->getRepository(Category::class)->findAll();
+        $categoryMaxIndex=count(CategoryFixtures::CATEGORIES)-1;
 
         $featureCounter=0;
         foreach (self::FEATURES as $featureName) {
             $feature = new Feature();
             $feature->setName($featureName);
-            $feature->setDescription($faker->paragraph(3));
-            $feature->setDay(rand(0, 50)/4);
-            $feature->setCategory($categories[array_rand($categories)]);
+            $feature->setDescription($faker->paragraph(self::DESCRIPTION_LENGTH));
+            $feature->setDay(rand(0, 4 * self::MAX_FEATURE_LOAD)/4);
             $feature->setIsStandard(true);
+
+            $categoryIndex=rand(1, $categoryMaxIndex);
+            $chosenCategory=$this->getReference('category_'.$categoryIndex);
+            $feature->setCategory($chosenCategory);
 
             $manager->persist($feature);
 
