@@ -22,11 +22,44 @@ class FeatureFixtures extends Fixture implements DependentFixtureInterface
         'Article',
     ];
 
+    private static $projectFeatureNumber=0;
+
+    public static function getProjectFeatureNumber()
+    {
+        return self::$projectFeatureNumber;
+    }
+
     public function load(ObjectManager $manager)
     {
         $this->loadStandardFeature($manager);
+        $this->loadProjectSpecificFeature($manager);
 
         $manager->flush();
+    }
+
+    private function loadProjectSpecificFeature(ObjectManager $manager)
+    {
+        $faker  =  Factory::create('fr_FR');
+
+        $categoryMaxIndex=count(CategoryFixtures::CATEGORIES)-1;
+        $projectNumber=count(ProjectFixtures::PROJECTS)-1;
+        self::$projectFeatureNumber=5*$projectNumber;
+
+        for ($i=0; $i<self::$projectFeatureNumber; $i++) {
+            $feature = new Feature();
+            $feature->setName("_".$faker->word);
+            $feature->setDescription($faker->paragraph(3));
+            $feature->setDay(rand(0, 50)/4);
+            $feature->setIsStandard(false);
+
+            $categoryIndex=rand(1, $categoryMaxIndex);
+            $chosenCategory=$this->getReference('category_'.$categoryIndex);
+            $feature->setCategory($chosenCategory);
+
+            $manager->persist($feature);
+
+            $this->addReference('specific_feature_'.$i, $feature);
+        }
     }
 
     private function loadStandardFeature(ObjectManager $manager)
@@ -55,6 +88,6 @@ class FeatureFixtures extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies()
     {
-        return [CategoryFixtures::class];
+        return [CategoryFixtures::class, ProjectFixtures::class];
     }
 }
