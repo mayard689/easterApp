@@ -108,7 +108,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("Project/{id}/addFeature", name="project_feature_add", methods={"GET", "POST"})
+     * @Route("Project/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
      */
     public function addProjectFeature(Project $project, Request $request): Response
     {

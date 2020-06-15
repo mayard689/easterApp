@@ -64,6 +64,8 @@ class Feature
 
     /**
      * @ORM\Column(type="boolean")
+     *
+     * @Assert\Type("bool")
      */
     private $isStandard;
 

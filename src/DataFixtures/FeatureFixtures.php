@@ -24,6 +24,13 @@ class FeatureFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        $this->loadStandardFeature($manager);
+
+        $manager->flush();
+    }
+
+    private function loadStandardFeature(ObjectManager $manager)
+    {
         $faker  =  Factory::create('fr_FR');
         $categories= $manager->getRepository(Category::class)->findAll();
 
@@ -41,8 +48,6 @@ class FeatureFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference('feature_'.$featureCounter, $feature);
             $featureCounter++;
         }
-
-        $manager->flush();
     }
 
     /**
