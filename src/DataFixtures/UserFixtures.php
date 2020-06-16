@@ -24,21 +24,21 @@ class UserFixtures extends Fixture
 
         for ($i=0; $i<10; $i++) {
             $user = new User();
-            $user->setEmail(strtolower($faker->firstName . $faker->lastName) . '@easterapp.com');
+            $user->setFirstname($faker->firstName);
+            $user->setLastname($faker->lastName);
+            $user->setEmail(strtolower($user->getFirstname() . $user->getLastname()) . '@easterapp.fr');
             $user->setRoles(['ROLE_APPUSER']);
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
                 'userpassword'
             ));
-            $user->setFirstname($faker->firstName);
-            $user->setLastname($faker->lastName);
             $user->setCreationDate(new DateTime($faker->date()));
 
             $manager->persist($user);
         }
 
         $admin = new User();
-        $admin->setEmail('johndoe@easterapp.com');
+        $admin->setEmail('johndoe@easterapp.fr');
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setPassword($this->passwordEncoder->encodePassword(
             $admin,
