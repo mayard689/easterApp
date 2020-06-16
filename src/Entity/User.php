@@ -4,10 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cet e-mail")
  */
 class User implements UserInterface
 {
@@ -20,19 +24,50 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(
+     *     message="L'adresse e-mail '{{ value }}' n'est pas une adresse mail valide"
+     * )
+     * @Assert\NotBlank
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Assert\Json()
+     * @Assert\NotBlank
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @SecurityAssert\UserPassword(
+     *     message = "Le mot de passe saisi est incorrecte"
+     * )
+     * @Assert\NotBlank
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
+     * @Assert\Length(max=100)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
+     * @Assert\Length(max=100)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="date")
+     * @Assert\NotBlank
+     * @Assert\Date
+     */
+    private $creationDate;
 
     public function getId(): ?int
     {
@@ -110,5 +145,41 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
+
+        return $this;
     }
 }
