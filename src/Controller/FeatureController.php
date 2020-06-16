@@ -24,7 +24,7 @@ class FeatureController extends AbstractController
         $features = $this->getDoctrine()
             ->getRepository(Feature::class)
             ->findBy(
-                [],
+                ['isStandard'=>true],
                 ['name' => 'ASC'],
                 self::MAX_PER_PAGE
             );
@@ -46,6 +46,7 @@ class FeatureController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $feature->setIsStandard(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($feature);
             $entityManager->flush();

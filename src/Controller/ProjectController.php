@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Feature;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
+use App\Form\FeatureType;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
@@ -122,5 +124,38 @@ class ProjectController extends AbstractController
         $projectId = $project->getId();
 
         return $this->redirectToRoute('project_edit', ['id' => $projectId]);
+    }
+
+    /**
+     * @Route("Project/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
+     */
+    public function addProjectFeature(Project $project, Request $request): Response
+    {
+        $feature = new Feature();
+        $form = $this->createForm(FeatureType::class, $feature);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $projectFeature=new ProjectFeature();
+            $projectFeature->setProject($project);
+            $projectFeature->setFeature($feature);
+            $projectFeature->setDescription($feature->getDescription());
+            $projectFeature->setDay($feature->getDay());
+            $projectFeature->setCategory($feature->getCategory());
+
+            $feature->setIsStandard(false);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($projectFeature);
+            $entityManager->persist($feature);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
+        }
+
+        return $this->render('feature/new.html.twig', [
+            'feature' => $feature,
+            'form' => $form->createView(),
+        ]);
     }
 }
