@@ -79,7 +79,7 @@ class ProjectController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         $load = $projectCalculator->calculateProjectLoad($project);
