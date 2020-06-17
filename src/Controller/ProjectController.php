@@ -62,13 +62,14 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit/{option}", name="project_edit", methods={"GET","POST"})
      */
     public function edit(
         Request $request,
         Project $project,
         ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository
+        ProjectRepository $projectRepository,
+        string $option = 'high'
     ): Response {
 
         $featureCategories=$projectRepository->getCategories($project);
@@ -89,6 +90,7 @@ class ProjectController extends AbstractController
             'load' => $load,
             'form' => $form->createView(),
             'featureCategories' => $featureCategories,
+            'option' => ucFirst($option),
         ]);
     }
 

@@ -91,7 +91,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
         $projectFeature->setDay(rand(0, 4 * self::MAX_FEATURE_LOAD)/4);
 
         $projectFeature->setIsHigh($this->faker->boolean());
-        $projectFeature->setIsMid($this->faker->boolean());
+        $projectFeature->setIsMiddle($this->faker->boolean());
         $projectFeature->setIsLow($this->faker->boolean());
 
         return $projectFeature;

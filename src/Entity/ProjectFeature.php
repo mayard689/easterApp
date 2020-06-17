@@ -66,7 +66,7 @@ class ProjectFeature
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isMid;
+    private $isMiddle;
 
     /**
      * @ORM\Column(type="boolean")
@@ -150,14 +150,14 @@ class ProjectFeature
         return $this;
     }
 
-    public function getIsMid(): ?bool
+    public function getIsMiddle(): ?bool
     {
-        return $this->isMid;
+        return $this->isMiddle;
     }
 
-    public function setIsMid(bool $isMid): self
+    public function setIsMiddle(bool $isMiddle): self
     {
-        $this->isMid = $isMid;
+        $this->isMiddle = $isMiddle;
 
         return $this;
     }

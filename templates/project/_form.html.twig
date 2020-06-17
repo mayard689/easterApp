@@ -62,7 +62,19 @@
    </div>
 
    <div class="container">
-      {{ include('project/_featuresList.html.twig') }}
+
+      <nav class="nav nav-tabs">
+         <a class="nav-item nav-link active" href="{{ path('project_edit', {'id': project.id, 'option':'high'}) }}">High</a>
+         <a class="nav-item nav-link"        href="{{ path('project_edit', {'id': project.id, 'option':'middle'}) }}" >Middle</a>
+         <a class="nav-item nav-link"        href="{{ path('project_edit', {'id': project.id, 'option':'low'}) }}" >Low</a>
+         <a class="btn btn-sm btn-primary float-right " href="{{ path('project_feature_add', {'id':project.id}) }}">
+            <i class="fas fa-plus-circle"></i>
+         </a>
+      </nav>
+
+      <div class="tab-content">
+         {{ include('project/_featuresList.html.twig') }}
+      </div>
    </div>
    <div class="button-panel container">
       <button class="btn btn-primary form-btn">{{ buttonName }}</button>
