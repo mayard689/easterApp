@@ -8,7 +8,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory;
-use Faker\Generator;
 
 class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterface
 {
