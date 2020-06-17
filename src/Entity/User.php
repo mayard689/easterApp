@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -24,26 +23,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\Email(
-     *     message="L'adresse e-mail '{{ value }}' n'est pas une adresse mail valide"
-     * )
      * @Assert\NotBlank
+     * @Assert\Length(max=180)
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Assert\Json()
-     * @Assert\NotBlank
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @SecurityAssert\UserPassword(
-     *     message = "Le mot de passe saisi est incorrecte"
-     * )
      * @Assert\NotBlank
      */
     private $password;
