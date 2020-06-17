@@ -1,6 +1,6 @@
-<a class="btn btn-sm btn-primary float-right " href="{{ path('project_feature_add', {'id':project.id}) }}">
+<button class="btn btn-sm btn-primary float-right " formmethod="POST" formaction="{{ path('project_validate', {'id':project.id?:'-1'}) }}">
     <i class="fas fa-plus-circle"></i>
-</a>
+</button>
 <table class="table table-hover feature-list">
 
     <thead>
@@ -13,7 +13,8 @@
     </thead>
     <tbody>
 
-    {% for featureCategory in featureCategories %}
+
+    {% for featureCategory in featureCategories??{} %}
         <tr>
             <td colspan="4" class="feature-category w-50">
                 <div><a class="collapse-toggler" data-toggle="collapse" href="#collapseDescription{{ featureCategory.id }}" aria-expanded="true" aria-controls="collapseDescription{{ featureCategory.id }}">

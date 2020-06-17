@@ -127,10 +127,15 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("Project/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
+     * @Route("/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
      */
-    public function addProjectFeature(Project $project, Request $request): Response
-    {
+    public function addProjectFeature(
+        Request $request,
+        Project $project,
+        ProjectCalculator $projectCalculator,
+        ProjectRepository $projectRepository
+    ): Response {
+
         $feature = new Feature();
         $form = $this->createForm(FeatureType::class, $feature);
         $form->handleRequest($request);
@@ -156,6 +161,45 @@ class ProjectController extends AbstractController
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/validate", name="project_validate", methods={"GET", "POST"})
+     */
+    public function validateProject(
+        Request $request,
+        ?Project $project,
+        ProjectCalculator $projectCalculator,
+        ProjectRepository $projectRepository
+    ): Response {
+
+        //case new project
+        if (is_null($project)) {
+            $project = new Project();
+            $project->setDate(new DateTime());
+        }
+
+        //save project and get to feature_add
+        $projectForm = $this->createForm(ProjectType::class, $project);
+        $projectForm->handleRequest($request);
+
+        if ($projectForm->isSubmitted() && $projectForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($project);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('project_feature_add', ['id'=>$project->getId()]);
+        }
+
+        $featureCategories=$projectRepository->getCategories($project);
+        $load = $projectCalculator->calculateProjectLoad($project);
+
+        return $this->render('project/edit.html.twig', [
+            'project' => $project,
+            'load' => $load,
+            'form' => $projectForm->createView(),
+            'featureCategories' => $featureCategories,
         ]);
     }
 }
