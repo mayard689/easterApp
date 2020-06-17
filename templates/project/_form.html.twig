@@ -63,14 +63,16 @@
 
    <div class="container">
 
-      <nav class="nav nav-tabs">
-         <a class="nav-item nav-link active" href="{{ path('project_edit', {'id': project.id, 'option':'high'}) }}">High</a>
-         <a class="nav-item nav-link"        href="{{ path('project_edit', {'id': project.id, 'option':'middle'}) }}" >Middle</a>
-         <a class="nav-item nav-link"        href="{{ path('project_edit', {'id': project.id, 'option':'low'}) }}" >Low</a>
-         <a class="btn btn-sm btn-primary float-right " href="{{ path('project_feature_add', {'id':project.id}) }}">
-            <i class="fas fa-plus-circle"></i>
+      <div class="table-tools d-flex justify-content-between">
+         <nav class="nav nav-tabs">
+            <a class="nav-item nav-link active" href="{{ path('project_edit', {'id': project.id, 'option':'high'}) }}">High</a>
+            <a class="nav-item nav-link"        href="{{ path('project_edit', {'id': project.id, 'option':'middle'}) }}" >Middle</a>
+            <a class="nav-item nav-link"        href="{{ path('project_edit', {'id': project.id, 'option':'low'}) }}" >Low</a>
+         </nav>
+         <a class="btn btn-sm btn-primary align-self-center" href="{{ path('project_feature_add', {'id':project.id}) }}">
+            Ajouter une fonctionnalié  <i class="fas fa-plus-circle"></i>
          </a>
-      </nav>
+      </div>
 
       <div class="tab-content">
          {{ include('project/_featuresList.html.twig') }}

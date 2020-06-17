@@ -9,7 +9,7 @@
 
         {{ form_start(form) }}
         {% include 'project/_form.html.twig' with {'buttonName': 'Enregistrer les modifications'} %}
-        {{ form_end(form) }}
+        {{ form_end(form, {'render_rest': false}) }}
 
     </section>
 {% endblock %}
