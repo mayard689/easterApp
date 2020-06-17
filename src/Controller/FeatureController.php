@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Feature;
 use App\Form\FeatureType;
+use App\Repository\FeatureRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,19 +20,23 @@ class FeatureController extends AbstractController
 
     /**
      * @Route("/", name="feature_index", methods={"GET"})
+     * @param FeatureRepository  $feature
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
+     * @return Response
      */
-    public function index(): Response
+    public function index(FeatureRepository $feature, PaginatorInterface $paginator, Request $request): Response
     {
-        $features = $this->getDoctrine()
-            ->getRepository(Feature::class)
-            ->findBy(
-                ['isStandard'=>true],
-                ['name' => 'ASC'],
-                self::MAX_PER_PAGE
-            );
-
         return $this->render('feature/index.html.twig', [
-            'features' => $features,
+            'features' => $paginator->paginate(
+                $feature->findBy(
+                    ['isStandard'=>true],
+                    ['name' => 'ASC'],
+                    self::MAX_PER_PAGE
+                ),
+                $request->query->getInt('page', 1),
+                10
+            )
         ]);
     }
 
