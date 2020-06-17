@@ -26,7 +26,7 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
-            $user->setEmail(strtolower($user->getFirstname() . $user->getLastname()) . '@easterapp.fr');
+            $user->setEmail('user' . $i . '@easterapp.fr');
             $user->setRoles(['ROLE_APPUSER']);
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
