@@ -73,7 +73,7 @@ class Project
     private $junior;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Application::class, inversedBy="project")
+     * @ORM\ManyToOne(targetEntity=Application::class, inversedBy="projects")
      *
      * @Assert\NotBlank(message="Le type d'application choisi est invalide.")
      * @Assert\Valid
