@@ -52,7 +52,11 @@ class ProjectController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
+            $route = $form->get('addFeature')->isClicked()
+                ? 'project_feature_add'
+                : 'project_edit';
+
+            return $this->redirectToRoute($route, ['id' => $project->getId()]);
         }
 
         return $this->render('project/new.html.twig', [
@@ -71,18 +75,21 @@ class ProjectController extends AbstractController
         ProjectRepository $projectRepository
     ): Response {
 
-        $featureCategories=$projectRepository->getCategories($project);
-
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('project_index');
+            $route = $form->get('addFeature')->isClicked()
+                ? 'project_feature_add'
+                : 'project_edit';
+
+            return $this->redirectToRoute($route, ['id' => $project->getId()]);
         }
 
         $load = $projectCalculator->calculateProjectLoad($project);
+        $featureCategories=$projectRepository->getCategories($project);
 
         return $this->render('project/edit.html.twig', [
             'project' => $project,
@@ -161,45 +168,7 @@ class ProjectController extends AbstractController
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/validate", name="project_validate", methods={"GET", "POST"})
-     */
-    public function validateProject(
-        Request $request,
-        ?Project $project,
-        ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository
-    ): Response {
-
-        //case new project
-        if (is_null($project)) {
-            $project = new Project();
-            $project->setDate(new DateTime());
-        }
-
-        //save project and get to feature_add
-        $projectForm = $this->createForm(ProjectType::class, $project);
-        $projectForm->handleRequest($request);
-
-        if ($projectForm->isSubmitted() && $projectForm->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($project);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('project_feature_add', ['id'=>$project->getId()]);
-        }
-
-        $featureCategories=$projectRepository->getCategories($project);
-        $load = $projectCalculator->calculateProjectLoad($project);
-
-        return $this->render('project/edit.html.twig', [
-            'project' => $project,
-            'load' => $load,
-            'form' => $projectForm->createView(),
-            'featureCategories' => $featureCategories,
+            'id'=>$project->getId(),
         ]);
     }
 }
