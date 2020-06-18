@@ -5,6 +5,11 @@
 {% block body %}
     <h1>Liste des utilisateurs</h1>
 
+    <div class="new-user text-right">
+        <a href="{{ path('user_new') }}" class="btn" title="Nouvelle utilisateur">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -38,4 +43,9 @@
         {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('user') }}
 {% endblock %}
