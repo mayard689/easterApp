@@ -10,13 +10,12 @@ use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
 use DateTime;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormInterface;
 
 /**
  * @Route("/project")
@@ -53,11 +52,7 @@ class ProjectController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
-            $route = $form->get('addFeature')->isClicked()
-                ? 'project_feature_add'
-                : 'project_edit';
-
-            return $this->redirectToRoute($route, ['id' => $project->getId()]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         return $this->render('project/new.html.twig', [
@@ -82,7 +77,11 @@ class ProjectController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $route = $form->get('addFeature')->isClicked()
+            /**
+             * @var SubmitButton
+             */
+            $button = $form->get('addFeature');
+            $route = $button->isClicked()
                 ? 'project_feature_add'
                 : 'project_edit';
 
