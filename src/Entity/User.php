@@ -36,7 +36,6 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
      */
     private $password;
 
@@ -56,10 +55,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\NotBlank
-     * @Assert\Date
      */
     private $creationDate;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
 
     public function getId(): ?int
     {
@@ -171,6 +173,18 @@ class User implements UserInterface
     public function setCreationDate(\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
