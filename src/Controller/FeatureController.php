@@ -6,6 +6,7 @@ use App\Entity\Feature;
 use App\Form\FeatureType;
 use App\Repository\FeatureRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use phpDocumentor\Reflection\Types\Self_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FeatureController extends AbstractController
 {
-    const MAX_PER_PAGE = 10;
+    const NUMBER_PER_PAGE = 10;
 
     /**
      * @Route("/", name="feature_index", methods={"GET"})
@@ -31,11 +32,10 @@ class FeatureController extends AbstractController
             'features' => $paginator->paginate(
                 $feature->findBy(
                     ['isStandard'=>true],
-                    ['name' => 'ASC'],
-                    self::MAX_PER_PAGE
+                    ['name' => 'ASC']
                 ),
                 $request->query->getInt('page', 1),
-                10
+                self::NUMBER_PER_PAGE
             )
         ]);
     }
