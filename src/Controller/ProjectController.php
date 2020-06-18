@@ -22,6 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProjectController extends AbstractController
 {
+    const NUMBER_PER_PAGE = 10;
+
     /**
      * @Route("/", name="project_index", methods={"GET"})
      * @param ProjectRepository  $project
@@ -35,7 +37,7 @@ class ProjectController extends AbstractController
             'projects' => $paginator->paginate(
                 $project->findAll(),
                 $request->query->getInt('page', 1),
-                10
+                self::NUMBER_PER_PAGE
             ),
         ]);
     }

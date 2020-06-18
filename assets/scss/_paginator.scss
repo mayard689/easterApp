@@ -10,14 +10,14 @@
 
 .pagination .page-item.active .page-link {
     color: $primary;
-    background-color: transparent;
+    background-color: $background-color;
     border-bottom: 1px solid $primary;
 }
 
 .pagination .page-link:hover {
     color: $primary;
     text-decoration: none;
-    background-color: transparent;
+    background-color: $background-color;
     border-bottom: 1px solid $primary;
 }
 
