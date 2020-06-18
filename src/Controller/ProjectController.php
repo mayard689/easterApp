@@ -22,8 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProjectController extends AbstractController
 {
-    const VARIANTS=['low', 'middle', 'high'];
-
     /**
      * @Route("/", name="project_index", methods={"GET"})
      * @param ProjectRepository $projectRepository
@@ -93,7 +91,7 @@ class ProjectController extends AbstractController
             'form' => $form->createView(),
             'featureCategories' => $featureCategories,
             'variant' => $variant,
-            'variants' => self::VARIANTS,
+            'variants' => ProjectCalculator::VARIANTS,
         ]);
     }
 
