@@ -22,6 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProjectController extends AbstractController
 {
+    const VARIANTS=['low', 'middle', 'high'];
+
     /**
      * @Route("/", name="project_index", methods={"GET"})
      * @param ProjectRepository $projectRepository
@@ -62,14 +64,14 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit/{option}", name="project_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit/{variant<high|middle|low>}", name="project_edit", methods={"GET","POST"})
      */
     public function edit(
         Request $request,
         Project $project,
         ProjectCalculator $projectCalculator,
         ProjectRepository $projectRepository,
-        string $option = 'high'
+        string $variant = 'high'
     ): Response {
 
         $featureCategories=$projectRepository->getCategories($project);
@@ -90,7 +92,8 @@ class ProjectController extends AbstractController
             'load' => $load,
             'form' => $form->createView(),
             'featureCategories' => $featureCategories,
-            'option' => ucFirst($option),
+            'variant' => $variant,
+            'variants' => self::VARIANTS,
         ]);
     }
 

@@ -21,7 +21,7 @@
         </tr>
 
         {% for projectFeature in form.projectFeatures %}
-            {% if featureCategory.id == projectFeature.vars.data.category.id and attribute(projectFeature.vars.data, 'is'~option) %}
+            {% if featureCategory.id == projectFeature.vars.data.category.id and attribute(projectFeature.vars.data, 'is'~variant) %}
                 {{ include('project/_featureLine.html.twig') }}
             {%  endif %}
         {% endfor %}
