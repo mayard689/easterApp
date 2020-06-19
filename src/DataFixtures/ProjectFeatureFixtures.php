@@ -57,6 +57,13 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
         $manager->flush();
     }
 
+    /**
+     * This make a ProjectFeature.
+     * The feature property is connected to a specific (isStandard=false) Feature made by the FeatureFixture
+     * @param Project $project
+     * @param int $specificIndex
+     * @return ProjectFeature
+     */
     private function makeSpecificFeature(Project $project, int $specificIndex) : ProjectFeature
     {
         $projectFeature=$this->makeGenericFeature($project);
@@ -64,6 +71,13 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
         return $projectFeature;
     }
 
+    /**
+     * This make a ProjectFeature.
+     * The feature property is connected to a isStandard Feature made by the FeatureFixture
+     * @param Project $project
+     * @param array $featureIndexes
+     * @return ProjectFeature
+     */
     private function makeStandardFeature(Project $project, array &$featureIndexes) : ProjectFeature
     {
         $projectFeature=$this->makeGenericFeature($project);
@@ -75,6 +89,14 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
         return $projectFeature;
     }
 
+    /**
+     * This make a ProjectFeature Object.
+     * Every properties are filled with random data except :
+     *  - the feature property that is kept empty.
+     *  - the project property that is filled with the provided project
+     * @param Project $project
+     * @return ProjectFeature
+     */
     private function makeGenericFeature(Project $project) : ProjectFeature
     {
         $categoryCount=count(CategoryFixtures::CATEGORIES);
@@ -87,7 +109,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
 
         $projectFeature->setProject($project);
         $projectFeature->setDescription($this->faker->paragraph(self::DESCRIPTION_LENGTH));
-        $projectFeature->setDay(rand(0, 4 * self::MAX_FEATURE_LOAD)/4);
+        $projectFeature->setDay($this->faker->randomFloat(2, 0, self::MAX_FEATURE_LOAD));
 
         return $projectFeature;
     }
