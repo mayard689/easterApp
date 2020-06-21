@@ -57,8 +57,10 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Le compte de l\'utilisateur a été crée avec succès');
             return $this->redirectToRoute('user_index');
         }
+
 
         return $this->render('user/new.html.twig', [
             'user' => $user,
