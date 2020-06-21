@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block title %}Big Bill | Nouvelle utilisateur{% endblock %}
+{% block title %}Big Bill | Nouvel utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Création d'un nouvelle utilisateur</h1>
+    <h1>Création d'un nouvel utilisateur</h1>
 
     <section class="sheet">
         {{ form_start(form) }}
-            {{ include('user/_form.html.twig', {'buttonName': 'Crée le compte de l\'utilisateur'}) }}
+            {{ include('user/_form.html.twig', {'buttonName': 'Créer le compte de l\'utilisateur'}) }}
         {{ form_end(form) }}
     </section>
 {% endblock %}

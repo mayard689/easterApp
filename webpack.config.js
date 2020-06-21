@@ -20,7 +20,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('projectDetails', './assets/scss/projectDetails.scss')
     .addEntry('newProject', './assets/scss/newProject.scss')
-    .addStyleEntry('user', './assets/scss/user.scss')
+    .addEntry('user', './assets/scss/user.scss')
     // .addEntry('page1', './assets/js/page1.js')
     // .addEntry('page2', './assets/js/page2.js')
 
