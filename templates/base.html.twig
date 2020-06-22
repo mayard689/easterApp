@@ -13,6 +13,13 @@
 {% include 'parts/_navbar.html.twig' %}
 <main class="main">
     <div class="container">
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ category }} mt-2 mb-2">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         {% block body %}{% endblock %}
     </div>
 </main>

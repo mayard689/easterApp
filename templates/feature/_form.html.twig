@@ -28,7 +28,12 @@
 
 <div class="button-panel container">
     <button class="btn btn-primary form-btn"> Enregistrer les modifications</button>
-    <a class="btn btn-outline-primary form-btn" href="{{ path('feature_index') }}">Revenir à la liste des
-        fonctionnalités</a>
+    {% if id is defined %}
+        {%  set route = path('project_edit', {'id':id}) %}
+        {%  set label = 'Revenir à la fiche projet' %}
+    {%  endif %}
+    <a class="btn btn-outline-primary form-btn" href="{{ route ?? path('feature_index') }}">
+        {{  label ?? 'Revenir à la liste des fonctionnalités' }}
+    </a>
 </div>
 {{ form_end(form) }}

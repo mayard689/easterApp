@@ -1,4 +1,41 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_errors(form) }}
+<div class="container">
+    <div class="row form-group">
+        <div class="col-sm-12 col-md-2">
+            {{ form_label(form.lastname, "Nom") }}
+        </div>
+        <div class="col-sm-12 col-md-10l">
+            {{ form_widget(form.lastname) }}
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-12 col-md-2">
+            {{ form_label(form.firstname, "Prénom") }}
+        </div>
+        <div class="col-sm-12 col-md-10l">
+            {{ form_widget(form.firstname) }}
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-12 col-md-2">
+            {{ form_label(form.email, "Email") }}
+        </div>
+        <div class="col-sm-12 col-md-10l">
+            {{ form_widget(form.email) }}
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-12 col-md-2">
+            {{ form_label(form.roles, "Rôles") }}
+        </div>
+        <div class="col-sm-12 col-md-10l">
+            {{ form_widget(form.roles) }}
+        </div>
+    </div>
+
+    {{ form_widget(form.password, {'attr': {'class': 'd-none', 'value' : 'defaultPassword'}}) }}
+</div>
+<div class="button-panel container">
+    <button class="btn btn-primary form-btn">{{ buttonName }}</button>
+    <a class="btn btn-outline-primary form-btn" href="{{ path('user_index') }}">Revenir à la liste des uitlisateurs</a>
+</div>

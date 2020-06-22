@@ -61,11 +61,17 @@
 
    </div>
 
+
    <div class="container">
-      {{ include('project/_featuresList.html.twig') }}
+      {% if not project.id is null %}
+         {{ include('project/_featuresList.html.twig') }}
+      {% else %}
+         {{ form_widget(form.addFeature, {'attr': {'class': 'd-none'}}) }}
+      {% endif %}
    </div>
+
+
    <div class="button-panel container">
       <button class="btn btn-primary form-btn">{{ buttonName }}</button>
       <a class="btn btn-outline-primary form-btn" href="{{ path('project_index') }}">Revenir à la liste des projets</a>
    </div>
-
