@@ -1,0 +1,28 @@
+.pagination {
+    justify-content: center;
+}
+
+.pagination .page-link {
+    border: none;
+    margin-left: .15rem;
+    margin-right: .15rem;
+}
+
+.pagination .page-item.active .page-link {
+    color: $primary;
+    background-color: $background-color;
+    border-bottom: 1px solid $primary;
+}
+
+.pagination .page-link:hover {
+    color: $primary;
+    text-decoration: none;
+    background-color: $background-color;
+    border-bottom: 1px solid $primary;
+}
+
+.pagination .page-link:focus {
+    z-index: 1;
+    outline: 0;
+    box-shadow: none;
+}
