@@ -89,6 +89,8 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Le compte de l\'utilisateur a été supprimé avec succès');
         }
 
         return $this->redirectToRoute('user_index');

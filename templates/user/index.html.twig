@@ -23,9 +23,7 @@
                 <td class="text-center">{{ user.creationDate ? user.creationDate|date('Y-m-d') : '' }}</td>
                 <td class="text-center">{{ user.email }}</td>
                 <td class="btn-group">
-                    <button title="Editer" class="btn btn-sm btn-primary ml-2">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
+                    {{ include('user/_delete_form.html.twig') }}
                     <a title="Editer" class="btn btn-sm btn-primary ml-2" href="#">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
