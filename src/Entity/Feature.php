@@ -62,6 +62,13 @@ class Feature
      */
     private $projectFeatures;
 
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @Assert\Type("bool")
+     */
+    private $isStandard;
+
     public function __construct()
     {
         $this->projectFeatures = new ArrayCollection();
@@ -147,6 +154,18 @@ class Feature
                 $projectFeature->setFeature(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsStandard(): ?bool
+    {
+        return $this->isStandard;
+    }
+
+    public function setIsStandard(bool $isStandard): self
+    {
+        $this->isStandard = $isStandard;
 
         return $this;
     }
