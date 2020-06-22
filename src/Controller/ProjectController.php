@@ -10,8 +10,8 @@ use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
 use DateTime;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,15 +22,23 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProjectController extends AbstractController
 {
+    const NUMBER_PER_PAGE = 10;
+
     /**
      * @Route("/", name="project_index", methods={"GET"})
-     * @param ProjectRepository $projectRepository
+     * @param ProjectRepository  $project
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
      * @return Response
      */
-    public function index(ProjectRepository $projectRepository): Response
+    public function index(ProjectRepository $project, PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
+            'projects' => $paginator->paginate(
+                $project->findAll(),
+                $request->query->getInt('page', 1),
+                self::NUMBER_PER_PAGE
+            ),
         ]);
     }
 
@@ -79,7 +87,7 @@ class ProjectController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         $load = $projectCalculator->calculateProjectLoad($project);
