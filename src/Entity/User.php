@@ -36,7 +36,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\Length(min="5", max="15")
+     * @Assert\NotBlank()
      */
     private $password;
 
