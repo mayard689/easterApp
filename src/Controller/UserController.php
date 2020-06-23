@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\MailManager;
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,11 +35,15 @@ class UserController extends AbstractController
      * @Route("/new", name="user_new", methods={"GET","POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param MailManager $mailManager
      * @return Response
      * @throws Exception
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
+    public function new(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        MailManager $mailManager
+    ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -58,6 +63,15 @@ class UserController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Le compte de l\'utilisateur a été crée avec succès');
+
+            $sendParameter = [
+                'from' => 'no-reply <no-reply@easterapp.fr>',
+                'to' => $user->getFirstname() . ' ' . $user->getLastname() . '<' . $user->getEmail() . '>',
+                'subject' => 'Création de votre compte'
+            ];
+
+            $mailManager->sendMessage($sendParameter, 'user/notification/notification_account.html.twig');
+
             return $this->redirectToRoute('user_index');
         }
 
