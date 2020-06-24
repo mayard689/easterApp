@@ -7,10 +7,10 @@ use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use App\Form\FeatureType;
 use App\Form\ProjectType;
+use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
 use DateTime;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,21 +69,22 @@ class ProjectController extends AbstractController
         Project $project,
         ProjectCalculator $projectCalculator,
         ProjectRepository $projectRepository,
+        ProjectFeatureRepository $projectFeatureRepository,
         string $variant = 'high'
     ): Response {
 
-        $featureCategories=$projectRepository->getCategories($project);
-
         $form = $this->createForm(ProjectType::class, $project);
+        $featuresToBeShown=$projectFeatureRepository->findProjectFeatures($project, $variant);
+        $form->get('projectFeatures')->setData($featuresToBeShown);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('project_index');
         }
 
         $load = $projectCalculator->calculateProjectLoad($project);
+        $featureCategories=$projectRepository->getCategories($project);
 
         return $this->render('project/edit.html.twig', [
             'project' => $project,
