@@ -12,7 +12,9 @@ use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,15 +24,23 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProjectController extends AbstractController
 {
+    const NUMBER_PER_PAGE = 10;
+
     /**
      * @Route("/", name="project_index", methods={"GET"})
-     * @param ProjectRepository $projectRepository
+     * @param ProjectRepository  $project
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
      * @return Response
      */
-    public function index(ProjectRepository $projectRepository): Response
+    public function index(ProjectRepository $project, PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
+            'projects' => $paginator->paginate(
+                $project->findAll(),
+                $request->query->getInt('page', 1),
+                self::NUMBER_PER_PAGE
+            ),
         ]);
     }
 
@@ -80,7 +90,16 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('project_index');
+
+            /**
+             * @var SubmitButton
+             */
+            $button = $form->get('addFeature');
+            $route = $button->isClicked()
+                ? 'project_feature_add'
+                : 'project_edit';
+
+            return $this->redirectToRoute($route, ['id' => $project->getId()]);
         }
 
         $load = $projectCalculator->calculateProjectLoad($project);
@@ -131,10 +150,15 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("Project/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
+     * @Route("/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
      */
-    public function addProjectFeature(Project $project, Request $request): Response
-    {
+    public function addProjectFeature(
+        Request $request,
+        Project $project,
+        ProjectCalculator $projectCalculator,
+        ProjectRepository $projectRepository
+    ): Response {
+
         $feature = new Feature();
         $form = $this->createForm(FeatureType::class, $feature);
         $form->handleRequest($request);
@@ -164,6 +188,7 @@ class ProjectController extends AbstractController
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
             'form' => $form->createView(),
+            'id'=>$project->getId(),
         ]);
     }
 }

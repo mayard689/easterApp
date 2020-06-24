@@ -1,5 +1,6 @@
 @import "vars";
 @import "navbar";
+@import "paginator";
 @import "~bootstrap/scss/bootstrap";
 
 @font-face {
@@ -11,6 +12,10 @@ body {
     background-color: $background-color;
     color:$dark;
     display:flex;
+    font-family: 'Helvetica';
+}
+
+.btn{
     font-family: 'Helvetica';
 }
 

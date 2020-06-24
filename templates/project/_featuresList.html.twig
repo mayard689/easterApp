@@ -10,7 +10,8 @@
     </thead>
     <tbody>
 
-    {% for featureCategory in featureCategories %}
+
+    {% for featureCategory in featureCategories??{} %}
         <tr>
             <td colspan="4" class="feature-category w-50">
                 <div><a class="collapse-toggler" data-toggle="collapse" href="#collapseDescription{{ featureCategory.id }}" aria-expanded="true" aria-controls="collapseDescription{{ featureCategory.id }}">
