@@ -7,12 +7,14 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Service\MailManager;
 use DateTime;
+use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 /**
  * @Route("/user")
@@ -36,13 +38,18 @@ class UserController extends AbstractController
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param MailManager $mailManager
+     * @param UserRepository $userRepository
+     * @param TokenGeneratorInterface $tokenGenerator
      * @return Response
+     * @throws NonUniqueResultException
      * @throws Exception
      */
     public function new(
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
-        MailManager $mailManager
+        MailManager $mailManager,
+        UserRepository $userRepository,
+        TokenGeneratorInterface $tokenGenerator
     ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -58,7 +65,13 @@ class UserController extends AbstractController
                 )
             );
 
-            $user->setCreationDate(new DateTime());
+            $date = new DateTime();
+            $token = $tokenGenerator->generateToken();
+            $user->setCreationDate($date);
+            $user->setToken($tokenGenerator->generateToken());
+            $user->setPasswordRequestedAt($date);
+            $user->setToken($token);
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -74,11 +87,13 @@ class UserController extends AbstractController
                 'title' => 'Bienvenue',
                 'bodyText' => 'Pour finaliser la création de votre compte, il faut renseigner votre mot de passe. 
                 Pour cela, vous pouvez cliquer sur le bouton ci-dessous.',
-                'pageLink' => 'project_index',
-                'buttonName' => 'Saisir mon mot de passe'
+                'pageLink' => 'changePassword_index',
+                'buttonName' => 'Saisir mon mot de passe',
+                'userId' => $userRepository->findLastInserted(),
+                'userToken' => $token
             ];
 
-            $mailManager->sendMessage($sendParameter, 'user/notification/notification_account.html.twig', $bodyData);
+            $mailManager->sendMessage($sendParameter, 'user/notification/notification.html.twig', $bodyData);
 
             return $this->redirectToRoute('user_index');
         }
