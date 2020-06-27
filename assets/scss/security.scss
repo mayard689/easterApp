@@ -1,0 +1,43 @@
+@import "vars";
+
+body{
+    background-color:#E9FAFF;
+}
+
+.form-card .card {
+    padding: 31%;
+    margin-top: -27%;
+}
+
+.form-card h2, .form-card p {
+    color: $dark;
+}
+.form-card h2 {
+    color: $dark;
+    text-transform: lowercase;
+}
+
+.form-card h2:first-letter {
+    text-transform: capitalize;
+}
+
+.form-card .card-body{
+    padding: 15%;
+    margin-bottom: -50%;
+    background: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.form-card img{
+    width:40%;
+    margin-bottom:10%;
+}
+
+.form-card form label {
+    color: $dark;
+    text-transform: lowercase;
+}
+
+.form-card form label:first-letter {
+    text-transform: capitalize;
+}
