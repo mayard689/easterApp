@@ -223,14 +223,14 @@
                           <tr>
                             <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                               <div style="font-family:Ubuntu, Helvetica Helvetica Neue, Arial, sans-serif;font-size:20px;line-height:1;text-align:center;color:#222222;">
-                                <h2>Bienvenue</h2>
+                                <h2>{{ title }}</h2>
                               </div>
                             </td>
                           </tr>
                           <tr>
                             <td align="left" style="font-size:0px;padding:0 25px;word-break:break-word;">
                               <div style="font-family:Ubuntu, Helvetica Helvetica Neue, Arial, sans-serif;font-size:18px;line-height:1;text-align:left;color:#000000;">
-                                <p> Pour finaliser la création de votre compte. Il faut renseigner votre mot de passe. Pour cela, vous pouvez cliquer sur le bouton ci-dessous. </p>
+                                <p>{{ bodyText }}</p>
                               </div>
                             </td>
                           </tr>
@@ -288,8 +288,8 @@
                               <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
                                 <tr>
                                   <td align="center" bgcolor="#046077" role="presentation" style="border:none;border-radius:2px;cursor:auto;mso-padding-alt:15px 30px;background:#046077;" valign="middle">
-                                    <a href="{{ absolute_url(path('project_index')) }}" style="display: inline-block; background: #046077; font-family: Ubuntu, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 120%; margin: 0; text-transform: none; padding: 15px 30px; mso-padding-alt: 0px; border-radius: 2px; text-decoration: none; color: inherit;" target="_blank">
-                                      <span style="color: #ffffff;">Saisir mon mot de passe</span>
+                                    <a href="{{ absolute_url(path(pageLink)) }}" style="display: inline-block; background: #046077; font-family: Ubuntu, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 120%; margin: 0; text-transform: none; padding: 15px 30px; mso-padding-alt: 0px; border-radius: 2px; text-decoration: none; color: inherit;" target="_blank">
+                                      <span style="color: #ffffff;">{{ buttonName }}</span>
                                     </a>
                                   </td>
                                 </tr>

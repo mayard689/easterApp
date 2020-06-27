@@ -70,7 +70,15 @@ class UserController extends AbstractController
                 'subject' => 'Création de votre compte'
             ];
 
-            $mailManager->sendMessage($sendParameter, 'user/notification/notification_account.html.twig');
+            $bodyData = [
+                'title' => 'Bienvenue',
+                'bodyText' => 'Pour finaliser la création de votre compte, il faut renseigner votre mot de passe. 
+                Pour cela, vous pouvez cliquer sur le bouton ci-dessous.',
+                'pageLink' => 'project_index',
+                'buttonName' => 'Saisir mon mot de passe'
+            ];
+
+            $mailManager->sendMessage($sendParameter, 'user/notification/notification_account.html.twig', $bodyData);
 
             return $this->redirectToRoute('user_index');
         }

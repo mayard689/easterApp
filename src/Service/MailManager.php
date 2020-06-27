@@ -22,9 +22,10 @@ class MailManager
      *
      * @param array $sendParameter
      * @param string $bodyHtmlFile
+     * @param array $bodyData
      * @throws Exception
      */
-    public function sendMessage(array $sendParameter, string $bodyHtmlFile)
+    public function sendMessage(array $sendParameter, string $bodyHtmlFile, array $bodyData = [])
     {
         $error = '';
 
@@ -32,7 +33,9 @@ class MailManager
             ->from(Address::fromString($sendParameter['from']))
             ->to(Address::fromString($sendParameter['to']))
             ->subject($sendParameter['subject'])
-            ->htmlTemplate($bodyHtmlFile);
+            ->htmlTemplate($bodyHtmlFile)
+            ->context($bodyData)
+        ;
 
         try {
             $this->mailer->send($email);
