@@ -44,7 +44,7 @@ class MailManager
         }
 
         if (!empty($error)) {
-            throw new Exception("Une erreur a été détecté, ce qui a empêché l'envoie du mail : " . $error);
+            throw new Exception("Une erreur a été détectée, ce qui a empêché l'envoi du mail : " . $error);
         }
     }
 }

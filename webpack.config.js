@@ -26,6 +26,7 @@ Encore
     .addEntry('newProject', './assets/scss/newProject.scss')
     .addStyleEntry('user', './assets/scss/user.scss')
     .addStyleEntry('security', './assets/scss/security.scss')
+    .addEntry('securityjs', './assets/js/security.js')
     // .addEntry('page1', './assets/js/page1.js')
     // .addEntry('page2', './assets/js/page2.js')
 
