@@ -79,12 +79,12 @@ class ProjectController extends AbstractController
         Project $project,
         ProjectCalculator $projectCalculator,
         ProjectRepository $projectRepository,
-        ProjectFeatureRepository $projectFeatureRepository,
+        ProjectFeatureRepository $projectFeatureRepos,
         string $variant = 'high'
     ): Response {
 
         $form = $this->createForm(ProjectType::class, $project);
-        $featuresToBeShown=$projectFeatureRepository->findProjectFeatures($project, $variant);
+        $featuresToBeShown=$projectFeatureRepos->findProjectFeatures($project, $variant);
         $form->get('projectFeatures')->setData($featuresToBeShown);
         $form->handleRequest($request);
 
