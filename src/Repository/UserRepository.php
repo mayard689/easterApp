@@ -38,8 +38,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Repository method for finding the newest inserted
-     * entry inside the database.
+     * Repository method for finding the newest inserted entry inside the database.
+     *
      * @throws NonUniqueResultException
      */
     public function findLastInserted()

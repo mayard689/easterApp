@@ -32,10 +32,8 @@
             {{ form_widget(form.roles) }}
         </div>
     </div>
-
-    {{ form_widget(form.password, {'attr': {'class': 'd-none', 'value' : 'defaultPassword'}}) }}
 </div>
 <div class="button-panel container">
     <button class="btn btn-primary form-btn">{{ buttonName }}</button>
-    <a class="btn btn-outline-primary form-btn" href="{{ path('user_index') }}">Revenir à la liste des uitlisateurs</a>
+    <a class="btn btn-outline-primary form-btn" href="{{ path('user_index') }}">Revenir à la liste des utilisateurs</a>
 </div>

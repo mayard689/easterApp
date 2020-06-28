@@ -4,10 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ChangePasswordType;
-use App\Form\UserType;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -55,7 +53,9 @@ class ChangePasswordController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre mot de passe a été pris en compte');
+            $this->addFlash('success', 'Votre mot de passe a été pris en compte. Vous pouvez 
+                vous connecter dès maintenant.
+            ');
 
             return $this->redirectToRoute('project_index');
         }

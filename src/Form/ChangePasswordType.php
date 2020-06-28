@@ -34,7 +34,7 @@ class ChangePasswordType extends AbstractType
                     ),
                     new Regex(
                         [
-                            'pattern' => '^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$',
+                            'pattern' => '/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/',
                             'message' => 'Le mot de passe doit contenir au minimum 1
                                 chiffre, 1 majuscule, et un caractère spécial.'
                         ]
