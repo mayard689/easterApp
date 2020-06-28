@@ -1,5 +1,6 @@
 const button = document.querySelectorAll('.button_password');
 
+// eslint-disable-next-line no-plusplus
 for (let i = 0; i < button.length; i++) {
     button[i].addEventListener('click', () => {
         const input = document.getElementsByClassName('form-control');
