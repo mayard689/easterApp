@@ -89,7 +89,7 @@ class UserController extends AbstractController
                 Pour cela, vous pouvez cliquer sur le bouton ci-dessous.',
                 'pageLink' => 'changePassword_index',
                 'buttonName' => 'Saisir mon mot de passe',
-                'userId' => $userRepository->findLastInserted(),
+                'userId' => $userRepository->findLastInserted()['id'],
                 'userToken' => $token
             ];
 
