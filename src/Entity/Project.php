@@ -212,19 +212,4 @@ class Project
 
         return $this;
     }
-/**
-    public function getHighProjectFeaturess(): Collection
-    {
-        return $this->projectRepository->getProjectFeatures($this, 'high');
-    }
-
-    public function getMidProjectFeaturess(): Collection
-    {
-        return $this->projectRepository->getProjectFeatures($this,'mid');
-    }
-
-    public function getLowProjectFeaturess(): Collection
-    {
-        return $this->projectRepository->getProjectFeatures($this,'low');
-    }**/
 }

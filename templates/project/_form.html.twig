@@ -61,27 +61,28 @@
 
    </div>
 
-
    <div class="container">
+      {% if not project.id is null %}
+         <div class="table-tools d-flex justify-content-between">
+            <nav class="nav nav-tabs">
+               {% for variantItem in variants??{} %}
+                  <a class="nav-item nav-link {{ (variant == variantItem) ? 'active' : '' }}" href="{{ path('project_edit', {'id': project.id, 'variant':variantItem}) }}">
+                     {{ variantItem|capitalize }}
+                  </a>
+               {%  endfor %}
+            </nav>
 
-      <div class="table-tools d-flex justify-content-between">
-         <nav class="nav nav-tabs">
-            {% for variantItem in variants %}
-               <a class="nav-item nav-link {{ (variant == variantItem) ? 'active' : '' }}" href="{{ path('project_edit', {'id': project.id, 'variant':variantItem}) }}">
-                  {{ variantItem|capitalize }}
-               </a>
-            {%  endfor %}
-         </nav>
-         
-         <i class='btn btn-primary fas fa-plus-circle float-right d-flex align-items-center flex-row-reverse' for="project_addFeature">
-             {{ form_widget(form.addFeature, {'attr': {'class': 'pb-0 pt-0 btn btn-primary'}}) }}
-         </i>
-      </div>
+            <i class='btn btn-primary fas fa-plus-circle float-right d-flex align-items-center flex-row-reverse' for="project_addFeature">
+                {{ form_widget(form.addFeature, {'attr': {'class': 'pb-0 pt-0 btn btn-primary'}}) }}
+            </i>
+         </div>
 
-      <div class="tab-content">
-         {{ include('project/_featuresList.html.twig') }}
-      </div>
-
+         <div class="tab-content">
+            {{ include('project/_featuresList.html.twig') }}
+         </div>
+      {% else %}
+         {{ form_widget(form.addFeature, {'attr': {'class': 'd-none'}}) }}
+      {% endif %}
    </div>
 
 
