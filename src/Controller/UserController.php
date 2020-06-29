@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use DateTime;
 use Exception;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,15 +19,23 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserController extends AbstractController
 {
+    const NUMBER_PER_PAGE = 10;
+
     /**
      * @Route("/", name="user_index", methods={"GET"})
      * @param UserRepository $userRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findBy([], ['lastname' => 'ASC', 'firstname' => 'ASC']),
+            'users' => $paginator->paginate(
+                $userRepository->findBy([], ['lastname' => 'ASC', 'firstname' => 'ASC']),
+                $request->query->getInt('page', 1),
+                self::NUMBER_PER_PAGE
+            )
         ]);
     }
 
