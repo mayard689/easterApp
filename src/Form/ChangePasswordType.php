@@ -39,7 +39,9 @@ class ChangePasswordType extends AbstractType
                                 chiffre, 1 majuscule, et un caractère spécial.'
                         ]
                     )
-                ]
+                ],
+                'help' => 'Le mot de passe doit contenir 8 caractères, dont 1
+                            chiffre, 1 majuscule, et un caractère spécial.'
             ])
         ;
     }

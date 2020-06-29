@@ -25,9 +25,9 @@ body {
 .form-card .card-body{
     padding: 15%;
     margin-bottom: -50%;
-    background: #fff;
+    background: $light;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba($dark, 0.2), 0 6px 20px 0 rgba($dark, 0.19);
 }
 
 .form-card img{
