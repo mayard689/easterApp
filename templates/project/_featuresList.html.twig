@@ -1,7 +1,3 @@
-<i class='btn btn-primary fas fa-plus-circle float-right d-flex align-items-center flex-row-reverse' for="project_addFeature">
-    {{ form_widget(form.addFeature, {'attr': {'class': 'pb-0 pt-0 btn btn-primary'}}) }}
-</i>
-
 <table class="table table-hover feature-list">
 
     <thead>
@@ -14,8 +10,7 @@
     </thead>
     <tbody>
 
-
-    {% for featureCategory in featureCategories??{} %}
+    {% for featureCategory in featureCategories %}
         <tr>
             <td colspan="4" class="feature-category w-50">
                 <div><a class="collapse-toggler" data-toggle="collapse" href="#collapseDescription{{ featureCategory.id }}" aria-expanded="true" aria-controls="collapseDescription{{ featureCategory.id }}">
@@ -31,7 +26,7 @@
             {%  endif %}
         {% endfor %}
     {% else %}
-        <td>Pas de fonctionnalité enregistrées !</td>
+        <td>Pas de fonctionnalité enregistrée !</td>
     {% endfor %}
 
     </tbody>

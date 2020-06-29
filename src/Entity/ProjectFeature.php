@@ -58,6 +58,21 @@ class ProjectFeature
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isHigh;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isMiddle;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isLow;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +134,42 @@ class ProjectFeature
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getIsHigh(): ?bool
+    {
+        return $this->isHigh;
+    }
+
+    public function setIsHigh(bool $isHigh): self
+    {
+        $this->isHigh = $isHigh;
+
+        return $this;
+    }
+
+    public function getIsMiddle(): ?bool
+    {
+        return $this->isMiddle;
+    }
+
+    public function setIsMiddle(bool $isMiddle): self
+    {
+        $this->isMiddle = $isMiddle;
+
+        return $this;
+    }
+
+    public function getIsLow(): ?bool
+    {
+        return $this->isLow;
+    }
+
+    public function setIsLow(bool $isLow): self
+    {
+        $this->isLow = $isLow;
 
         return $this;
     }

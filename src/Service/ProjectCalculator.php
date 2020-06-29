@@ -12,6 +12,7 @@ class ProjectCalculator
     const EXPERT_SPEED_COEFFICIENT=1;
     const CONFIRMED_SPEED_COEFFICIENT=1.5;
     const JUNIOR_SPEED_COEFFICIENT=2;
+    const VARIANTS=['low', 'middle', 'high'];
 
     public function calculateProjectLoad(Project $project) : float
     {

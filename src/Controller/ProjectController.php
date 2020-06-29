@@ -7,6 +7,7 @@ use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use App\Form\FeatureType;
 use App\Form\ProjectType;
+use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
 use DateTime;
@@ -71,16 +72,20 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit/{variant<high|middle|low>}", name="project_edit", methods={"GET","POST"})
      */
     public function edit(
         Request $request,
         Project $project,
         ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository
+        ProjectRepository $projectRepository,
+        ProjectFeatureRepository $projectFeatureRepos,
+        string $variant = 'high'
     ): Response {
 
         $form = $this->createForm(ProjectType::class, $project);
+        $featuresToBeShown=$projectFeatureRepos->findProjectFeatures($project, $variant);
+        $form->get('projectFeatures')->setData($featuresToBeShown);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -105,6 +110,8 @@ class ProjectController extends AbstractController
             'load' => $load,
             'form' => $form->createView(),
             'featureCategories' => $featureCategories,
+            'variant' => $variant,
+            'variants' => ProjectCalculator::VARIANTS,
         ]);
     }
 
@@ -163,6 +170,10 @@ class ProjectController extends AbstractController
             $projectFeature->setDescription($feature->getDescription());
             $projectFeature->setDay($feature->getDay());
             $projectFeature->setCategory($feature->getCategory());
+
+            $projectFeature->setIsHigh(true);
+            $projectFeature->setIsMiddle(true);
+            $projectFeature->setIsLow(true);
 
             $feature->setIsStandard(false);
 
