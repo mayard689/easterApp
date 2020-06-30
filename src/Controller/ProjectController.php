@@ -25,6 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectController extends AbstractController
 {
     const NUMBER_PER_PAGE = 10;
+    const VARIANTS=['low', 'middle', 'high'];
 
     /**
      * @Route("/", name="project_index", methods={"GET"})
@@ -102,7 +103,7 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute($route, ['id' => $project->getId()]);
         }
 
-        $load = $projectCalculator->calculateProjectLoad($project);
+        $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
         $featureCategories=$projectRepository->getCategories($project);
 
         return $this->render('project/edit.html.twig', [
@@ -111,7 +112,7 @@ class ProjectController extends AbstractController
             'form' => $form->createView(),
             'featureCategories' => $featureCategories,
             'variant' => $variant,
-            'variants' => ProjectCalculator::VARIANTS,
+            'variants' => self::VARIANTS,
         ]);
     }
 

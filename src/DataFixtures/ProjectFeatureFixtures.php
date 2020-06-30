@@ -111,6 +111,10 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
         $projectFeature->setDescription($this->faker->paragraph(self::DESCRIPTION_LENGTH));
         $projectFeature->setDay($this->faker->randomFloat(2, 0, self::MAX_FEATURE_LOAD));
 
+        $projectFeature->setIsHigh($this->faker->boolean());
+        $projectFeature->setIsMiddle($this->faker->boolean());
+        $projectFeature->setIsLow($this->faker->boolean());
+
         return $projectFeature;
     }
 

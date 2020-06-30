@@ -10,11 +10,9 @@ class ProjectCalculator
     const EXPERT_SPEED_COEFFICIENT=1;
     const CONFIRMED_SPEED_COEFFICIENT=1.5;
     const JUNIOR_SPEED_COEFFICIENT=2;
-    const VARIANTS=['low', 'middle', 'high'];
 
-    public function calculateProjectLoad(Project $project) : float
+    public function calculateProjectLoad(Project $project, $projectFeatures) : float
     {
-
         //calculate project team mean velocity
         $velocity=$project->getExpert()/100 * self::EXPERT_SPEED_COEFFICIENT
             + $project->getConfirmed()/100 * self::CONFIRMED_SPEED_COEFFICIENT
@@ -22,9 +20,8 @@ class ProjectCalculator
 
         //get theoretical (expert based) project load
         $theoreticalLoad=0;
-        $features=$project->getProjectFeatures();
-        foreach ($features as $feature) {
-            $theoreticalLoad+=$feature->getDay();
+        foreach ($projectFeatures as $projectFeature) {
+            $theoreticalLoad+=$projectFeature->getDay();
         }
 
         //return
