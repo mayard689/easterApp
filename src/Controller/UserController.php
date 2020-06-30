@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\MailManager;
 use DateTime;
+use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 /**
  * @Route("/user")
@@ -43,11 +46,20 @@ class UserController extends AbstractController
      * @Route("/new", name="user_new", methods={"GET","POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param MailManager $mailManager
+     * @param UserRepository $userRepository
+     * @param TokenGeneratorInterface $tokenGenerator
      * @return Response
+     * @throws NonUniqueResultException
      * @throws Exception
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
+    public function new(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        MailManager $mailManager,
+        UserRepository $userRepository,
+        TokenGeneratorInterface $tokenGenerator
+    ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -62,11 +74,36 @@ class UserController extends AbstractController
                 )
             );
 
-            $user->setCreationDate(new DateTime());
+            $date = new DateTime();
+            $token = $tokenGenerator->generateToken();
+            $user->setCreationDate($date);
+            $user->setToken($tokenGenerator->generateToken());
+            $user->setPasswordRequestedAt($date);
+            $user->setToken($token);
+
             $entityManager->persist($user);
             $entityManager->flush();
 
             $this->addFlash('success', 'Le compte de l\'utilisateur a été crée avec succès');
+
+            $sendParameter = [
+                'from' => 'no-reply <no-reply@easterapp.fr>',
+                'to' => $user->getFirstname() . ' ' . $user->getLastname() . '<' . $user->getEmail() . '>',
+                'subject' => 'Création de votre compte'
+            ];
+
+            $bodyData = [
+                'title' => 'Bienvenue',
+                'bodyText' => 'Pour finaliser la création de votre compte, il faut renseigner votre mot de passe. 
+                Pour cela, vous pouvez cliquer sur le bouton ci-dessous.',
+                'pageLink' => 'changePassword_index',
+                'buttonName' => 'Saisir mon mot de passe',
+                'userId' => $userRepository->findLastInserted()['id'],
+                'userToken' => $token
+            ];
+
+            $mailManager->sendMessage($sendParameter, 'user/notification/notification.html.twig', $bodyData);
+
             return $this->redirectToRoute('user_index');
         }
 

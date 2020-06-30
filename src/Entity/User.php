@@ -23,8 +23,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank
-     * @Assert\Length(max=180)
+     * @Assert\NotBlank(
+     *     message="L'adresse email doit être renseignée",
+     *     groups={"User"}
+     * )
+     * @Assert\Length(
+     *     max= 180,
+     *     maxMessage="L\'adresse email ne doit pas dépassée les {{ limit }} caractères",
+     *     groups={"User"}
+     * )
+     * @Assert\Email(
+     *     message="L'adresse mail saisie n'est pas une adresse mail valide",
+     *     groups={"User"}
+     * )
      */
     private $email;
 
@@ -36,21 +47,52 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *     message="Merci de saisir un mot de passe",
+     *     groups={"Password"}
+     * )
+     * @Assert\NotNull(
+     *     message="Merci de saisir un mot de passe",
+     *     groups={"Password"}
+     * )
+     * @Assert\Length(
+     *     min="8",
+     *     minMessage="Le mot de passe doit contenir minimum 8 caractères",
+     *     groups={"Pasword"}
+     * )
+     * @Assert\Regex(
+     *     pattern="/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/",
+     *     message="Le mot de passe doit contenir au minimum 1 chiffre, 1 majuscule, et un caractère spécial.",
+     *     groups={"Password"}
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank
-     * @Assert\Length(max=100)
+     * @Assert\NotBlank(
+     *     message="Le nom doit être renseigné",
+     *     groups={"User"}
+     * )
+     * @Assert\Length(
+     *     max="100",
+     *     maxMessage="Le nom ne doit pas dépassé les {{ limit }} caractères",
+     *     groups={"User"}
+     * )
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank
-     * @Assert\Length(max=100)
+     * @Assert\NotBlank(
+     *     message="Le prénom doit être renseigné",
+     *     groups={"User"}
+     * )
+     * @Assert\Length(
+     *     max="100",
+     *     maxMessage="Le prénom ne doit pas dépassé les {{ limit }} caractères",
+     *     groups={"User"}
+     * )
      */
     private $firstname;
 
@@ -58,6 +100,16 @@ class User implements UserInterface
      * @ORM\Column(type="date")
      */
     private $creationDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
 
     public function getId(): ?int
     {
@@ -169,6 +221,30 @@ class User implements UserInterface
     public function setCreationDate(\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    public function getPasswordRequestedAt(): ?\DateTimeInterface
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): self
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
