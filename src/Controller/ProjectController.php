@@ -116,9 +116,9 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_delete", methods={"DELETE"})
+     * @Route("/{id}/{variant<high|middle|low>}", name="project_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Project $project): Response
+    public function delete(Request $request, Project $project, string $variant = 'high'): Response
     {
         if ($this->isCsrfTokenValid('delete' . $project->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
