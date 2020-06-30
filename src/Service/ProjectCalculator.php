@@ -3,9 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Project;
-use App\Repository\ProjectRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\ProjectFeature;
 
 class ProjectCalculator
 {
@@ -31,5 +29,16 @@ class ProjectCalculator
 
         //return
         return round($theoreticalLoad * $velocity, 2);
+    }
+
+    public function isAlive(ProjectFeature $projectFeature)
+    {
+        foreach (self::VARIANTS as $variant) {
+            if ($projectFeature->{'getIs'.$variant}()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
