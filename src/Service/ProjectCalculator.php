@@ -31,7 +31,14 @@ class ProjectCalculator
         return round($theoreticalLoad * $velocity, 2);
     }
 
-    public function isAlive(ProjectFeature $projectFeature)
+    /**
+     * Check is he project feature is used by at least one variant in its related project
+     * Return true if it is used.
+     * Return false if no project variant uses the projectFeature.
+     * @param ProjectFeature $projectFeature
+     * @return bool
+     */
+    public function isActive(ProjectFeature $projectFeature)
     {
         foreach (self::VARIANTS as $variant) {
             if ($projectFeature->{'getIs'.$variant}()) {
