@@ -29,10 +29,11 @@
                 <td class="text-center">{{ user.email }}</td>
                 <td class="btn-group">
                     {{ include('user/_delete_form.html.twig') }}
-                    <a title="Editer" class="btn btn-sm btn-primary ml-2" href="#">
+                    <a class="btn btn-sm btn-primary ml-2" data-toggle="modal" data-target="#userEditModal{{ user.id }}" href="#" title="Modifier">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                 </td>
+                {{ render(controller('App\\Controller\\UserController::edit', {'id': user.id})) }}
             </tr>
         {% else %}
             <tr>
@@ -41,6 +42,7 @@
         {% endfor %}
         </tbody>
     </table>
+
     <div class="navigation my-5">
         {{ knp_pagination_render(users) }}
     </div>

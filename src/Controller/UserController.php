@@ -125,9 +125,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="user_edit", methods={"POST"})
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -138,7 +141,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_index');
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('user/modal_form.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);

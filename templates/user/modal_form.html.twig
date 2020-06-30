@@ -1,0 +1,20 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+    <div class="modal fade" id="userEditModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {{ form_start(form, {'action': path('user_edit', {'id': user.id})}) }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Modifier le rôle de l'utilisateur</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_widget(form) }}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
