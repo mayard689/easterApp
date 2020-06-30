@@ -131,23 +131,30 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("Feature/{id}", name="project_feature_delete", methods="POST")
+     * @Route("Feature/{id}/{variant<high|middle|low>}", name="project_feature_delete", methods="POST")
      * @param ProjectFeature         $projectFeature
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
     public function deleteProjectFeature(
         ProjectFeature $projectFeature,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ProjectCalculator $projectCalculator,
+        string $variant = 'high'
     ): Response {
-        $entityManager->remove($projectFeature);
-        $entityManager->flush();
+        $variant=ucfirst($variant);
+        $projectFeature->{'setIs'.$variant}(false);
 
+        // check if the projectFeature is used in at least one variant
+        // if projectFeature is not used anymore by any variant of the project, removes it
+        if (!$projectCalculator->isActive($projectFeature)) {
+            $entityManager->remove($projectFeature);
+        }
+        $entityManager->flush();
         /** @var Project */
         $project = $projectFeature->getProject();
         $projectId = $project->getId();
-
-        return $this->redirectToRoute('project_edit', ['id' => $projectId]);
+        return $this->redirectToRoute('project_edit', ['id' => $projectId, 'estimation'=>$variant]);
     }
 
     /**

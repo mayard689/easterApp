@@ -2,10 +2,9 @@
 
 namespace App\Service;
 
+use App\Controller\ProjectController;
 use App\Entity\Project;
-use App\Repository\ProjectRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\ProjectFeature;
 
 class ProjectCalculator
 {
@@ -28,5 +27,23 @@ class ProjectCalculator
 
         //return
         return round($theoreticalLoad * $velocity, 2);
+    }
+
+    /**
+     * Check is he project feature is used by at least one variant in its related project
+     * Return true if it is used.
+     * Return false if no project variant uses the projectFeature.
+     * @param ProjectFeature $projectFeature
+     * @return bool
+     */
+    public function isActive(ProjectFeature $projectFeature)
+    {
+        foreach (ProjectController::VARIANTS as $variant) {
+            if ($projectFeature->{'getIs'.$variant}()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
