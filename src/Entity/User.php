@@ -32,6 +32,10 @@ class User implements UserInterface
      *     maxMessage="L\'adresse email ne doit pas dépassée les {{ limit }} caractères",
      *     groups={"User"}
      * )
+     * @Assert\Email(
+     *     message="L'adresse mail saisie n'est pas une adresse mail valide",
+     *     groups={"User"}
+     * )
      */
     private $email;
 
