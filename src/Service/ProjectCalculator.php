@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Controller\ProjectController;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
 
@@ -37,7 +38,7 @@ class ProjectCalculator
      */
     public function isActive(ProjectFeature $projectFeature)
     {
-        foreach (self::VARIANTS as $variant) {
+        foreach (ProjectController::VARIANTS as $variant) {
             if ($projectFeature->{'getIs'.$variant}()) {
                 return true;
             }
