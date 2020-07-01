@@ -22,15 +22,17 @@
                 </a>
                 <a href="" class="link-hover">Mon profil</a>
             </li>
+            {% if is_granted('ROLE_ADMIN') %}
             <li>
-                <a href="" title="Gestion des utilisateurs">
+                <a href="{{ path('user_index') }}" title="Gestion des utilisateurs">
                     <i class="fas fa-user-friends"></i>
                 </a>
                 <a href="{{ path('user_index') }}" class="link-hover">Gestion des utilisateurs</a>
             </li>
+            {% endif %}
         </ul>
         <div class="exit">
-            <a href="" title="Se déconnecter"><i class="fas fa-sign-out-alt"></i></a>
+            <a href="{{ path('app_logout') }}" title="Se déconnecter"><i class="fas fa-sign-out-alt"></i></a>
         </div>
     </div>
 </nav>
