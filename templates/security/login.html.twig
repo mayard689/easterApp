@@ -15,12 +15,6 @@
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
-
-                    {% if app.user %}
-                        <div class="mb-3">
-                            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                        </div>
-                    {% endif %}
                     <div class="card-body">
                         <div class="text-center">
                             <img src="{{ asset('build/img/lock.png') }}" alt="car-key">
@@ -44,6 +38,9 @@
                             <div class="row form-group d-flex justify-content-center">
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                 <button class="btn btn-primary">Se connecter</button>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <a href="#">Mot de passe oublié</a>
                             </div>
                         </div>
                     </div>
