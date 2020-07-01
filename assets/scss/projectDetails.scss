@@ -5,6 +5,8 @@
     padding-bottom:$padding-large;
 }
 
+
+
 .skill {
     display: flex;
     align-items: baseline;
@@ -47,6 +49,9 @@
 .name, .description, .application, .ability, .load{
     display:flex;
     align-items: center;
+}
+.input-like {
+    padding: 0.5rem .75rem;
 }
 
 .input-align{

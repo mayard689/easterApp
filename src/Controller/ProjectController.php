@@ -74,6 +74,13 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/{id}/edit/{variant<high|middle|low>}", name="project_edit", methods={"GET","POST"})
+     * @param Request                  $request
+     * @param Project                  $project
+     * @param ProjectCalculator        $projectCalculator
+     * @param ProjectRepository        $projectRepository
+     * @param ProjectFeatureRepository $projectFeatureRepos
+     * @param string                   $variant
+     * @return Response
      */
     public function edit(
         Request $request,
@@ -89,6 +96,10 @@ class ProjectController extends AbstractController
         $form->get('projectFeatures')->setData($featuresToBeShown);
         $form->handleRequest($request);
 
+        $feature = new Feature();
+        $formFeature = $this->createForm(FeatureType::class, $feature);
+        $formFeature->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -103,6 +114,28 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute($route, ['id' => $project->getId()]);
         }
 
+        if ($formFeature->isSubmitted() && $formFeature->isValid()) {
+            $projectFeature=new ProjectFeature();
+            $projectFeature->setProject($project);
+            $projectFeature->setFeature($feature);
+            $projectFeature->setDescription($feature->getDescription());
+            $projectFeature->setDay($feature->getDay());
+            $projectFeature->setCategory($feature->getCategory());
+
+            $projectFeature->setIsHigh(true);
+            $projectFeature->setIsMiddle(true);
+            $projectFeature->setIsLow(true);
+
+            $feature->setIsStandard(false);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($projectFeature);
+            $entityManager->persist($feature);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
+        }
+
         $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
         $featureCategories=$projectRepository->getCategories($project);
 
@@ -110,6 +143,7 @@ class ProjectController extends AbstractController
             'project' => $project,
             'load' => $load,
             'form' => $form->createView(),
+            'formFeature' => $formFeature->createView(),
             'featureCategories' => $featureCategories,
             'variant' => $variant,
             'variants' => self::VARIANTS,
@@ -159,6 +193,11 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
+     * @param Request           $request
+     * @param Project           $project
+     * @param ProjectCalculator $projectCalculator
+     * @param ProjectRepository $projectRepository
+     * @return Response
      */
     public function addProjectFeature(
         Request $request,
