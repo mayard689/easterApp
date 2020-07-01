@@ -234,7 +234,7 @@ class ProjectController extends AbstractController
 
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
-            'form' => $form->createView(),
+            'formFeature' => $form->createView(),
             'id'=>$project->getId(),
         ]);
     }

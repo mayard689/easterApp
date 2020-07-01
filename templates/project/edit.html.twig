@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Détails du projet</h1>
 
-    {% include 'feature/_form.html.twig' %}
+    {% include 'project/_addFeatures.html.twig' %}
 
     {{ form_start(form) }}
     {% include 'project/_form.html.twig' with {'buttonName': 'Enregistrer les modifications'} %}
