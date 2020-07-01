@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangeRoleType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Service\MailManager;
@@ -132,7 +133,7 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user)
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(ChangeRoleType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
