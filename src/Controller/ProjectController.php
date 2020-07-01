@@ -7,6 +7,7 @@ use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use App\Form\FeatureType;
 use App\Form\ProjectType;
+use App\Form\SpecificFeatureType;
 use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
@@ -169,7 +170,7 @@ class ProjectController extends AbstractController
     ): Response {
 
         $feature = new Feature();
-        $form = $this->createForm(FeatureType::class, $feature);
+        $form = $this->createForm(SpecificFeatureType::class, $feature);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -180,10 +181,9 @@ class ProjectController extends AbstractController
             $projectFeature->setDay($feature->getDay());
             $projectFeature->setCategory($feature->getCategory());
 
-            $projectFeature->setIsHigh(false);
-            $projectFeature->setIsMiddle(false);
-            $projectFeature->setIsLow(false);
-            $projectFeature->{'setIs'.$variant}(true);
+            $projectFeature->setIsHigh($form['isHigh']->getData());
+            $projectFeature->setIsMiddle($form['isMiddle']->getData());
+            $projectFeature->setIsLow($form['isLow']->getData());
 
             $feature->setIsStandard(false);
 
@@ -194,6 +194,8 @@ class ProjectController extends AbstractController
 
             return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
         }
+
+        $form->get('is'.ucfirst($variant))->setData(true);
 
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
