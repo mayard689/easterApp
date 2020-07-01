@@ -100,7 +100,7 @@ class ProjectController extends AbstractController
                 ? 'project_feature_add'
                 : 'project_edit';
 
-            return $this->redirectToRoute($route, ['id' => $project->getId()]);
+            return $this->redirectToRoute($route, ['id' => $project->getId(), 'variant' => $variant]);
         }
 
         $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
@@ -158,13 +158,14 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
+     * @Route("/{id}/add-feature/{variant<high|middle|low>}", name="project_feature_add", methods={"GET", "POST"})
      */
     public function addProjectFeature(
         Request $request,
         Project $project,
         ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository
+        ProjectRepository $projectRepository,
+        string $variant = 'high'
     ): Response {
 
         $feature = new Feature();
@@ -179,9 +180,10 @@ class ProjectController extends AbstractController
             $projectFeature->setDay($feature->getDay());
             $projectFeature->setCategory($feature->getCategory());
 
-            $projectFeature->setIsHigh(true);
-            $projectFeature->setIsMiddle(true);
-            $projectFeature->setIsLow(true);
+            $projectFeature->setIsHigh(false);
+            $projectFeature->setIsMiddle(false);
+            $projectFeature->setIsLow(false);
+            $projectFeature->{'setIs'.$variant}(true);
 
             $feature->setIsStandard(false);
 
