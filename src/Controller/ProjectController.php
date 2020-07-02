@@ -105,16 +105,7 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            /**
-             * @var SubmitButton
-             */
-            $button = $form->get('addFeature');
-            $route = $button->isClicked()
-                ? 'project_feature_add'
-                : 'project_edit';
-
-            return $this->redirectToRoute($route, ['id' => $project->getId()]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         if ($formFeature->isSubmitted() && $formFeature->isValid()) {
