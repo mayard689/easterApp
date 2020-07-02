@@ -1,31 +1,13 @@
-const button = document.querySelectorAll('.button_password');
+const buttons = document.querySelectorAll('.button_password');
 
-// eslint-disable-next-line no-plusplus
-for (let i = 0; i < button.length; i++) {
-    button[i].addEventListener('click', () => {
-        let input = document.getElementsByClassName('form-control');
-        const buttonIcon = document.getElementsByClassName('fas');
+// eslint-disable-next-line no-restricted-syntax
+for (const button of buttons) {
+    button.addEventListener('click', (e) => {
+        const inputPassword = button.parentElement.parentElement.firstElementChild;
+        const newInputType = inputPassword.getAttribute('type') === 'text' ? 'password' : 'text';
 
-        if (buttonIcon[i].classList[1] === 'fa-eye') {
-            buttonIcon[i].classList.remove('fa-eye');
-            buttonIcon[i].classList.add('fa-eye-slash');
-
-            if (document.getElementById('inputPassword') != null) {
-                input = document.getElementById('inputPassword');
-                input.setAttribute('type', 'text');
-            } else {
-                input[i].setAttribute('type', 'text');
-            }
-        } else {
-            buttonIcon[i].classList.remove('fa-eye-slash');
-            buttonIcon[i].classList.add('fa-eye');
-
-            if (document.getElementById('inputPassword') != null) {
-                input = document.getElementById('inputPassword');
-                input.setAttribute('type', 'password');
-            } else {
-                input[i].setAttribute('type', 'password');
-            }
-        }
+        button.firstChild.classList.toggle('fa-eye');
+        button.firstChild.classList.toggle('fa-eye-slash');
+        inputPassword.setAttribute('type', newInputType);
     });
 }
