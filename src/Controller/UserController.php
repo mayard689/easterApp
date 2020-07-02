@@ -126,12 +126,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"POST"})
+     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
      * @return Response
      */
-    public function edit(Request $request, User $user)
+    public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(ChangeRoleType::class, $user);
         $form->handleRequest($request);
@@ -139,10 +139,12 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Le rôle de l\'utilisateur a bien été changé.');
+
             return $this->redirectToRoute('user_index');
         }
 
-        return $this->render('user/modal_form.html.twig', [
+        return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);

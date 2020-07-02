@@ -10,14 +10,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ChangeRoleType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Utilisateur' => 'ROLE_APPUSER',
-                    'Administrateur' => 'ROLE_ADMIN'
-                ],
+                'choices' => User::ROLES_AVAILABLE,
                 'expanded' => true,
                 'multiple' => true,
                 'label' => 'Rôles'
@@ -29,6 +27,7 @@ class ChangeRoleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'validation_groups' => ['UpdateUser']
         ]);
     }
 }

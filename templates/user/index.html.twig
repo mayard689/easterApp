@@ -17,6 +17,7 @@
                 <th class="text-center">Prénom</th>
                 <th class="text-center">Date d'entrée</th>
                 <th class="text-center">Email</th>
+                <th class="text-center">Role</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
@@ -27,13 +28,13 @@
                 <td class="text-center">{{ user.firstname }}</td>
                 <td class="text-center">{{ user.creationDate ? user.creationDate|date('Y-m-d') : '' }}</td>
                 <td class="text-center">{{ user.email }}</td>
+                <td class="text-center">{{ user.roles[0] == 'ROLE_APPUSER' ? 'Utilisateur' : 'Administrateur' }}</td>
                 <td class="btn-group">
                     {{ include('user/_delete_form.html.twig') }}
-                    <a class="btn btn-sm btn-primary ml-2" data-toggle="modal" data-target="#userEditModal{{ user.id }}" href="#" title="Modifier">
-                        <i class="fas fa-pencil-alt"></i>
+                    <a class="btn btn-sm btn-primary ml-2" href="{{ path('user_edit', {'id': user.id}) }}" title="Modifier le rôle de l'utilisateur">
+                        <i class="fas fa-lock"></i>
                     </a>
                 </td>
-                {{ render(controller('App\\Controller\\UserController::edit', {'id': user.id})) }}
             </tr>
         {% else %}
             <tr>
