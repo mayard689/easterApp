@@ -7,6 +7,7 @@ use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use App\Form\FeatureType;
 use App\Form\ProjectType;
+use App\Form\SpecificFeatureType;
 use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
@@ -111,7 +112,7 @@ class ProjectController extends AbstractController
                 ? 'project_feature_add'
                 : 'project_edit';
 
-            return $this->redirectToRoute($route, ['id' => $project->getId()]);
+            return $this->redirectToRoute($route, ['id' => $project->getId(), 'variant' => $variant]);
         }
 
         if ($formFeature->isSubmitted() && $formFeature->isValid()) {
@@ -192,7 +193,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
+     * @Route("/{id}/add-feature/{variant<high|middle|low>}", name="project_feature_add", methods={"GET", "POST"})
      * @param Request           $request
      * @param Project           $project
      * @param ProjectCalculator $projectCalculator
@@ -203,11 +204,12 @@ class ProjectController extends AbstractController
         Request $request,
         Project $project,
         ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository
+        ProjectRepository $projectRepository,
+        string $variant = 'high'
     ): Response {
 
         $feature = new Feature();
-        $form = $this->createForm(FeatureType::class, $feature);
+        $form = $this->createForm(SpecificFeatureType::class, $feature);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -218,9 +220,9 @@ class ProjectController extends AbstractController
             $projectFeature->setDay($feature->getDay());
             $projectFeature->setCategory($feature->getCategory());
 
-            $projectFeature->setIsHigh(true);
-            $projectFeature->setIsMiddle(true);
-            $projectFeature->setIsLow(true);
+            $projectFeature->setIsHigh($form['isHigh']->getData());
+            $projectFeature->setIsMiddle($form['isMiddle']->getData());
+            $projectFeature->setIsLow($form['isLow']->getData());
 
             $feature->setIsStandard(false);
 
@@ -231,6 +233,8 @@ class ProjectController extends AbstractController
 
             return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
         }
+
+        $form->get('is'.ucfirst($variant))->setData(true);
 
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
