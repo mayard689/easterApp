@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Application;
 use App\Entity\Project;
 
+use App\Entity\Quotation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -33,6 +34,11 @@ class ProjectType extends AbstractType
                 'mapped' => false,
             ])
             ->add('addFeature', SubmitType::class, ['label' => 'Ajouter une fonctionnalité'])
+            ->add('quotation', EntityType::class, [
+                'class' => Quotation::class,
+                'choice_label' => 'name',
+                'label' => 'Chiffrage'
+            ])
         ;
     }
 

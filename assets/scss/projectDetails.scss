@@ -1,8 +1,8 @@
 @import "vars";
 
-.project-header{
-    padding-top:$padding-large;
-    padding-bottom:$padding-large;
+.project-header {
+    padding-top: $padding-large;
+    padding-bottom: $padding-large;
 }
 
 .skill {
@@ -30,42 +30,42 @@
     }
 }
 
-.description{
-    textarea{
-        width:100%;
+.description {
+    textarea {
+        width: 100%;
     }
 }
 
-.normal textarea{
-    font-size:$size;
+.normal textarea {
+    font-size: $size;
 }
 
-.small{
-    font-size:$size-small;
+.small {
+    font-size: $size-small;
 }
 
-.name, .description, .application, .ability, .load{
-    display:flex;
+.name, .description, .application, .ability, .load {
+    display: flex;
     align-items: center;
 }
 
-.input-align{
-    input{
+.input-align {
+    input {
         width: 2.5em;
-        text-align:center;
+        text-align: center;
     }
 }
 
-.hidden-field{
-    display:none;
+.hidden-field {
+    display: none;
 }
 
-.project-header .form-group:last-child{
-    margin-bottom:0;
+.project-header .form-group:last-child {
+    margin-bottom: 0;
 }
 
 .collapse-toggler:after {
-    font-family: FontAwesome;
+    font-family: FontAwesome, serif;
     content: "\f0d7";
     float: right;
     color: grey;
@@ -73,28 +73,28 @@
 }
 
 .collapse-toggler.collapsed:after {
-    transform:rotateZ(0.25turn);
+    transform: rotateZ(0.25turn);
     transition-duration: 0.5s;
 
 }
 
-.feature-line{
-    transition:5s;
+.feature-line {
+    transition: 5s;
 }
 
-.feature-category{
-    background:$light;
- }
+.feature-category {
+    background: $light;
+}
 
-.category{
+.category {
     border-radius: 100px;
     border: none;
     text-align: center;
-    color:$light;
+    color: $light;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    font-size:10px;
+    font-size: 10px;
     font-weight: bold;
     background: $primary;
 
@@ -105,4 +105,30 @@
     &:hover {
         background: darken($primary, 5%);
     }
+}
+
+.nav-tabs .nav-link {
+    position: relative;
+
+}
+
+.nav-tabs .nav-link.active {
+    border-top: 1px solid $primary;
+}
+
+.nav-tabs .default::after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    top: 0;
+    right: 0;
+    border-style: solid;
+    border-width: 0 20px 20px 0;
+    border-color: transparent green transparent transparent;
+}
+
+.input-like {
+    padding: .25rem .5rem;
 }

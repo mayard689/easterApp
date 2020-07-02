@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Feature;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
+use App\Entity\Quotation;
 use App\Form\FeatureType;
 use App\Form\ProjectType;
 use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\QuotationRepository;
 use App\Service\ProjectCalculator;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,7 +27,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectController extends AbstractController
 {
     const NUMBER_PER_PAGE = 10;
-    const VARIANTS=['low', 'middle', 'high'];
 
     /**
      * @Route("/", name="project_index", methods={"GET"})
@@ -76,6 +77,7 @@ class ProjectController extends AbstractController
      * @Route("/{id}/edit/{variant<high|middle|low>}", name="project_edit", methods={"GET","POST"})
      * @param Request                  $request
      * @param Project                  $project
+     * @param QuotationRepository      $quotationRepository
      * @param ProjectCalculator        $projectCalculator
      * @param ProjectRepository        $projectRepository
      * @param ProjectFeatureRepository $projectFeatureRepos
@@ -85,6 +87,7 @@ class ProjectController extends AbstractController
     public function edit(
         Request $request,
         Project $project,
+        QuotationRepository $quotationRepository,
         ProjectCalculator $projectCalculator,
         ProjectRepository $projectRepository,
         ProjectFeatureRepository $projectFeatureRepos,
@@ -146,7 +149,7 @@ class ProjectController extends AbstractController
             'formFeature' => $formFeature->createView(),
             'featureCategories' => $featureCategories,
             'variant' => $variant,
-            'variants' => self::VARIANTS,
+            'variants' => $quotationRepository->findAll(),
         ]);
     }
 
