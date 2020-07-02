@@ -171,6 +171,8 @@ class ProjectController extends AbstractController
      * @Route("Feature/{id}/{variant<high|middle|low>}", name="project_feature_delete", methods="POST")
      * @param ProjectFeature         $projectFeature
      * @param EntityManagerInterface $entityManager
+     * @param ProjectCalculator      $projectCalculator
+     * @param string                 $variant
      * @return Response
      */
     public function deleteProjectFeature(

@@ -89,6 +89,7 @@ class Project
 
     /**
      * @ORM\ManyToOne(targetEntity=Quotation::class, inversedBy="projects")
+     * @Assert\NotBlank()
      */
     private $quotation;
 

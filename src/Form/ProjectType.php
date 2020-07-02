@@ -33,11 +33,9 @@ class ProjectType extends AbstractType
                 'by_reference' => false,
                 'mapped' => false,
             ])
-            ->add('addFeature', SubmitType::class, ['label' => 'Ajouter une fonctionnalité'])
             ->add('quotation', EntityType::class, [
                 'class' => Quotation::class,
                 'choice_label' => 'name',
-                'label' => 'Chiffrage'
             ])
         ;
     }

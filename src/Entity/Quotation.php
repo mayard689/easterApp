@@ -21,9 +21,9 @@ class Quotation
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      * @Assert\NotBlank()
-     * @Assert\Length(max="255")
+     * @Assert\Length(max="50")
      */
     private $name;
 
