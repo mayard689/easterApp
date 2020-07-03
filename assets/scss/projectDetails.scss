@@ -5,6 +5,11 @@
     padding-bottom:$padding-large;
 }
 
+.project-card{
+    border : thin solid $primary;
+    padding : $padding;
+}
+
 .skill {
     display: flex;
     align-items: baseline;
@@ -85,24 +90,3 @@
 .feature-category{
     background:$light;
  }
-
-.category{
-    border-radius: 100px;
-    border: none;
-    text-align: center;
-    color:$light;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    font-size:10px;
-    font-weight: bold;
-    background: $primary;
-
-    &:focus {
-        background: $primary;
-    }
-
-    &:hover {
-        background: darken($primary, 5%);
-    }
-}
