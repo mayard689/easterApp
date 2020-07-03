@@ -8,6 +8,20 @@
             <h1>Big Bill</h1>
         </div>
     </div>
+    {% if app.user %}
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-info mt-2 mb-3 text-center">
+                    Vous êtes déjà connecté en tant que  {{ app.user.username }}, si vous souhaitez vous
+                    déconnecter vous pouvez cliquer sur le lien
+                    <a href="{{ path('app_logout') }}">
+                        <strong>Se déconnecter</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="row align-items-center justify-content-center">
         <div class="col-md-6 col-md-offset-4">
             <div class="form-card card">
