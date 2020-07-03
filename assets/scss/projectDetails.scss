@@ -107,12 +107,12 @@
     }
 }
 
-.nav-tabs .nav-link {
+.nav-pills .nav-link {
     position: relative;
 
 }
 
-.nav-tabs .default::after {
+.nav-pills .default::after {
     content: '';
     position: absolute;
     display: inline-block;

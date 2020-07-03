@@ -32,6 +32,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             $project->setName($projectName);
             $project->setDescription($faker->paragraph(3));
             $project->setDate(new DateTime($faker->date()));
+//            $project->setQuotation()
             $project->setApplication($applications[array_rand($applications)]);
 
             $expert=rand(0, 100);
