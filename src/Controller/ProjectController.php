@@ -7,6 +7,8 @@ use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use App\Form\FeatureType;
 use App\Form\ProjectType;
+use App\Form\SpecificFeatureType;
+use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
 use DateTime;
@@ -24,6 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectController extends AbstractController
 {
     const NUMBER_PER_PAGE = 10;
+    const VARIANTS=['low', 'middle', 'high'];
 
     /**
      * @Route("/", name="project_index", methods={"GET"})
@@ -71,17 +74,32 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit/{variant<high|middle|low>}", name="project_edit", methods={"GET","POST"})
+     * @param Request                  $request
+     * @param Project                  $project
+     * @param ProjectCalculator        $projectCalculator
+     * @param ProjectRepository        $projectRepository
+     * @param ProjectFeatureRepository $projectFeatureRepos
+     * @param string                   $variant
+     * @return Response
      */
     public function edit(
         Request $request,
         Project $project,
         ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository
+        ProjectRepository $projectRepository,
+        ProjectFeatureRepository $projectFeatureRepos,
+        string $variant = 'high'
     ): Response {
 
         $form = $this->createForm(ProjectType::class, $project);
+        $featuresToBeShown=$projectFeatureRepos->findProjectFeatures($project, $variant);
+        $form->get('projectFeatures')->setData($featuresToBeShown);
         $form->handleRequest($request);
+
+        $feature = new Feature();
+        $formFeature = $this->createForm(FeatureType::class, $feature);
+        $formFeature->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -94,17 +112,42 @@ class ProjectController extends AbstractController
                 ? 'project_feature_add'
                 : 'project_edit';
 
-            return $this->redirectToRoute($route, ['id' => $project->getId()]);
+            return $this->redirectToRoute($route, ['id' => $project->getId(), 'variant' => $variant]);
         }
 
-        $load = $projectCalculator->calculateProjectLoad($project);
+        if ($formFeature->isSubmitted() && $formFeature->isValid()) {
+            $projectFeature=new ProjectFeature();
+            $projectFeature->setProject($project);
+            $projectFeature->setFeature($feature);
+            $projectFeature->setDescription($feature->getDescription());
+            $projectFeature->setDay($feature->getDay());
+            $projectFeature->setCategory($feature->getCategory());
+
+            $projectFeature->setIsHigh(true);
+            $projectFeature->setIsMiddle(true);
+            $projectFeature->setIsLow(true);
+
+            $feature->setIsStandard(false);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($projectFeature);
+            $entityManager->persist($feature);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
+        }
+
+        $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
         $featureCategories=$projectRepository->getCategories($project);
 
         return $this->render('project/edit.html.twig', [
             'project' => $project,
             'load' => $load,
             'form' => $form->createView(),
+            'formFeature' => $formFeature->createView(),
             'featureCategories' => $featureCategories,
+            'variant' => $variant,
+            'variants' => self::VARIANTS,
         ]);
     }
 
@@ -123,37 +166,50 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("Feature/{id}", name="project_feature_delete", methods="POST")
+     * @Route("Feature/{id}/{variant<high|middle|low>}", name="project_feature_delete", methods="POST")
      * @param ProjectFeature         $projectFeature
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
     public function deleteProjectFeature(
         ProjectFeature $projectFeature,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ProjectCalculator $projectCalculator,
+        string $variant = 'high'
     ): Response {
-        $entityManager->remove($projectFeature);
-        $entityManager->flush();
+        $variant=ucfirst($variant);
+        $projectFeature->{'setIs'.$variant}(false);
 
+        // check if the projectFeature is used in at least one variant
+        // if projectFeature is not used anymore by any variant of the project, removes it
+        if (!$projectCalculator->isActive($projectFeature)) {
+            $entityManager->remove($projectFeature);
+        }
+        $entityManager->flush();
         /** @var Project */
         $project = $projectFeature->getProject();
         $projectId = $project->getId();
-
-        return $this->redirectToRoute('project_edit', ['id' => $projectId]);
+        return $this->redirectToRoute('project_edit', ['id' => $projectId, 'estimation'=>$variant]);
     }
 
     /**
-     * @Route("/{id}/add-feature", name="project_feature_add", methods={"GET", "POST"})
+     * @Route("/{id}/add-feature/{variant<high|middle|low>}", name="project_feature_add", methods={"GET", "POST"})
+     * @param Request           $request
+     * @param Project           $project
+     * @param ProjectCalculator $projectCalculator
+     * @param ProjectRepository $projectRepository
+     * @return Response
      */
     public function addProjectFeature(
         Request $request,
         Project $project,
         ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository
+        ProjectRepository $projectRepository,
+        string $variant = 'high'
     ): Response {
 
         $feature = new Feature();
-        $form = $this->createForm(FeatureType::class, $feature);
+        $form = $this->createForm(SpecificFeatureType::class, $feature);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -163,6 +219,10 @@ class ProjectController extends AbstractController
             $projectFeature->setDescription($feature->getDescription());
             $projectFeature->setDay($feature->getDay());
             $projectFeature->setCategory($feature->getCategory());
+
+            $projectFeature->setIsHigh($form['isHigh']->getData());
+            $projectFeature->setIsMiddle($form['isMiddle']->getData());
+            $projectFeature->setIsLow($form['isLow']->getData());
 
             $feature->setIsStandard(false);
 
@@ -174,9 +234,11 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
         }
 
+        $form->get('is'.ucfirst($variant))->setData(true);
+
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
-            'form' => $form->createView(),
+            'formFeature' => $form->createView(),
             'id'=>$project->getId(),
         ]);
     }

@@ -30,6 +30,7 @@ class ProjectType extends AbstractType
                 'entry_options' => ['label' => false],
                 'label' => false,
                 'by_reference' => false,
+                'mapped' => false,
             ])
             ->add('addFeature', SubmitType::class, ['label' => 'Ajouter une fonctionnalité'])
         ;

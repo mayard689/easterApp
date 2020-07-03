@@ -52,7 +52,7 @@ class Feature
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="feature")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="features")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

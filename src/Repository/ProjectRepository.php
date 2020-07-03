@@ -19,7 +19,7 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
-    public function getCategories($project) : array
+    public function getCategories(Project $project) : array
     {
         return $this->createQueryBuilder('project')
             ->select('category.id, category.name')

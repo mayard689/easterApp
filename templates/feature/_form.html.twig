@@ -24,6 +24,16 @@
     <div class="col-sm-12 col-md-12">
         {{ form_widget(form.category) }}
     </div>
+
+    {% if form.isHigh is defined %}
+        <div class="col-sm-12 col-md-12">
+            {{ form_label(form.category, "Ajouter à la variante ") }}
+            {{ form_widget(form.isHigh) }}
+            {{ form_widget(form.isMiddle) }}
+            {{ form_widget(form.isLow) }}
+        </div>
+    {% endif %}
+
 </div>
 
 <div class="button-panel container">
