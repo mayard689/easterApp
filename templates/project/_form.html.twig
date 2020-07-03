@@ -73,18 +73,19 @@
 <div class="container">
     {% if not project.id is null %}
         <div class="table-tools d-flex justify-content-between">
-            <nav class="nav nav-tabs">
+            <ul class="nav nav-tabs">
                 {% for variantItem in variants %}
-                    <a class="nav-item nav-link
+                    <li class="nav-item">
+                        <a class="nav-link
                         {{ variant == variantItem.name and project.quotation.name == variantItem.name ? 'active default' :
-                    variant == variantItem.name ? 'active' :
-                    project.quotation.name == variantItem.name ? 'default' : ''
-                    }}"
-                       href="{{ path('project_edit', {'id': project.id, 'variant':variantItem.name}) }}">
-                        {{ variantItem.name|capitalize }}
-                    </a>
+                        variant == variantItem.name ? 'active' :
+                        project.quotation.name == variantItem.name ? 'default' : '' }}"
+                           href="{{ path('project_edit', {'id': project.id, 'variant':variantItem.name}) }}">
+                            {{ variantItem.name|capitalize }}
+                        </a>
+                    </li>
                 {% endfor %}
-            </nav>
+            </ul>
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#add-feature">
