@@ -17,6 +17,7 @@
                 <th class="text-center">Prénom</th>
                 <th class="text-center">Date d'entrée</th>
                 <th class="text-center">Email</th>
+                <th class="text-center">Role</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
@@ -27,10 +28,11 @@
                 <td class="text-center">{{ user.firstname }}</td>
                 <td class="text-center">{{ user.creationDate ? user.creationDate|date('Y-m-d') : '' }}</td>
                 <td class="text-center">{{ user.email }}</td>
+                <td class="text-center">{{ user.roles[0] == 'ROLE_APPUSER' ? 'Utilisateur' : 'Administrateur' }}</td>
                 <td class="btn-group">
                     {{ include('user/_delete_form.html.twig') }}
-                    <a title="Editer" class="btn btn-sm btn-primary ml-2" href="#">
-                        <i class="fas fa-pencil-alt"></i>
+                    <a class="btn btn-sm btn-primary ml-2" href="{{ path('user_edit', {'id': user.id}) }}" title="Modifier le rôle de l'utilisateur">
+                        <i class="fas fa-lock"></i>
                     </a>
                 </td>
             </tr>
@@ -41,6 +43,7 @@
         {% endfor %}
         </tbody>
     </table>
+
     <div class="navigation my-5">
         {{ knp_pagination_render(users) }}
     </div>
