@@ -1,20 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Big Bill | Utilisateur{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Mon profil</h1>
+    <div class="row mt-2">
+        <div class="col-5">
+            <div class="card">
+                <img src="{{ asset('build/img/default_profile_picture.png') }}" class="card-img-top img-fluid" alt="Photo de l'utilisateur">
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-primary">
+                            <h2 class="text-white">Informations personel</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Nom : </p>
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ app.user.lastname }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Prénom : </p>
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ app.user.firstname }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Email : </p>
+                                </div>
+                                <div class="col-8">
+                                    <p>{{ app.user.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary float-right">Enregister</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-primary">
+                            <h2 class="text-white">Mot de passe</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>Mot de passe : </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-primary float-right">Modifier le mot de passe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/anthony/Bureau/Data/Mon Cursus/Wild_Code_School/Projets/orleans-php-2003-project-easterapp/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/anthony/Bureau/Data/Mon Cursus/Wild_Code_School/Projets/orleans-php-2003-project-easterapp/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('profile') }}
 {% endblock %}
