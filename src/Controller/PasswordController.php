@@ -93,7 +93,7 @@ class PasswordController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/{token}", name="password_add")
+     * @Route("/{id}/add/{token}", name="password_add")
      * @param User $user
      * @param mixed $token
      * @param Request $request
@@ -106,9 +106,8 @@ class PasswordController extends AbstractController
             We prohibit access to the page if the token is null
             or if it has been created for more than 10 minutes
         */
-        if (is_null($user->getToken()) ||
-            $token !== $user->getToken() ||
-            !$this->isRequestInTime($user->getPasswordRequestedAt())
+        if (!$this->isRequestInTime(10, $user->getPasswordRequestedAt())
+            || $this->checkToken($token, $user->getToken() == false)
         ) {
             throw new AccessDeniedHttpException();
         }
@@ -117,7 +116,7 @@ class PasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $password = $passwordEncoder->encodePassword($user, $form->getData()->getPassword());
             $user->setPassword($password);
 
             // reset the token to null so that it is no longer reusable
@@ -132,11 +131,12 @@ class PasswordController extends AbstractController
                 vous connecter dès maintenant.
             ');
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('password.html.twig', [
-            'form' => $form->createView()
+        return $this->render('security/password.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Saisissez votre mot de passe'
         ]);
     }
 
@@ -168,7 +168,7 @@ class PasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $password = $passwordEncoder->encodePassword($user, $form->getData()->getPassword());
             $user->setPassword($password);
 
             // reset the token to null so that it is no longer reusable
@@ -181,7 +181,7 @@ class PasswordController extends AbstractController
 
             $this->addFlash('success', 'Votre mot de passe a été réinitialiser.');
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('security/password.html.twig', [
@@ -210,6 +210,13 @@ class PasswordController extends AbstractController
         return $interval > $daySeconds ? false : true;
     }
 
+    /**
+     * Check that the token is correct and that it is identical to that of the user
+     *
+     * @param mixed $token
+     * @param mixed $userToken
+     * @return bool
+     */
     private function checkToken($token, $userToken): bool
     {
         if (is_null($userToken) || $token !== $userToken) {
