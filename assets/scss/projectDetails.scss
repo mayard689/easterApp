@@ -5,6 +5,11 @@
     padding-bottom: $padding-large;
 }
 
+.project-card{
+    border : thin solid $primary;
+    padding : $padding;
+}
+
 .skill {
     display: flex;
     align-items: baseline;
@@ -81,6 +86,7 @@
 .feature-line {
     transition: 5s;
 }
+
 
 .feature-category {
     background: $light;
