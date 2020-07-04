@@ -14,6 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    const ROLES_AVAILABLE = [
+        'Utilisateur' => 'ROLE_APPUSER',
+        'Administrateur' => 'ROLE_ADMIN'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -41,6 +46,17 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
+     * @Assert\NotBlank(
+     *     message="Le rôles doit être renseigné",
+     *     groups={"UpdateUser"}
+     *)
+     * @Assert\All({
+     *     @Assert\Choice(
+     *     choices=User::ROLES_AVAILABLE,
+     *     message="{{ choices }} {{ value }}",
+     *     groups={"UpdateUser"}
+     *     )
+     * })
      */
     private $roles = [];
 
