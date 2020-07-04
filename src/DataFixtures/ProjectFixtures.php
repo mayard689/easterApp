@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Application;
 use App\Entity\Project;
+use App\Entity\Quotation;
 use App\Repository\QuotationRepository;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -21,20 +22,12 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         'Wild Code School Odyssey',
         'Lab\'O',
     ];
-    /**
-     * @var QuotationRepository
-     */
-    private $quotationRepository;
-
-    public function __construct(QuotationRepository $quotationRepository)
-    {
-        $this->quotationRepository = $quotationRepository;
-    }
 
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
         $applications = $manager->getRepository(Application::class)->findAll();
+        $quotation = $manager->getRepository(Quotation::class)->findAll();
 
         $projectCounter = 0;
         foreach (self::PROJECTS as $projectName) {
@@ -42,7 +35,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             $project->setName($projectName);
             $project->setDescription($faker->paragraph(3));
             $project->setDate(new DateTime($faker->date()));
-            $project->setQuotation($this->quotationRepository->find(1));
+            $project->setQuotation($quotation[array_rand($quotation)]);
             $project->setApplication($applications[array_rand($applications)]);
 
             $expert = rand(0, 100);
