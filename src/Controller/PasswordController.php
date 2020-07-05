@@ -47,7 +47,7 @@ class PasswordController extends AbstractController
             );
 
             if ($user instanceof User) {
-                $this->addFlash('success', 'Votre demande à bien été pris en compte. Un mail va vous
+                $this->addFlash('success', 'Votre demande à bien été prise en compte. Un mail va vous
                 être envoyé afin que vous puissiez renouveller votre mot de passe. Le lien que vous
                 recevrez sera valide 3h.');
 
@@ -69,7 +69,7 @@ class PasswordController extends AbstractController
                     'title' => 'Bonjour',
                     'bodyText' => 'Pour modifier votre mot de passe, vous pouvez cliquer sur le bouton ci-dessous.',
                     'pageLink' => 'password_reset',
-                    'buttonName' => 'Saisir mon mot de passe',
+                    'buttonName' => 'Saisir le mot de passe',
                     'userId' => $user->getId(),
                     'userToken' => $token
                 ];
@@ -177,7 +177,7 @@ class PasswordController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre mot de passe a été réinitialiser.');
+            $this->addFlash('success', 'Votre mot de passe a été réinitialisé.');
 
             return $this->redirectToRoute('app_login');
         }
