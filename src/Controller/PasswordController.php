@@ -53,8 +53,6 @@ class PasswordController extends AbstractController
 
                 $date = new DateTime();
                 $token = $tokenGenerator->generateToken();
-                $user->setCreationDate($date);
-                $user->setToken($tokenGenerator->generateToken());
                 $user->setPasswordRequestedAt($date);
                 $user->setToken($token);
 
@@ -78,12 +76,12 @@ class PasswordController extends AbstractController
 
                 $mailManager->sendMessage($sendParameter, 'user/notification/notification.html.twig', $bodyData);
 
-                $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('app_login');
             } else {
                 $this->addFlash('danger', 'L\'adresse email n\'existe pas, vérifiez l\'adresse 
                 que vous avez renseignée.');
 
-                $this->redirectToRoute('password_forgot_request');
+                return $this->redirectToRoute('password_forgot_request');
             }
         }
 
