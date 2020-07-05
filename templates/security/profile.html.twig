@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block title %}Big Bill | Utilisateur{% endblock %}
+{% block title %}Big Bill | Profil{% endblock %}
 
 {% block body %}
     <h1>Mon profil</h1>
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-primary float-right">Modifier le mot de passe</a>
+                            <a href="{{ path('profile_password') }}" class="btn btn-primary float-right">Modifier le mot de passe</a>
                         </div>
                     </div>
                 </div>
