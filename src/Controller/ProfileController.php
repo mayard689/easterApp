@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ChangePasswordType;
 use App\Form\UserUpdateType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,10 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @Route("/profile", name="profile_")
+ */
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile", name="profile")
+     * @Route("/", name="index")
      * @param Request $request
      * @param UserInterface $user
      * @return Response
@@ -30,11 +34,31 @@ class ProfileController extends AbstractController
 
             $this->addFlash('success', 'Votre profil a bien été mis à jour.');
 
-            return $this->redirectToRoute('profile');
+            return $this->redirectToRoute('profile_index');
         }
 
 
         return $this->render('security/profile.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/password", name="password")
+     * @param Request $request
+     * @param UserInterface $user
+     * @return Response
+     */
+    public function changePassword(
+        Request $request,
+        UserInterface $user,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    ): Response {
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form->handleRequest($request);
+
+        return $this->render('security/profilepassword.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
