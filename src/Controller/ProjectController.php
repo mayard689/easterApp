@@ -26,6 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectController extends AbstractController
 {
     const NUMBER_PER_PAGE = 10;
+    const PRICE_PER_DAY = 375;
     const VARIANTS=['low', 'middle', 'high'];
 
     /**
@@ -148,6 +149,7 @@ class ProjectController extends AbstractController
             'featureCategories' => $featureCategories,
             'variant' => $variant,
             'variants' => self::VARIANTS,
+            'price_per_day' => self::PRICE_PER_DAY * $load,
         ]);
     }
 
