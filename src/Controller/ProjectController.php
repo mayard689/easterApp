@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Feature;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
+use App\Entity\Quotation;
 use App\Form\FeatureType;
 use App\Form\ProjectType;
 use App\Form\SpecificFeatureType;
 use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\QuotationRepository;
 use App\Service\ProjectCalculator;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,7 +28,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectController extends AbstractController
 {
     const NUMBER_PER_PAGE = 10;
-    const VARIANTS=['low', 'middle', 'high'];
 
     /**
      * @Route("/", name="project_index", methods={"GET"})
@@ -77,6 +78,7 @@ class ProjectController extends AbstractController
      * @Route("/{id}/edit/{variant<high|middle|low>}", name="project_edit", methods={"GET","POST"})
      * @param Request                  $request
      * @param Project                  $project
+     * @param QuotationRepository      $quotationRepository
      * @param ProjectCalculator        $projectCalculator
      * @param ProjectRepository        $projectRepository
      * @param ProjectFeatureRepository $projectFeatureRepos
@@ -86,6 +88,7 @@ class ProjectController extends AbstractController
     public function edit(
         Request $request,
         Project $project,
+        QuotationRepository $quotationRepository,
         ProjectCalculator $projectCalculator,
         ProjectRepository $projectRepository,
         ProjectFeatureRepository $projectFeatureRepos,
@@ -103,16 +106,7 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            /**
-             * @var SubmitButton
-             */
-            $button = $form->get('addFeature');
-            $route = $button->isClicked()
-                ? 'project_feature_add'
-                : 'project_edit';
-
-            return $this->redirectToRoute($route, ['id' => $project->getId(), 'variant' => $variant]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         if ($formFeature->isSubmitted() && $formFeature->isValid()) {
@@ -147,7 +141,7 @@ class ProjectController extends AbstractController
             'formFeature' => $formFeature->createView(),
             'featureCategories' => $featureCategories,
             'variant' => $variant,
-            'variants' => self::VARIANTS,
+            'variants' => $quotationRepository->findAll(),
         ]);
     }
 
@@ -169,6 +163,8 @@ class ProjectController extends AbstractController
      * @Route("Feature/{id}/{variant<high|middle|low>}", name="project_feature_delete", methods="POST")
      * @param ProjectFeature         $projectFeature
      * @param EntityManagerInterface $entityManager
+     * @param ProjectCalculator      $projectCalculator
+     * @param string                 $variant
      * @return Response
      */
     public function deleteProjectFeature(
