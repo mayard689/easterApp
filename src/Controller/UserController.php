@@ -88,7 +88,7 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Le compte de l\'utilisateur a été crée avec succès');
 
             $sendParameter = [
-                'from' => 'no-reply <no-reply@easterapp.fr>',
+                'from' => 'no-reply <' . $this->getParameter('mailer_from') . '>',
                 'to' => $user->getFirstname() . ' ' . $user->getLastname() . '<' . $user->getEmail() . '>',
                 'subject' => 'Création de votre compte'
             ];
