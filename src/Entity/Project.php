@@ -87,6 +87,12 @@ class Project
      */
     private $projectFeatures;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Quotation::class, inversedBy="projects")
+     * @Assert\NotBlank()
+     */
+    private $quotation;
+
     public function __construct()
     {
         $this->projectFeatures = new ArrayCollection();
@@ -208,6 +214,18 @@ class Project
                 $projectFeature->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getQuotation(): ?Quotation
+    {
+        return $this->quotation;
+    }
+
+    public function setQuotation(?Quotation $quotation): self
+    {
+        $this->quotation = $quotation;
 
         return $this;
     }
