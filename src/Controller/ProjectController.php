@@ -41,7 +41,7 @@ class ProjectController extends AbstractController
         Request $request,
         ProjectCalculator $projectCalculator
     ): Response {
-        $costs = $projectCalculator->calculateProjectsPrices();
+        $costs = $projectCalculator->calculateProjectsFigures();
         return $this->render('project/index.html.twig', [
             'projects' => $paginator->paginate(
                 $project->findAll(),

@@ -69,11 +69,11 @@ class ProjectCalculator
 
     /**
      * Get the project list évaluation
-     * read result[$projectId]['load'][$variant] to get the load for the given variant of he given project
-     * read result[$projectId]['cost'][$variant] to get the cost for the given variant of he given project
+     * read result[$projectId]['load'][$variant] to get the load for the given variant of the given project
+     * read result[$projectId]['cost'][$variant] to get the cost for the given variant of the given project
      * @return array
      */
-    public function calculateProjectsPrices() : array
+    public function calculateProjectsFigures() : array
     {
         $projects = $this->projectRepository->findAll();
         $prices = [];
