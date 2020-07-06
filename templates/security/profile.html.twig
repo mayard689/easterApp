@@ -8,7 +8,7 @@
     <div class="row mt-2">
         <div class="col-5">
             <div class="card">
-                <img src="{{ asset('build/img/default_profile_picture.png') }}" class="card-img-top img-fluid" alt="Photo de l'utilisateur">
+                <img src="{{ asset(app.user.profilePicture is not empty ? 'build/img/' ~ app.user.profilePicture : 'build/img/default_profile_picture.png')}}" class="card-img-top img-fluid" alt="Photo de l'utilisateur">
             </div>
         </div>
         <div class="col-7">
