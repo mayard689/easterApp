@@ -97,7 +97,7 @@ class ProjectController extends AbstractController
     ): Response {
 
         $form = $this->createForm(ProjectType::class, $project);
-        $featuresToBeShown=$projectFeatureRepos->findProjectFeatures($project, $variant);
+        $featuresToBeShown = $projectFeatureRepos->findProjectFeatures($project, $variant);
         $form->get('projectFeatures')->setData($featuresToBeShown);
         $form->handleRequest($request);
 
@@ -111,7 +111,7 @@ class ProjectController extends AbstractController
         }
 
         if ($formFeature->isSubmitted() && $formFeature->isValid()) {
-            $projectFeature=new ProjectFeature();
+            $projectFeature = new ProjectFeature();
             $projectFeature->setProject($project);
             $projectFeature->setFeature($feature);
             $projectFeature->setDescription($feature->getDescription());
@@ -129,11 +129,11 @@ class ProjectController extends AbstractController
             $entityManager->persist($feature);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
-        $featureCategories=$projectRepository->getCategories($project);
+        $featureCategories = $projectRepository->getCategories($project);
 
         return $this->render('project/edit.html.twig', [
             'project' => $project,
@@ -144,6 +144,7 @@ class ProjectController extends AbstractController
             'variant' => $variant,
             'price_per_day' => self::PRICE_PER_DAY,
             'variants' => $quotationRepository->findAll(),
+        ]);
     }
 
     /**
@@ -174,8 +175,8 @@ class ProjectController extends AbstractController
         ProjectCalculator $projectCalculator,
         string $variant = 'high'
     ): Response {
-        $variant=ucfirst($variant);
-        $projectFeature->{'setIs'.$variant}(false);
+        $variant = ucfirst($variant);
+        $projectFeature->{'setIs' . $variant}(false);
 
         // check if the projectFeature is used in at least one variant
         // if projectFeature is not used anymore by any variant of the project, removes it
@@ -186,7 +187,7 @@ class ProjectController extends AbstractController
         /** @var Project */
         $project = $projectFeature->getProject();
         $projectId = $project->getId();
-        return $this->redirectToRoute('project_edit', ['id' => $projectId, 'estimation'=>$variant]);
+        return $this->redirectToRoute('project_edit', ['id' => $projectId, 'estimation' => $variant]);
     }
 
     /**
@@ -210,7 +211,7 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $projectFeature=new ProjectFeature();
+            $projectFeature = new ProjectFeature();
             $projectFeature->setProject($project);
             $projectFeature->setFeature($feature);
             $projectFeature->setDescription($feature->getDescription());
@@ -228,15 +229,15 @@ class ProjectController extends AbstractController
             $entityManager->persist($feature);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
-        $form->get('is'.ucfirst($variant))->setData(true);
+        $form->get('is' . ucfirst($variant))->setData(true);
 
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
             'formFeature' => $form->createView(),
-            'id'=>$project->getId(),
+            'id' => $project->getId(),
         ]);
     }
 }
