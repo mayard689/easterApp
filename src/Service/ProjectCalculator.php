@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Controller\ProjectController;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
+use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\QuotationRepository;
 
@@ -18,10 +19,17 @@ class ProjectCalculator
      * @var QuotationRepository
      */
     private $quotationRepository;
+    private $projectRepository;
+    private $projectFeatureRepos;
 
-    public function __construct(QuotationRepository $quotationRepository)
-    {
+    public function __construct(
+        QuotationRepository $quotationRepository,
+        ProjectRepository $projectRepository,
+        ProjectFeatureRepository $projectFeatureRepos
+    ) {
         $this->quotationRepository = $quotationRepository;
+        $this->projectRepository = $projectRepository;
+        $this->projectFeatureRepos = $projectFeatureRepos;
     }
 
     public function calculateProjectLoad(Project $project, $projectFeatures): float
@@ -57,5 +65,26 @@ class ProjectCalculator
             }
         }
         return false;
+    }
+
+    public function calculateProjectsPrices() : array
+    {
+        $projects = $this->projectRepository->findAll();
+        $prices = [];
+
+        foreach ($projects as $project) {
+            $highFeatures = $this->projectFeatureRepos->findProjectFeatures($project, 'high');
+            $middleFeatures = $this->projectFeatureRepos->findProjectFeatures($project, 'middle');
+            $lowFeatures = $this->projectFeatureRepos->findProjectFeatures($project, 'low');
+
+            $prices[$project->getId()]['high'] = ProjectController::PRICE_PER_DAY
+                * $this->calculateProjectLoad($project, $highFeatures);
+
+            $prices[$project->getId()]['middle'] = ProjectController::PRICE_PER_DAY
+                * $this->calculateProjectLoad($project, $middleFeatures);
+
+            $prices[$project->getId()]['low'] = ProjectController::PRICE_PER_DAY
+                * $this->calculateProjectLoad($project, $lowFeatures);
+        }
     }
 }
