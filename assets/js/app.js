@@ -15,9 +15,9 @@ const $ = require('jquery');
 require('bootstrap');
 
 // activate bootstrap's tooltip JS code
-let bootstrapToolTip = function () {
+const bootstrapToolTip = function () {
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
-}
+};
 
 $(bootstrapToolTip());
