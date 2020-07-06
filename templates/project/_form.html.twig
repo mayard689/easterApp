@@ -17,15 +17,11 @@
         </div>
         <div class="row form-group">
             <div class="col-sm-12 offset-md-8 col-md-2 load d-flex justify-content-end">
-                <label>Totale HT : </label>
+                <label>Total HT : </label>
             </div>
             <div class="col-sm-12 col-md-2 load d-flex justify-content-end">
                 <p class="input-like">
-                    {% if load is defined and load > 0 %}
-                        {{ price_per_day|number_format(2, '.', ' ') }} €
-                    {% else %}
-                        0 €
-                    {% endif %}
+                    {{ (price_per_day * load)|number_format(2, '.', ' ') }} €
                 </p>
             </div>
         </div>

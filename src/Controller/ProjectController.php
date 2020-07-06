@@ -149,7 +149,7 @@ class ProjectController extends AbstractController
             'featureCategories' => $featureCategories,
             'variant' => $variant,
             'variants' => self::VARIANTS,
-            'price_per_day' => self::PRICE_PER_DAY * $load,
+            'price_per_day' => self::PRICE_PER_DAY,
         ]);
     }
 
