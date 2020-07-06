@@ -16,9 +16,8 @@ class FeatureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', EntityType::class, [
-                'class' => Feature::class,
-                'choice_label' => 'name',
+            ->add('name', TextType::class, [
+                'label' => 'name',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('day', TextType::class, [
