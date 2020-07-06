@@ -30,16 +30,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(
      *     message="L'adresse email doit être renseignée",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      * @Assert\Length(
      *     max= 180,
      *     maxMessage="L\'adresse email ne doit pas dépassée les {{ limit }} caractères",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      * @Assert\Email(
      *     message="L'adresse mail saisie n'est pas une adresse mail valide",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      */
     private $email;
@@ -88,12 +88,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(
      *     message="Le nom doit être renseigné",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      * @Assert\Length(
      *     max="100",
      *     maxMessage="Le nom ne doit pas dépassé les {{ limit }} caractères",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      */
     private $lastname;
@@ -102,12 +102,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(
      *     message="Le prénom doit être renseigné",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      * @Assert\Length(
      *     max="100",
      *     maxMessage="Le prénom ne doit pas dépassé les {{ limit }} caractères",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      */
     private $firstname;
@@ -126,6 +126,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $token;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profilePicture;
 
     public function getId(): ?int
     {
@@ -261,6 +266,18 @@ class User implements UserInterface
     public function setToken(?string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }
