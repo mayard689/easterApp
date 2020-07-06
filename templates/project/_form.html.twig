@@ -3,15 +3,26 @@
         <div class="col-sm-12 col-md-2 name">
             {{ form_label(form.name, "Nom du projet") }}
         </div>
-        <div class="col-sm-12 col-md-7 name">
+        <div class="col-sm-12 col-md-6 name">
             {{ form_widget(form.name) }}
             {{ form_errors(form.name) }}
         </div>
         <div class="col-sm-12 col-md-2 load d-flex justify-content-end">
             <label>Charge Totale : </label>
         </div>
-        <div class="col-sm-12 col-md-1 load d-flex justify-content-end">
+        <div class="col-sm-12 col-md-2 load d-flex justify-content-end">
             <p class="input-like">{{ load ?? 0 }}</p>
+        </div>
+    </div>
+
+    <div class="row form-group my-4">
+        <div class="col-sm-12 offset-md-8 col-md-2 load d-flex justify-content-end">
+            <label>Total HT : </label>
+        </div>
+        <div class="col-sm-12 col-md-2 load d-flex justify-content-end">
+            <p class="input-like">
+                {{ (price_per_day * load)|number_format(2, '.', ' ') }} €
+            </p>
         </div>
     </div>
 
@@ -19,20 +30,14 @@
         <div class="col-sm-12 col-md-2 description normal">
             {{ form_label(form.description, "Description du projet") }}
         </div>
-        <div class="row form-group">
-            <div class="col-sm-12 offset-md-8 col-md-2 load d-flex justify-content-end">
-                <label>Total HT : </label>
-            </div>
-            <div class="col-sm-12 col-md-2 load d-flex justify-content-end">
-                <p class="input-like">
-                    {{ (price_per_day * load)|number_format(2, '.', ' ') }} €
-                </p>
-            </div>
+        <div class="col-sm-12 col-md-10 description normal">
+            {{ form_widget(form.description) }}
         </div>
+    </div>
 
     <div class="row form-group my-4">
         <div class="col-sm-12 col-md-2">
-            {{ form_label(form.description, "Chiffrage par défaut") }}
+            {{ form_label(form.quotation, "Chiffrage par défaut") }}
         </div>
         <div class="col-sm-12 col-md-2">
             {{ form_widget(form.quotation) }}
@@ -47,44 +52,30 @@
             {{ form_widget(form.application) }}
             {{ form_errors(form.application) }}
         </div>
-
-    <div class="form-group my-4">
+    </div>
+    <div class="form-group">
         <div class="row input-align">
             <div class="col-sm-12 col-md-3 col-lg-2 skill">
                 {{ form_widget(form.junior) }}
                 {{ form_label(form.junior, "Junior") }}
             </div>
-            <div class="col-sm-12 col-md-2 application">
-                {{ form_widget(form.application) }}
-                {{ form_errors(form.application) }}
+            <div class="col-sm-12 col-md-3 col-lg-2 skill">
+                {{ form_widget(form.expert) }}
+                {{ form_label(form.expert, "Expert") }}
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row input-align">
-                <div class="col-sm-12 col-md-3 col-lg-2 skill">
-                    {{ form_widget(form.junior) }}
-                    {{ form_label(form.junior, "Junior") }}
-                </div>
-                <div class="col-sm-12 col-md-3 col-lg-2 skill">
-                    {{ form_widget(form.expert) }}
-                    {{ form_label(form.expert, "Expert") }}
-                </div>
-                <div class="col-sm-12 col-md-3 col-lg-3 skill">
-                    {{ form_widget(form.confirmed) }}
-                    {{ form_label(form.confirmed, "Confirmé") }}
-                </div>
-            </div>
-
-            <div class="row">
-                {{ form_errors(form.expert) }}
-                {{ form_errors(form.junior) }}
-                {{ form_errors(form.confirmed) }}
+            <div class="col-sm-12 col-md-3 col-lg-3 skill">
+                {{ form_widget(form.confirmed) }}
+                {{ form_label(form.confirmed, "Confirmé") }}
             </div>
         </div>
     </div>
-</div>
 
+    <div class="row">
+        {{ form_errors(form.expert) }}
+        {{ form_errors(form.junior) }}
+        {{ form_errors(form.confirmed) }}
+    </div>
+</div>
 <div class="container">
     {% if not project.id is null %}
         <div class="table-tools d-flex justify-content-between">
@@ -120,5 +111,6 @@
 
 <div class="button-panel container">
     <button class="btn btn-primary form-btn">{{ buttonName }}</button>
-    <a class="btn btn-outline-primary form-btn" href="{{ path('project_index') }}">Revenir à la liste des projets</a>
+    <a class="btn btn-outline-primary form-btn" href="{{ path('project_index') }}">Revenir à la liste des
+        projets</a>
 </div>
