@@ -1,35 +1,23 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}{% endblock %}</title>
+{% extends 'base.html.twig' %}
 
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-        {{ encore_entry_link_tags('security') }}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('security') }}
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block body %}
+    {% block notification %}
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ category }} mt-3 mb-3 text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
     {% endblock %}
-</head>
-<body>
-<main class="main">
-    <div class="container">
-        {% block body %}
-            {% block notification %}
-                {% for category, messages in app.flashes %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ category }} mt-3 mb-3 text-center">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-            {% endblock %}
-        {% endblock %}
-    </div>
-</main>
-
+{% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
-<script src="https://kit.fontawesome.com/bfe9f51c30.js" crossorigin="anonymous"></script>
-</body>
-</html>

@@ -10,7 +10,10 @@
 </head>
 <body>
 
-{% include 'parts/_navbar.html.twig' %}
+{% block navbar%}
+    {% include 'parts/_navbar.html.twig' %}
+{% endblock %}
+
 <main class="main">
     <div class="container">
         {% for category, messages in app.flashes %}
