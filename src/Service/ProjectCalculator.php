@@ -67,6 +67,12 @@ class ProjectCalculator
         return false;
     }
 
+    /**
+     * Get the project list évaluation
+     * read result[$projectId]['load'][$variant] to get the load for the given variant of he given project
+     * read result[$projectId]['cost'][$variant] to get the cost for the given variant of he given project
+     * @return array
+     */
     public function calculateProjectsPrices() : array
     {
         $projects = $this->projectRepository->findAll();
@@ -77,14 +83,37 @@ class ProjectCalculator
             $middleFeatures = $this->projectFeatureRepos->findProjectFeatures($project, 'middle');
             $lowFeatures = $this->projectFeatureRepos->findProjectFeatures($project, 'low');
 
-            $prices[$project->getId()]['high'] = ProjectController::PRICE_PER_DAY
-                * $this->calculateProjectLoad($project, $highFeatures);
+            $prices[$project->getId()]['load']['high'] = number_format(
+                $this->calculateProjectLoad($project, $highFeatures),
+                2
+            );
 
-            $prices[$project->getId()]['middle'] = ProjectController::PRICE_PER_DAY
-                * $this->calculateProjectLoad($project, $middleFeatures);
+            $prices[$project->getId()]['load']['middle'] = number_format(
+                $this->calculateProjectLoad($project, $middleFeatures),
+                2
+            );
 
-            $prices[$project->getId()]['low'] = ProjectController::PRICE_PER_DAY
-                * $this->calculateProjectLoad($project, $lowFeatures);
+            $prices[$project->getId()]['load']['low'] = number_format(
+                $this->calculateProjectLoad($project, $lowFeatures),
+                2
+            );
+
+            $prices[$project->getId()]['cost']['high'] = number_format(
+                ProjectController::PRICE_PER_DAY * $this->calculateProjectLoad($project, $highFeatures),
+                2
+            );
+
+            $prices[$project->getId()]['cost']['middle'] = number_format(
+                ProjectController::PRICE_PER_DAY * $this->calculateProjectLoad($project, $middleFeatures),
+                2
+            );
+
+            $prices[$project->getId()]['cost']['low'] = number_format(
+                ProjectController::PRICE_PER_DAY * $this->calculateProjectLoad($project, $lowFeatures),
+                2
+            );
         }
+
+        return $prices;
     }
 }
