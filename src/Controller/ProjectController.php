@@ -70,6 +70,8 @@ class ProjectController extends AbstractController
         return $this->render('project/new.html.twig', [
             'project' => $project,
             'form' => $form->createView(),
+            'price_per_day' => self::PRICE_PER_DAY,
+            'load' => 0,
         ]);
     }
 
