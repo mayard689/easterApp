@@ -7,17 +7,6 @@
 
 {% block navbar %}{% endblock %}
 
-{% block body %}
-    {% block notification %}
-        {% for category, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ category }} mt-3 mb-3 text-center">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-    {% endblock %}
-{% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
