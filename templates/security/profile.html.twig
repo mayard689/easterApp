@@ -1,15 +1,30 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme formUpdateAvatar 'bootstrap_4_layout.html.twig' %}
 
 {% block title %}Big Bill | Profil{% endblock %}
 
 {% block body %}
     <h1>Mon profil</h1>
-    <div class="row mt-2">
+    <div class="row mt-2 mb-2">
         <div class="col-5">
+            {{ form_start(formUpdateAvatar) }}
             <div class="card">
-                <img src="{{ asset(app.user.profilePicture is not empty ? 'build/img/' ~ app.user.profilePicture : 'build/img/default_profile_picture.png')}}" class="card-img-top img-fluid" alt="Photo de l'utilisateur">
+                <img src="{{ app.user.profilePicture is not empty ? vich_uploader_asset (user, 'profilePictureFile', 'App\\Entity\\User') : asset('build/img/default_profile_picture.png')}}" class="card-img-top img-fluid" alt="Photo de l'utilisateur">
+                <div class="card-body">
+                    <div class="row form-group">
+                        <div class="row form-group mt-2">
+                            <div class="col-sm-12 col-md-12">
+                                {{ form_row(formUpdateAvatar.profilePictureFile) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary float-right">Enregistrer</button>
+                </div>
             </div>
+            {{ form_end(formUpdateAvatar) }}
         </div>
         <div class="col-7">
             <div class="row">
