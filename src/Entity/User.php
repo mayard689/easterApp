@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,7 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cet e-mail")
  * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, Serializable
 {
     const ROLES_AVAILABLE = [
         'Utilisateur' => 'ROLE_APPUSER',
@@ -137,14 +138,16 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $profilePicture;
 
     /**
-     * @Vich\UploadableField(mapping="profilepicture_file", fileNameProperty="profilePicture")
+     * @Vich\UploadableField(mapping="profile_file", fileNameProperty="profilePicture")
      * @Assert\File(
      *     maxSize=User::MAX_SIZE,
-     *     mimeTypes=User::MIME_TYPES
+     *     mimeTypes=User::MIME_TYPES,
+     *     groups={"AvatarUpdate"}
      * )
      * @var File|null
      */
@@ -330,5 +333,37 @@ class User implements UserInterface
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize(): string
+    {
+        // add $this->salt too if you don't use Bcrypt or Argon2i
+        return serialize([
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->firstname,
+            $this->lastname,
+            $this->profilePicture
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize($serialized): void
+    {
+        // add $this->salt too if you don't use Bcrypt or Argon2i
+        [
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->firstname,
+            $this->lastname,
+            $this->profilePicture
+        ] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }
