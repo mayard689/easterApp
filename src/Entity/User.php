@@ -3,14 +3,19 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cet e-mail")
+ * @Vich\Uploadable
  */
 class User implements UserInterface
 {
@@ -18,6 +23,9 @@ class User implements UserInterface
         'Utilisateur' => 'ROLE_APPUSER',
         'Administrateur' => 'ROLE_ADMIN'
     ];
+
+    const MIME_TYPES = ["image/png", "image/jpeg"];
+    const MAX_SIZE = "2M";
 
     /**
      * @ORM\Id()
@@ -132,6 +140,22 @@ class User implements UserInterface
      */
     private $profilePicture;
 
+    /**
+     * @Vich\UploadableField(mapping="profilepicture_file", fileNameProperty="profilePicture")
+     * @Assert\File(
+     *     maxSize=User::MAX_SIZE,
+     *     mimeTypes=User::MIME_TYPES
+     * )
+     * @var File|null
+     */
+    private $profilePictureFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var DateTimeInterface|null
+     */
+    private $updatedAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -234,24 +258,24 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate(): ?DateTimeInterface
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(\DateTimeInterface $creationDate): self
+    public function setCreationDate(DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
 
         return $this;
     }
 
-    public function getPasswordRequestedAt(): ?\DateTimeInterface
+    public function getPasswordRequestedAt(): ?DateTimeInterface
     {
         return $this->passwordRequestedAt;
     }
 
-    public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): self
+    public function setPasswordRequestedAt(?DateTimeInterface $passwordRequestedAt): self
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
 
@@ -270,6 +294,20 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getProfilePictureFile(): ?File
+    {
+        return $this->profilePictureFile;
+    }
+
+    public function setProfilePictureFile(?File $profilePictureFile = null): void
+    {
+        $this->profilePictureFile = $profilePictureFile;
+
+        if (null !== $profilePictureFile) {
+            $this->updatedAt = new DateTime();
+        }
+    }
+
     public function getProfilePicture(): ?string
     {
         return $this->profilePicture;
@@ -278,6 +316,18 @@ class User implements UserInterface
     public function setProfilePicture(?string $profilePicture): self
     {
         $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
