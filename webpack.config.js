@@ -1,4 +1,4 @@
-var Encore = require('@symfony/webpack-encore');
+let Encore = require('@symfony/webpack-encore');
 
 Encore
     // directory where compiled assets will be stored
@@ -27,6 +27,9 @@ Encore
     .addStyleEntry('user', './assets/scss/user.scss')
     .addStyleEntry('security', './assets/scss/security.scss')
     .addEntry('securityjs', './assets/js/security.js')
+    .addEntry('easy-autocomplete', './assets/js/easy-autocomplete.js')
+    .addEntry('jquery.easy-autocomplete.min', './assets/js/jquery.easy-autocomplete.min.js')
+    .addStyleEntry('easyAutocomplete', './assets/scss/easyAutocomplete.scss')
     // .addEntry('page1', './assets/js/page1.js')
     // .addEntry('page2', './assets/js/page2.js')
 

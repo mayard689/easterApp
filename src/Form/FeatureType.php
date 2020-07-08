@@ -18,7 +18,11 @@ class FeatureType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'name',
-                'attr' => ['class' => 'form-control']
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'feature_name',
+                    'autocomplete' => 'off',
+                ]
             ])
             ->add('day', TextType::class, [
                 'attr' => ['class' => 'form-control']

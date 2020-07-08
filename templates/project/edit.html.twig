@@ -16,7 +16,11 @@
 {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('projectDetails') }}
+    {{ encore_entry_link_tags('easyAutocomplete') }}
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('jquery.easy-autocomplete.min') }}
+    {{ encore_entry_script_tags('easy-autocomplete') }}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}
