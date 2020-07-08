@@ -95,4 +95,50 @@ class ProjectCalculator
 
         return $prices;
     }
+
+    /**
+     * Get the project synthesis under the following format
+     *
+     * result['load'][$variant][$category] get the project load for the given variant and given category
+     * result['cost'][$variant][$category] get the project cost for the given variant and given category
+     *
+     * @param Project $project : project whose the synthesis must be made
+     * @return array
+     */
+    public function getProjectSynthesis(Project $project) : array
+    {
+
+        $synthesis=[
+            'load' => [],
+            'cost' => []
+        ];
+
+        $variants = $this->quotationRepository->findAll();
+        foreach ($variants as $variant) {
+            $variantName = $variant->getName();
+            $features=$this->projectFeatureRepos->findProjectFeatures($project, $variantName);
+
+            foreach ($features as $feature) {
+                if (isset($synthesis['load'][$variantName][$feature->getCatégory()])) {
+                    $synthesis['load'][$variantName][$feature->getCatégory()] +=
+                        $this->calculateProjectLoad($project, $features);
+                } else {
+                    $synthesis['load'][$variantName][$feature->getCatégory()] =
+                        $this->calculateProjectLoad($project, $features);
+                }
+
+                if (isset($synthesis['cost'][$variantName][$feature->getCatégory()])) {
+                    $synthesis['cost'][$variantName][$feature->getCatégory()] +=
+                        ProjectController::PRICE_PER_DAY
+                        * $this->calculateProjectLoad($project, $features);
+                } else {
+                    $synthesis['cost'][$variantName][$feature->getCatégory()] =
+                        ProjectController::PRICE_PER_DAY
+                        * $this->calculateProjectLoad($project, $features);
+                }
+            }
+        }
+
+        return $synthesis;
+    }
 }
