@@ -2,17 +2,13 @@
 
 {% block title %}Big Bill{% endblock %}
 
-{% block body %}
-    <div class="row">
-        <div class="col-12">
-            <h1>Big Bill</h1>
-        </div>
-    </div>
+{% block notification %}
+    {{ parent() }}
     {% if app.user %}
         <div class="row">
             <div class="col-12">
                 <div class="alert alert-info mt-2 mb-3 text-center">
-                    Vous êtes déjà connecté en tant que  {{ app.user.username }}, si vous souhaitez vous
+                    Vous êtes déjà connecté en tant que {{ app.user.username }}, si vous souhaitez vous
                     déconnecter vous pouvez cliquer sur le lien
                     <a href="{{ path('app_logout') }}">
                         <strong>Se déconnecter</strong>
@@ -21,6 +17,14 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <h1>Big Bill</h1>
+        </div>
+    </div>
 
     <div class="row align-items-center justify-content-center">
         <div class="col-md-6 col-md-offset-4">
@@ -54,7 +58,7 @@
                                 <button class="btn btn-primary">Se connecter</button>
                             </div>
                             <div class="row d-flex justify-content-center">
-                                <a href="#">Mot de passe oublié</a>
+                                <a href="{{ path('password_forgot_request') }}">Mot de passe oublié</a>
                             </div>
                         </div>
                     </div>
