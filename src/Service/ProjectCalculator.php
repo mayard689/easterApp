@@ -119,17 +119,15 @@ class ProjectCalculator
             foreach ($features as $feature) {
                 $category=$feature->getCategory()->getName();
 
-                if (!isset($synthesis[$variantName][$category]['load'])) {
-                    $synthesis[$variantName][$category]['load'] = 0;
+                if (!isset($synthesis[$variantName][$category])) {
+                    $synthesis[$variantName][$category]=array(
+                        'cost' => 0.0,
+                        'load' => 0.0
+                    );
                 }
-                $synthesis[$variantName][$category]['load'] += $feature->getDay();
 
-                if (!isset($synthesis[$variantName][$category]['cost'])) {
-                    $synthesis[$variantName][$category]['cost'] = 0;
-                }
-                $synthesis[$variantName][$category]['cost'] +=
-                    ProjectController::PRICE_PER_DAY
-                    * $feature->getDay();
+                $synthesis[$variantName][$category]['cost'] += ProjectController::PRICE_PER_DAY * $feature->getDay();
+                $synthesis[$variantName][$category]['load'] += $feature->getDay();
             }
         }
 
