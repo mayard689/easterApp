@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FeatureRepository::class)
- * @UniqueEntity("name", message="La fonctionnalité {{ value }} existe déjà")
  */
 class Feature
 {
