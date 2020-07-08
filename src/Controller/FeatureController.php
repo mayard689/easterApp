@@ -56,6 +56,7 @@ class FeatureController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($feature);
             $entityManager->flush();
+            $this->addFlash('success', 'La fonctionnalité a été ajoutée avec succès');
 
             return $this->redirectToRoute('feature_index');
         }
@@ -76,6 +77,7 @@ class FeatureController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'La fonctionnalité a été modifiée avec succès');
 
             return $this->redirectToRoute('feature_index');
         }
@@ -95,6 +97,7 @@ class FeatureController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($feature);
             $entityManager->flush();
+            $this->addFlash('success', 'La fonctionnalité a été supprimée avec succès');
         }
 
         return $this->redirectToRoute('feature_index');
