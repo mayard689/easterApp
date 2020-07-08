@@ -139,7 +139,6 @@ class ProjectController extends AbstractController
         }
 
         $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
-        $featureCategories = $projectRepository->getCategories($project);
         $projectSynthesis = $projectCalculator->getProjectSynthesis($project);
 
         return $this->render('project/edit.html.twig', [
@@ -147,7 +146,6 @@ class ProjectController extends AbstractController
             'load' => $load,
             'form' => $form->createView(),
             'formFeature' => $formFeature->createView(),
-            'featureCategories' => $featureCategories,
             'variant' => $variant,
             'price_per_day' => self::PRICE_PER_DAY,
             'variants' => $quotationRepository->findAll(),
