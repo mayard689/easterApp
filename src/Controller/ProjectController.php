@@ -35,14 +35,20 @@ class ProjectController extends AbstractController
      * @param Request            $request
      * @return Response
      */
-    public function index(ProjectRepository $project, PaginatorInterface $paginator, Request $request): Response
-    {
+    public function index(
+        ProjectRepository $project,
+        PaginatorInterface $paginator,
+        Request $request,
+        ProjectCalculator $projectCalculator
+    ): Response {
+        $costs = $projectCalculator->calculateProjectsFigures();
         return $this->render('project/index.html.twig', [
             'projects' => $paginator->paginate(
                 $project->findAll(),
                 $request->query->getInt('page', 1),
                 self::NUMBER_PER_PAGE
             ),
+            'costs' => $costs,
         ]);
     }
 

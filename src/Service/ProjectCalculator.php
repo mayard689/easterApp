@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Controller\ProjectController;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
+use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\QuotationRepository;
 
@@ -18,10 +19,17 @@ class ProjectCalculator
      * @var QuotationRepository
      */
     private $quotationRepository;
+    private $projectRepository;
+    private $projectFeatureRepos;
 
-    public function __construct(QuotationRepository $quotationRepository)
-    {
+    public function __construct(
+        QuotationRepository $quotationRepository,
+        ProjectRepository $projectRepository,
+        ProjectFeatureRepository $projectFeatureRepos
+    ) {
         $this->quotationRepository = $quotationRepository;
+        $this->projectRepository = $projectRepository;
+        $this->projectFeatureRepos = $projectFeatureRepos;
     }
 
     public function calculateProjectLoad(Project $project, $projectFeatures): float
@@ -57,5 +65,34 @@ class ProjectCalculator
             }
         }
         return false;
+    }
+
+    /**
+     * Get the project list évaluation
+     * read result[$projectId]['load'][$variant] to get the load for the given variant of the given project
+     * read result[$projectId]['cost'][$variant] to get the cost for the given variant of the given project
+     * @return array
+     */
+    public function calculateProjectsFigures() : array
+    {
+        $projects = $this->projectRepository->findAll();
+        $prices = [];
+
+        $variants = $this->quotationRepository->findAll();
+
+        foreach ($projects as $project) {
+            foreach ($variants as $variant) {
+                $variantName = $variant->getName();
+                $features=$this->projectFeatureRepos->findProjectFeatures($project, $variantName);
+
+                $prices[$project->getId()]['load'][$variantName] = $this->calculateProjectLoad($project, $features);
+
+                $prices[$project->getId()]['cost'][$variantName] =
+                    ProjectController::PRICE_PER_DAY
+                    * $this->calculateProjectLoad($project, $features);
+            }
+        }
+
+        return $prices;
     }
 }
