@@ -27,13 +27,13 @@
                 <td class="text-center">{{ project.date ? project.date|date('d-m-Y') : '' }}</td>
                 <td class="text-center">{{ project.description }}</td>
 
-                {%  set highCostTip = costs[project.id]['cost']['high'] ~ ' €' %}
-                {%  set middleCostTip = costs[project.id]['cost']['middle'] ~ ' €' %}
-                {%  set lowCostTip = costs[project.id]['cost']['low'] ~ ' €' %}
+                {%  set highCostTip = costs[project.id]['cost']['high']|number_format(2, '.', ',') ~ ' €' %}
+                {%  set middleCostTip = costs[project.id]['cost']['middle']|number_format(2, '.', ',') ~ ' €' %}
+                {%  set lowCostTip = costs[project.id]['cost']['low']|number_format(2, '.', ',') ~ ' €' %}
 
-                {%  set highLoadTip = costs[project.id]['load']['high'] ~ ' jours' %}
-                {%  set middleLoadTip = costs[project.id]['load']['middle'] ~ ' jours' %}
-                {%  set lowLoadTip = costs[project.id]['load']['low'] ~ ' jours' %}
+                {%  set highLoadTip = costs[project.id]['load']['high']|number_format(2, '.', ',') ~ ' jours' %}
+                {%  set middleLoadTip = costs[project.id]['load']['middle']|number_format(2, '.', ',') ~ ' jours' %}
+                {%  set lowLoadTip = costs[project.id]['load']['low']|number_format(2, '.', ',') ~ ' jours' %}
 
                 <td class="text-center text-nowrap"
                     data-toggle="tooltip"
