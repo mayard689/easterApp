@@ -21,27 +21,8 @@ $(document, '#feature_name')
         const input = $('#feature_name')
             .val();
         if (input.length > 2) {
-            // eslint-disable-next-line no-console
-            fetch(`/feature/fetch/${input}`)
-                .then(response => response.json())
-                // eslint-disable-next-line no-console
-                .then((features) => {
-                    // eslint-disable-next-line no-undef
-                    $('#feature_day')
-                        .val('');
-                    // eslint-disable-next-line no-undef
-                    $('#feature_description')
-                        .val('');
-                    // eslint-disable-next-line no-undef
-                    if (!jQuery.isEmptyObject(features)) {
-                        // eslint-disable-next-line no-undef
-                        $('#feature_day')
-                            .val(features[0].day);
-                        // eslint-disable-next-line no-undef
-                        $('#feature_description')
-                            .val(features[0].description);
-                    }
-                });
+            // eslint-disable-next-line no-use-before-define
+            fetchFeature(input);
         }
     });
 
@@ -52,26 +33,31 @@ $(document, 'li .eac-item')
         const input = $('#feature_name')
             .val();
         if (input.length > 2) {
-            // eslint-disable-next-line no-console
-            fetch(`/feature/fetch/${input}`)
-                .then(response => response.json())
-                // eslint-disable-next-line no-console
-                .then((features) => {
-                    // eslint-disable-next-line no-undef
-                    $('#feature_day')
-                        .val('');
-                    // eslint-disable-next-line no-undef
-                    $('#feature_description')
-                        .val('');
-                    // eslint-disable-next-line no-undef
-                    if (!jQuery.isEmptyObject(features)) {
-                        // eslint-disable-next-line no-undef
-                        $('#feature_day')
-                            .val(features[0].day);
-                        // eslint-disable-next-line no-undef
-                        $('#feature_description')
-                            .val(features[0].description);
-                    }
-                });
+            // eslint-disable-next-line no-use-before-define
+            fetchFeature(input);
         }
     });
+
+function fetchFeature(input) {
+    // eslint-disable-next-line no-console
+    fetch(`/feature/fetch/${input}`)
+        .then(response => response.json())
+        // eslint-disable-next-line no-console
+        .then((features) => {
+            // eslint-disable-next-line no-undef
+            $('#feature_day')
+                .val('');
+            // eslint-disable-next-line no-undef
+            $('#feature_description')
+                .val('');
+            // eslint-disable-next-line no-undef
+            if (!jQuery.isEmptyObject(features)) {
+                // eslint-disable-next-line no-undef
+                $('#feature_day')
+                    .val(features[0].day);
+                // eslint-disable-next-line no-undef
+                $('#feature_description')
+                    .val(features[0].description);
+            }
+        });
+}
