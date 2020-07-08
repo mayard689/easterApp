@@ -10,7 +10,7 @@
     </thead>
     <tbody>
 
-    {%  for featureCategory, CategorySum in projectSynthesis.load[variant] %}
+    {%  for featureCategory in projectSynthesis[variant]|keys %}
         <tr>
             <td class="feature-category">
                 <div>
@@ -18,10 +18,10 @@
                 </div>
             </td>
             <td class="feature-category">
-                Coût : {{ projectSynthesis.cost[variant][featureCategory] }}
+                Coût : {{ projectSynthesis[variant][featureCategory].cost }} €.
             </td>
             <td class="feature-category">
-                Charge : {{ projectSynthesis.load[variant][featureCategory] }}
+                Charge : {{ projectSynthesis[variant][featureCategory].load }} j*h
             </td>
             <td class="feature-category">
             </td>
