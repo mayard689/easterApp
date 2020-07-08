@@ -119,22 +119,22 @@ class ProjectCalculator
             $features=$this->projectFeatureRepos->findProjectFeatures($project, $variantName);
 
             foreach ($features as $feature) {
-                if (isset($synthesis['load'][$variantName][$feature->getCatégory()])) {
-                    $synthesis['load'][$variantName][$feature->getCatégory()] +=
-                        $this->calculateProjectLoad($project, $features);
+                $category=$feature->getCategory()->getName();
+
+                if (isset($synthesis['load'][$variantName][$category])) {
+                    $synthesis['load'][$variantName][$category] += $feature->getDay();
                 } else {
-                    $synthesis['load'][$variantName][$feature->getCatégory()] =
-                        $this->calculateProjectLoad($project, $features);
+                    $synthesis['load'][$variantName][$category] = $feature->getDay();
                 }
 
-                if (isset($synthesis['cost'][$variantName][$feature->getCatégory()])) {
-                    $synthesis['cost'][$variantName][$feature->getCatégory()] +=
+                if (isset($synthesis['cost'][$variantName][$category])) {
+                    $synthesis['cost'][$variantName][$category] +=
                         ProjectController::PRICE_PER_DAY
-                        * $this->calculateProjectLoad($project, $features);
+                        * $feature->getDay();
                 } else {
-                    $synthesis['cost'][$variantName][$feature->getCatégory()] =
+                    $synthesis['cost'][$variantName][$category] =
                         ProjectController::PRICE_PER_DAY
-                        * $this->calculateProjectLoad($project, $features);
+                        * $feature->getDay();
                 }
             }
         }
