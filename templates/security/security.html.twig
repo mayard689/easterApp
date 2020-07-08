@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}{% endblock %}</title>
+{% extends 'base.html.twig' %}
 
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-        {{ encore_entry_link_tags('security') }}
-    {% endblock %}
-</head>
-<body>
-<main class="main">
-    <div class="container">
-        {% block body %}{% endblock %}
-    </div>
-</main>
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('security') }}
+{% endblock %}
+
+{% block navbar %}{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
-<script src="https://kit.fontawesome.com/bfe9f51c30.js" crossorigin="anonymous"></script>
-</body>
-</html>

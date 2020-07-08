@@ -66,6 +66,11 @@ class User implements UserInterface, Serializable
      *     groups={"UpdateUser"}
      *     )
      * })
+     * @Assert\Count(
+     *     max="1",
+     *     maxMessage="L'utilisateur ne peut avoir qu'un seul rôle",
+     *     groups={"User", "UpdateUser"}
+     * )
      */
     private $roles = [];
 

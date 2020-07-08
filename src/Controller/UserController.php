@@ -97,7 +97,7 @@ class UserController extends AbstractController
                 'title' => 'Bienvenue',
                 'bodyText' => 'Pour finaliser la création de votre compte, il faut renseigner votre mot de passe. 
                 Pour cela, vous pouvez cliquer sur le bouton ci-dessous.',
-                'pageLink' => 'changePassword_index',
+                'pageLink' => 'password_add',
                 'buttonName' => 'Saisir mon mot de passe',
                 'userId' => $userRepository->findLastInserted()['id'],
                 'userToken' => $token
