@@ -36,4 +36,18 @@ class FeatureRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param string|null $input
+     * @return int|mixed|string
+     */
+    public function featureFetch(?string $input)
+    {
+        return $this->createQueryBuilder('f')
+            ->select('f.name', 'f.description', 'f.day')
+            ->where('f.name = :input')
+            ->setParameter('input', $input)
+            ->getQuery()
+            ->getResult();
+    }
 }

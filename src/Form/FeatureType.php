@@ -25,10 +25,10 @@ class FeatureType extends AbstractType
                 ]
             ])
             ->add('day', TextType::class, [
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control', 'id' => 'day']
             ])
             ->add('description', TextareaType::class, [
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control', 'id' => 'description']
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,

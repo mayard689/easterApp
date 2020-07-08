@@ -260,4 +260,16 @@ class ProjectController extends AbstractController
         $feature = $featureRepository->featureLikeSearch($input);
         return $this->json($feature);
     }
+
+    /**
+     * @Route("feature/fetch/{input}", name="feature_fetch")
+     * @param string            $input
+     * @param FeatureRepository $featureRepository
+     * @return JsonResponse
+     */
+    public function fetchFeature(string $input, FeatureRepository $featureRepository): JsonResponse
+    {
+        $feature = $featureRepository->featureFetch($input);
+        return $this->json($feature);
+    }
 }
