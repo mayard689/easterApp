@@ -1,0 +1,25 @@
+@import "vars";
+
+.card label {
+    color: $dark;
+    text-transform: lowercase;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+}
+
+.card label:first-letter {
+    text-transform: uppercase;
+}
+
+.card .form-text {
+    color: $dark;
+    font-size: 16px;
+    text-transform: lowercase;
+}
+
+.card .form-text::first-letter {
+    text-transform: uppercase;
+}

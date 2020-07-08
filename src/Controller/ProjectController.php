@@ -10,23 +10,23 @@ use App\Form\ProjectType;
 use App\Form\SpecificFeatureType;
 use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\QuotationRepository;
 use App\Service\ProjectCalculator;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/project")
+ * @Route("/")
  */
 class ProjectController extends AbstractController
 {
     const NUMBER_PER_PAGE = 10;
-    const VARIANTS=['low', 'middle', 'high'];
+    const PRICE_PER_DAY = 375;
 
     /**
      * @Route("/", name="project_index", methods={"GET"})
@@ -35,14 +35,20 @@ class ProjectController extends AbstractController
      * @param Request            $request
      * @return Response
      */
-    public function index(ProjectRepository $project, PaginatorInterface $paginator, Request $request): Response
-    {
+    public function index(
+        ProjectRepository $project,
+        PaginatorInterface $paginator,
+        Request $request,
+        ProjectCalculator $projectCalculator
+    ): Response {
+        $costs = $projectCalculator->calculateProjectsFigures();
         return $this->render('project/index.html.twig', [
             'projects' => $paginator->paginate(
                 $project->findAll(),
                 $request->query->getInt('page', 1),
                 self::NUMBER_PER_PAGE
             ),
+            'costs' => $costs,
         ]);
     }
 
@@ -70,6 +76,8 @@ class ProjectController extends AbstractController
         return $this->render('project/new.html.twig', [
             'project' => $project,
             'form' => $form->createView(),
+            'price_per_day' => self::PRICE_PER_DAY,
+            'load' => 0,
         ]);
     }
 
@@ -77,6 +85,7 @@ class ProjectController extends AbstractController
      * @Route("/{id}/edit/{variant<high|middle|low>}", name="project_edit", methods={"GET","POST"})
      * @param Request                  $request
      * @param Project                  $project
+     * @param QuotationRepository      $quotationRepository
      * @param ProjectCalculator        $projectCalculator
      * @param ProjectRepository        $projectRepository
      * @param ProjectFeatureRepository $projectFeatureRepos
@@ -86,6 +95,7 @@ class ProjectController extends AbstractController
     public function edit(
         Request $request,
         Project $project,
+        QuotationRepository $quotationRepository,
         ProjectCalculator $projectCalculator,
         ProjectRepository $projectRepository,
         ProjectFeatureRepository $projectFeatureRepos,
@@ -93,7 +103,7 @@ class ProjectController extends AbstractController
     ): Response {
 
         $form = $this->createForm(ProjectType::class, $project);
-        $featuresToBeShown=$projectFeatureRepos->findProjectFeatures($project, $variant);
+        $featuresToBeShown = $projectFeatureRepos->findProjectFeatures($project, $variant);
         $form->get('projectFeatures')->setData($featuresToBeShown);
         $form->handleRequest($request);
 
@@ -103,20 +113,11 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            /**
-             * @var SubmitButton
-             */
-            $button = $form->get('addFeature');
-            $route = $button->isClicked()
-                ? 'project_feature_add'
-                : 'project_edit';
-
-            return $this->redirectToRoute($route, ['id' => $project->getId(), 'variant' => $variant]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         if ($formFeature->isSubmitted() && $formFeature->isValid()) {
-            $projectFeature=new ProjectFeature();
+            $projectFeature = new ProjectFeature();
             $projectFeature->setProject($project);
             $projectFeature->setFeature($feature);
             $projectFeature->setDescription($feature->getDescription());
@@ -134,11 +135,11 @@ class ProjectController extends AbstractController
             $entityManager->persist($feature);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
-        $featureCategories=$projectRepository->getCategories($project);
+        $featureCategories = $projectRepository->getCategories($project);
 
         return $this->render('project/edit.html.twig', [
             'project' => $project,
@@ -147,7 +148,8 @@ class ProjectController extends AbstractController
             'formFeature' => $formFeature->createView(),
             'featureCategories' => $featureCategories,
             'variant' => $variant,
-            'variants' => self::VARIANTS,
+            'price_per_day' => self::PRICE_PER_DAY,
+            'variants' => $quotationRepository->findAll(),
         ]);
     }
 
@@ -169,6 +171,8 @@ class ProjectController extends AbstractController
      * @Route("Feature/{id}/{variant<high|middle|low>}", name="project_feature_delete", methods="POST")
      * @param ProjectFeature         $projectFeature
      * @param EntityManagerInterface $entityManager
+     * @param ProjectCalculator      $projectCalculator
+     * @param string                 $variant
      * @return Response
      */
     public function deleteProjectFeature(
@@ -177,8 +181,8 @@ class ProjectController extends AbstractController
         ProjectCalculator $projectCalculator,
         string $variant = 'high'
     ): Response {
-        $variant=ucfirst($variant);
-        $projectFeature->{'setIs'.$variant}(false);
+        $variant = ucfirst($variant);
+        $projectFeature->{'setIs' . $variant}(false);
 
         // check if the projectFeature is used in at least one variant
         // if projectFeature is not used anymore by any variant of the project, removes it
@@ -189,7 +193,7 @@ class ProjectController extends AbstractController
         /** @var Project */
         $project = $projectFeature->getProject();
         $projectId = $project->getId();
-        return $this->redirectToRoute('project_edit', ['id' => $projectId, 'estimation'=>$variant]);
+        return $this->redirectToRoute('project_edit', ['id' => $projectId, 'estimation' => $variant]);
     }
 
     /**
@@ -213,7 +217,7 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $projectFeature=new ProjectFeature();
+            $projectFeature = new ProjectFeature();
             $projectFeature->setProject($project);
             $projectFeature->setFeature($feature);
             $projectFeature->setDescription($feature->getDescription());
@@ -231,15 +235,15 @@ class ProjectController extends AbstractController
             $entityManager->persist($feature);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_edit', ['id'=>$project->getId()]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
-        $form->get('is'.ucfirst($variant))->setData(true);
+        $form->get('is' . ucfirst($variant))->setData(true);
 
         return $this->render('feature/new.html.twig', [
             'feature' => $feature,
             'formFeature' => $form->createView(),
-            'id'=>$project->getId(),
+            'id' => $project->getId(),
         ]);
     }
 }

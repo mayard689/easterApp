@@ -13,3 +13,11 @@ const $ = require('jquery');
 
 // load the JS bootstrap part - note that bootstrap doesn't export anything
 require('bootstrap');
+
+// activate bootstrap's tooltip JS code
+const bootstrapToolTip = function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
+};
+
+$(bootstrapToolTip());
