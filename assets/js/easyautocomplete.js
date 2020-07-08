@@ -23,6 +23,9 @@ $(document, '#feature_name')
         if (input.length > 2) {
             // eslint-disable-next-line no-use-before-define
             fetchFeature(input);
+        } else {
+            // eslint-disable-next-line no-use-before-define
+            clearInput();
         }
     });
 
@@ -35,6 +38,9 @@ $(document, 'li .eac-item')
         if (input.length > 2) {
             // eslint-disable-next-line no-use-before-define
             fetchFeature(input);
+        } else {
+            // eslint-disable-next-line no-use-before-define
+            clearInput();
         }
     });
 
@@ -45,12 +51,6 @@ function fetchFeature(input) {
         // eslint-disable-next-line no-console
         .then((features) => {
             // eslint-disable-next-line no-undef
-            $('#feature_day')
-                .val('');
-            // eslint-disable-next-line no-undef
-            $('#feature_description')
-                .val('');
-            // eslint-disable-next-line no-undef
             if (!jQuery.isEmptyObject(features)) {
                 // eslint-disable-next-line no-undef
                 $('#feature_day')
@@ -58,6 +58,18 @@ function fetchFeature(input) {
                 // eslint-disable-next-line no-undef
                 $('#feature_description')
                     .val(features[0].description);
+            } else {
+                // eslint-disable-next-line no-use-before-define
+                clearInput();
             }
         });
+}
+
+function clearInput() {
+    // eslint-disable-next-line no-undef
+    $('#feature_day')
+        .val('');
+    // eslint-disable-next-line no-undef
+    $('#feature_description')
+        .val('');
 }
