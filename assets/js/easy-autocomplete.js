@@ -1,13 +1,11 @@
-let inputSearch = $('#feature_name');
 let options = {
     url: function (phrase) {
         return '/feature/search/' + phrase;
     },
-
     getValue: 'name'
 };
 
-inputSearch
+$('#feature_name')
     .easyAutocomplete(options);
 
 $('.easy-autocomplete')
