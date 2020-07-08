@@ -7,17 +7,16 @@
 
 // any CSS you require will output into a single css file (app.css in this case)
 require('../scss/app.scss');
-
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
-
 // load the JS bootstrap part - note that bootstrap doesn't export anything
 require('bootstrap');
 
-// activate bootstrap's tooltip JS code
-const bootstrapToolTip = function () {
-    $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="popover"]').popover();
+const bootstrapToolTip = () => {
+    $('[data-toggle="tooltip"]')
+        .tooltip();
+    $('[data-toggle="popover"]')
+        .popover();
 };
 
 $(bootstrapToolTip());
