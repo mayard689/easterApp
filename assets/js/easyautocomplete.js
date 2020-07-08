@@ -15,11 +15,13 @@ $('.easy-autocomplete')
     .removeAttr('style');
 
 // eslint-disable-next-line no-undef
-$(document, '#feature_name').on('input', function () {
-    let input = $('#feature_name').val();
-})
+$(document, '#feature_name').on('input', () => {
+    // eslint-disable-next-line no-undef
+    const input = $('#feature_name').val();
+});
 
 // eslint-disable-next-line no-undef
-$(document, 'li .eac-item').on('click', function () {
-    let input = $('#feature_name').val();
-})
+$(document, 'li .eac-item').on('click', () => {
+    // eslint-disable-next-line no-undef
+    const input = $('#feature_name').val();
+});
