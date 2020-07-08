@@ -1,14 +1,12 @@
 const options = {
-    url: function (phrase) {
-        return '/feature/search/' + phrase;
+    url: (phrase) => {
+        return `/feature/search/ ${phrase}`;
     },
-    getValue: 'name'
+    getValue: "name"
 };
-$(document)
-    .ready(() => {
-        $('#feature_name')
-            .easyAutocomplete(options);
 
-        $('.easy-autocomplete')
-            .removeAttr('style');
-    });
+$('#feature_name')
+    .easyAutocomplete(options);
+
+$('.easy-autocomplete')
+    .removeAttr('style');
