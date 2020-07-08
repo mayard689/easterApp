@@ -87,30 +87,8 @@
     transition: 5s;
 }
 
-
 .feature-category {
     background: $light;
-}
-
-.category {
-    border-radius: 100px;
-    border: none;
-    text-align: center;
-    color: $light;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    font-size: 10px;
-    font-weight: bold;
-    background: $primary;
-
-    &:focus {
-        background: $primary;
-    }
-
-    &:hover {
-        background: darken($primary, 5%);
-    }
 }
 
 .nav-pills .nav-link {

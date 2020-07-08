@@ -26,6 +26,7 @@ Encore
     .addEntry('newProject', './assets/scss/newProject.scss')
     .addStyleEntry('user', './assets/scss/user.scss')
     .addStyleEntry('security', './assets/scss/security.scss')
+    .addStyleEntry('profile', './assets/scss/profile.scss')
     .addEntry('securityjs', './assets/js/security.js')
     .addEntry('easy-autocomplete', './assets/js/easy-autocomplete.js')
     .addEntry('jquery.easy-autocomplete.min', './assets/js/jquery.easy-autocomplete.min.js')

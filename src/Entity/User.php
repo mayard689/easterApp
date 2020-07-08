@@ -3,21 +3,30 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cet e-mail")
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, Serializable
 {
     const ROLES_AVAILABLE = [
         'Utilisateur' => 'ROLE_APPUSER',
         'Administrateur' => 'ROLE_ADMIN'
     ];
+
+    const MIME_TYPES = ["image/png", "image/jpeg"];
+    const MAX_SIZE = "2M";
 
     /**
      * @ORM\Id()
@@ -30,16 +39,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(
      *     message="L'adresse email doit être renseignée",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      * @Assert\Length(
      *     max= 180,
      *     maxMessage="L\'adresse email ne doit pas dépassée les {{ limit }} caractères",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      * @Assert\Email(
      *     message="L'adresse mail saisie n'est pas une adresse mail valide",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      */
     private $email;
@@ -57,6 +66,11 @@ class User implements UserInterface
      *     groups={"UpdateUser"}
      *     )
      * })
+     * @Assert\Count(
+     *     max="1",
+     *     maxMessage="L'utilisateur ne peut avoir qu'un seul rôle",
+     *     groups={"User", "UpdateUser"}
+     * )
      */
     private $roles = [];
 
@@ -88,12 +102,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(
      *     message="Le nom doit être renseigné",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      * @Assert\Length(
      *     max="100",
      *     maxMessage="Le nom ne doit pas dépassé les {{ limit }} caractères",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      */
     private $lastname;
@@ -102,12 +116,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(
      *     message="Le prénom doit être renseigné",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      * @Assert\Length(
      *     max="100",
      *     maxMessage="Le prénom ne doit pas dépassé les {{ limit }} caractères",
-     *     groups={"User"}
+     *     groups={"User","UserUpdate"}
      * )
      */
     private $firstname;
@@ -126,6 +140,29 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $token;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $profilePicture;
+
+    /**
+     * @Vich\UploadableField(mapping="profile_file", fileNameProperty="profilePicture")
+     * @Assert\File(
+     *     maxSize=User::MAX_SIZE,
+     *     mimeTypes=User::MIME_TYPES,
+     *     groups={"AvatarUpdate"}
+     * )
+     * @var File|null
+     */
+    private $profilePictureFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var DateTimeInterface|null
+     */
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -229,24 +266,24 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate(): ?DateTimeInterface
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(\DateTimeInterface $creationDate): self
+    public function setCreationDate(DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
 
         return $this;
     }
 
-    public function getPasswordRequestedAt(): ?\DateTimeInterface
+    public function getPasswordRequestedAt(): ?DateTimeInterface
     {
         return $this->passwordRequestedAt;
     }
 
-    public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): self
+    public function setPasswordRequestedAt(?DateTimeInterface $passwordRequestedAt): self
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
 
@@ -263,5 +300,75 @@ class User implements UserInterface
         $this->token = $token;
 
         return $this;
+    }
+
+    public function getProfilePictureFile(): ?File
+    {
+        return $this->profilePictureFile;
+    }
+
+    public function setProfilePictureFile(?File $profilePictureFile = null): void
+    {
+        $this->profilePictureFile = $profilePictureFile;
+
+        if (null !== $profilePictureFile) {
+            $this->updatedAt = new DateTime();
+        }
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize(): string
+    {
+        // add $this->salt too if you don't use Bcrypt or Argon2i
+        return serialize([
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->firstname,
+            $this->lastname,
+            $this->profilePicture
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize($serialized): void
+    {
+        // add $this->salt too if you don't use Bcrypt or Argon2i
+        [
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->firstname,
+            $this->lastname,
+            $this->profilePicture
+        ] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

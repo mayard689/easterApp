@@ -15,6 +15,8 @@
                 <th class="text-center">Nom du projet </th>
                 <th class="text-center">Date de création</th>
                 <th class="text-center">Description</th>
+                <th class="text-center">Chiffrage</th>
+                <th class="text-center">Variante Préférée</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
@@ -24,6 +26,35 @@
                 <td class="text-center">{{ project.name }}</td>
                 <td class="text-center">{{ project.date ? project.date|date('d-m-Y') : '' }}</td>
                 <td class="text-center">{{ project.description }}</td>
+
+                {%  set highCostTip = costs[project.id]['cost']['high']|number_format(2, '.', ',') ~ ' €' %}
+                {%  set middleCostTip = costs[project.id]['cost']['middle']|number_format(2, '.', ',') ~ ' €' %}
+                {%  set lowCostTip = costs[project.id]['cost']['low']|number_format(2, '.', ',') ~ ' €' %}
+
+                {%  set highLoadTip = costs[project.id]['load']['high']|number_format(2, '.', ',') ~ ' jours' %}
+                {%  set middleLoadTip = costs[project.id]['load']['middle']|number_format(2, '.', ',') ~ ' jours' %}
+                {%  set lowLoadTip = costs[project.id]['load']['low']|number_format(2, '.', ',') ~ ' jours' %}
+
+                <td class="text-center text-nowrap"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    data-html="true"
+                    title=" <h6> High :</h6>
+                    <p>{{ highCostTip }}</p>
+                    <p>{{ highLoadTip }}</p>
+                    <h6> Middle :</h6>
+                    <p>{{ middleCostTip }}</p>
+                    <p>{{ middleLoadTip }}</p>
+                    <h6> Low :</h6>
+                    <p>{{ lowCostTip }}</p>
+                    <p>{{ lowLoadTip }}</p>"
+                >
+                    {{ _context[project.quotation.name ~ 'CostTip'] }}
+                    <p class="small">({{ _context[project.quotation.name ~ 'LoadTip'] }})</p>
+                </td>
+
+                <td class="text-center small">{{ project.quotation.name }}</td>
+
                 <td class="btn-group">
                     {% if is_granted('ROLE_ADMIN') %}
                     {{ include('project/_delete_form.html.twig') }}
