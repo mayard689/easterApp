@@ -2,7 +2,7 @@ const options = {
     url: (phrase) => {
         return `/feature/search/ ${phrase}`;
     },
-    getValue: "name"
+    getValue: 'name'
 };
 
 $('#feature_name')
