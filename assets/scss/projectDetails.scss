@@ -108,6 +108,12 @@
     border-color: $background-color $green $background-color $background-color;
 }
 
+.variant-nav-link {
+    border: 1px solid $light;
+    margin-right:$margin;
+    background-color:$background-color-fade;
+}
+
 .input-like {
     padding: .25rem .5rem;
 }

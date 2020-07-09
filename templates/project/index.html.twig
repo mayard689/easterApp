@@ -9,14 +9,14 @@
             <i class="fas fa-plus-circle"></i>
         </a>
     </div>
-    <table class="table table-striped table-hover">
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th class="text-center"><a href="{{ path('project_index')}}?sort=name&direction={{ newDirection}}">Nom du projet <i class="{{ sort=='name'?'':'text-muted' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
-                <th class="text-center"><a href="{{ path('project_index')}}?sort=date&direction={{ newDirection}}">Date de création <i class="{{ sort=='date'?'':'text-muted' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+                <th class="text-center"><a href="{{ path('project_index')}}?sort=name&direction={{ newDirection}}">Nom du projet <i class="{{ sort=='name'?'text-muted':'' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+                <th class="text-center"><a href="{{ path('project_index')}}?sort=date&direction={{ newDirection}}">Date de création <i class="{{ sort=='date'?'text-muted':'' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
                 <th class="text-center">Description</th>
                 <th class="text-center">Chiffrage</th>
-                <th class="text-center"><a href="{{ path('project_index')}}?sort=quotation&direction={{ newDirection}}">Variante Préférée <i class="{{ sort=='quotation'?'':'text-muted' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+                <th class="text-center"><a href="{{ path('project_index')}}?sort=quotation&direction={{ newDirection}}">Variante Préférée <i class="{{ sort=='quotation'?'text-muted':'' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>

@@ -93,6 +93,10 @@ a, a:hover {
     width:100%;
 }
 
+.text-half{
+    color:$light;
+}
+
 .table-striped>tbody>td:nth-child(odd){
     background-color:$light;
 }
@@ -103,11 +107,12 @@ table{
     max-height:100px;
     height:100px;
     min-height:100px;
+    border:none;
 }
 
 thead{
-    background-color:$primary;
-    color:$light;
+    background-color:$background-color;
+    color:$primary;
 
     tr{
         th{
@@ -126,6 +131,7 @@ th{
     vertical-align: middle;
     padding-top:0.5rem;
     padding-bottom:0.5rem;
+    border:none;
 }
 
 .tooltip-inner {
