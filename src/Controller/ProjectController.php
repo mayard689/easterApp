@@ -110,7 +110,7 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         $feature = new Feature();
-        $formFeature = $this->createForm(FeatureType::class, $feature);
+        $formFeature = $this->createForm(SpecificFeatureType::class, $feature);
         $formFeature->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -126,9 +126,9 @@ class ProjectController extends AbstractController
             $projectFeature->setDay($feature->getDay());
             $projectFeature->setCategory($feature->getCategory());
 
-            $projectFeature->setIsHigh(true);
-            $projectFeature->setIsMiddle(true);
-            $projectFeature->setIsLow(true);
+            $projectFeature->setIsHigh($formFeature['isHigh']->getData());
+            $projectFeature->setIsMiddle($formFeature['isMiddle']->getData());
+            $projectFeature->setIsLow($formFeature['isLow']->getData());
 
             $feature->setIsStandard(false);
 

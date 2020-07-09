@@ -1,3 +1,4 @@
+@import "vars";
 /*
  * easy-autocomplete
  * jQuery plugin for autocompletion
@@ -337,7 +338,8 @@
 }
 
 .easy-autocomplete-container ul li.selected {
-    background: none repeat scroll 0 0 #ebebeb;
+    background: none repeat scroll 0 0 $primary;
+    color: $light;
     cursor: pointer
 }
 
