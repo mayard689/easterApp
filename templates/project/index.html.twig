@@ -12,18 +12,18 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th class="text-center">Nom du projet </th>
-                <th class="text-center">Date de création</th>
+                <th class="text-center">Nom du projet <a href="{{ path('project_index', {'sort': 'name', 'direction': newDirection})}}"><i class="fas fa-sort"></i></a></th>
+                <th class="text-center">Date de création <a href="{{ path('project_index', {'sort': 'date', 'direction': newDirection})}}"><i class="fas fa-sort"></i></a></th>
                 <th class="text-center">Description</th>
                 <th class="text-center">Chiffrage</th>
-                <th class="text-center">Variante Préférée</th>
+                <th class="text-center">Variante Préférée <a href="{{ path('project_index', {'sort': 'quotation', 'direction': newDirection})}}"><i class="fas fa-sort"></i></a></th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for project in projects %}
             <tr>
-                <td class="text-center">{{ project.name }}</td>
+                <td class="text-center">{{ project.name }} </td>
                 <td class="text-center">{{ project.date ? project.date|date('d-m-Y') : '' }}</td>
                 <td class="text-center">{{ project.description }}</td>
 
