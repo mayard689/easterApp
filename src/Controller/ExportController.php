@@ -20,7 +20,6 @@ class ExportController extends AbstractController
      * @Route("/{id}/export/{variant<high|middle|low>}", name="export")
      * @param Project $project
      * @param ProjectCalculator $projectCalculator
-     * @param ProjectRepository $projectRepository
      * @param string $variant
      * @return Response
      */
