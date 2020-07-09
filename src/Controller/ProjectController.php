@@ -27,9 +27,11 @@ class ProjectController extends AbstractController
 {
     const NUMBER_PER_PAGE = 10;
     const PRICE_PER_DAY = 375;
+    const DIRECTION=['asc','desc'];
+    const SORT=['name', 'date', 'quotation'];
 
     /**
-     * @Route("/", name="project_index", methods={"GET"})
+     *      * @Route("/", name="project_index", methods={"GET"})
      * @param ProjectRepository  $project
      * @param PaginatorInterface $paginator
      * @param Request            $request
@@ -41,14 +43,28 @@ class ProjectController extends AbstractController
         Request $request,
         ProjectCalculator $projectCalculator
     ): Response {
+        $sort=$request->query->get('sort');
+        $direction=$request->query->get('direction');
+
+        if (!in_array($direction, self::DIRECTION)) {
+            $direction = 'desc';
+        }
+
+        if (!in_array($sort, self::SORT)) {
+            $sort = 'name';
+        }
+
         $costs = $projectCalculator->calculateProjectsFigures();
+
         return $this->render('project/index.html.twig', [
             'projects' => $paginator->paginate(
-                $project->findAll(),
+                $project->findBy([], [$sort => strtoupper($direction)]),
                 $request->query->getInt('page', 1),
                 self::NUMBER_PER_PAGE
             ),
             'costs' => $costs,
+            'newDirection' => $direction=='asc'?'desc':'asc',
+            'sort' => $sort
         ]);
     }
 
@@ -139,17 +155,17 @@ class ProjectController extends AbstractController
         }
 
         $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
-        $featureCategories = $projectRepository->getCategories($project);
+        $projectSynthesis = $projectCalculator->getProjectSynthesis($project);
 
         return $this->render('project/edit.html.twig', [
             'project' => $project,
             'load' => $load,
             'form' => $form->createView(),
             'formFeature' => $formFeature->createView(),
-            'featureCategories' => $featureCategories,
             'variant' => $variant,
             'price_per_day' => self::PRICE_PER_DAY,
             'variants' => $quotationRepository->findAll(),
+            'projectSynthesis' => $projectSynthesis,
         ]);
     }
 

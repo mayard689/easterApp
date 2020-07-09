@@ -28,8 +28,7 @@ Encore
     .addStyleEntry('security', './assets/scss/security.scss')
     .addStyleEntry('profile', './assets/scss/profile.scss')
     .addEntry('securityjs', './assets/js/security.js')
-    // .addEntry('page1', './assets/js/page1.js')
-    // .addEntry('page2', './assets/js/page2.js')
+    .addStyleEntry('category', './assets/scss/category.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

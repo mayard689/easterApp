@@ -111,6 +111,8 @@
 
 <div class="button-panel container">
     <button class="btn btn-primary form-btn">{{ buttonName }}</button>
+    <a class="btn btn-outline-primary form-btn" href="{{ path('export', {'id': project.id, 'variant':variant }) }}" target="_blank">Exporter
+        au format PDF</a>
     <a class="btn btn-outline-primary form-btn" href="{{ path('project_index') }}">Revenir à la liste des
         projets</a>
 </div>
