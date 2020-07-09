@@ -8,13 +8,24 @@
     <h1>{{ project.name }}</h1>
         <div> Ce projet les fonctionnalités suivantes :</div>
             <ul>
-                <li></li>
+                <li>Features à venir</li>
             </ul>
-        <div>Avec une charge estimée de :{%  set highLoadTip = costs[project.id]['load']['high']|number_format(2, '.', ',') ~ ' jours' %}
+        <div>Avec une charge estimée de :
+            {%  set highLoadTip = costs[project.id]['load']['high']|number_format(2, '.', ',') ~ ' jours' %}
         {{ highLoadTip }}
+            {%  set middleLoadTip = costs[project.id]['load']['middle']|number_format(2, '.', ',') ~ ' jours' %}
+            {{ middleLoadTip }}
+            {%  set lowLoadTip = costs[project.id]['load']['low']|number_format(2, '.', ',') ~ ' jours' %}
+            {{ lowLoadTip }}
+
         </div>
-        <div>Pour un prix estimé de : {%  set highCostTip = costs[project.id]['cost']['high']|number_format(2, '.', ',') ~ ' €' %}
+        <div>Pour un prix estimé de :
+            {%  set highCostTip = costs[project.id]['cost']['high']|number_format(2, '.', ',') ~ ' €' %}
         {{ highCostTip }}
+            {%  set middleCostTip = costs[project.id]['cost']['middle']|number_format(2, '.', ',') ~ ' €' %}
+            {{ middleCostTip }}
+            {%  set lowCostTip = costs[project.id]['cost']['low']|number_format(2, '.', ',') ~ ' €' %}
+            {{ lowCostTip }}
         </div>
 </body>
 </html>
