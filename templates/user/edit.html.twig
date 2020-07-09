@@ -6,24 +6,35 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Modifier le rôle de l'utilisateur {{ user.firstname }} {{ user.lastname }}</h1>
+    <h1>Modifier le rôle de l'utilisateur</h1>
 
     <section class="sheet">
         {{ form_start(form) }}
         <div class="container">
-            <div class="row form-group">
-                <div class="col-sm-12 col-md-10l">
-                    {{ form_label(form.roles, "Rôles disponible") }}
-                </div>
-                <div class="col-sm-12 col-md-2">
-                    {{ form_widget(form.roles) }}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-10l">
+                                    {{ form_label(form.roles, "Rôles disponibles") }}
+                                </div>
+                                <div class="col-sm-12 col-md-2">
+                                    {{ form_widget(form.roles) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary float-right">Modifier le rôle</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="button-panel container">
-            <button class="btn btn-primary form-btn">Modifier le rôle</button>
-            <a class="btn btn-outline-primary form-btn" href="{{ path('user_index') }}">Revenir à la liste des utilisateurs</a>
+            <div class="row mt-4 float-right">
+                <div class="col-12">
+                    <a href="{{ path('user_index') }}" class="btn btn-outline-primary form-btn">Revenir sur la page précédente</a>
+                </div>
+            </div>
         </div>
         {{ form_end(form) }}
     </section>
