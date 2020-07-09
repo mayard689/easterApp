@@ -58,6 +58,9 @@ function fetchFeature(input) {
                 // eslint-disable-next-line no-undef
                 $('#feature_description')
                     .val(features[0].description);
+                // eslint-disable-next-line no-undef
+                $('#feature_category')
+                    .val(features[0].id);
             } else {
                 // eslint-disable-next-line no-use-before-define
                 clearInput();
@@ -71,5 +74,8 @@ function clearInput() {
         .val('');
     // eslint-disable-next-line no-undef
     $('#feature_description')
+        .val('');
+    // eslint-disable-next-line no-undef
+    $('#feature_category')
         .val('');
 }
