@@ -39,6 +39,7 @@ security:
         - { path: ^/feature, roles: ROLE_APPUSER }
         - { path: ^/user, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_APPUSER }
+        - { path: ^/category, roles: ROLE_ADMIN }
 
     role_hierarchy:
         ROLE_APPUSER: ROLE_USER

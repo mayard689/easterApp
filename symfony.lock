@@ -111,6 +111,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "dompdf/dompdf": {
+        "version": "v0.8.5"
+    },
     "egulias/email-validator": {
         "version": "2.1.11"
     },
@@ -177,6 +180,12 @@
     "pdepend/pdepend": {
         "version": "2.5.2"
     },
+    "phenx/php-font-lib": {
+        "version": "0.5.2"
+    },
+    "phenx/php-svg-lib": {
+        "version": "v0.3.3"
+    },
     "php": {
         "version": "7.2"
     },
@@ -221,6 +230,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.3.1"
     },
     "seld/jsonlint": {
         "version": "1.7.1"
