@@ -5,10 +5,10 @@
 {% block body %}
     <h1>Liste des catégories</h1>
 
-    <div class="new-user text-right">
-        <a href="{{ path('category_new') }}" class="btn" title="Nouvelle catégorie">
-            <i class="fas fa-plus-circle"></i>
-        </a>
+    <div class="text-right">
+        <button type="button" class="btn btn-primary mb-3">
+            <a href="{{ path('category_new') }}">Ajouter une catégorie </a><i class="fas fa-plus-circle ml-1"></i>
+        </button>
     </div>
     <table class="table table-striped table-hover">
         <thead>

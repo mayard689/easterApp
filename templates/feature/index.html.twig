@@ -4,10 +4,10 @@
 
 {% block body %}
     <h1>Liste des fonctionnalités récurrentes</h1>
-    <div class="new text-right">
-        <a href="{{ path('feature_new') }}" class="btn" title="Nouvelle fonctionnalité">
-            <i class="fas fa-plus-circle"></i>
-        </a>
+    <div class="text-right">
+        <button type="button" class="btn btn-primary mb-3">
+            <a href="{{ path('feature_new') }}">Ajouter une fonctionnalité </a><i class="fas fa-plus-circle ml-1"></i>
+        </button>
     </div>
     <table class="table table-striped">
         <thead>
