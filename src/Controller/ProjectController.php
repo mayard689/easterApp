@@ -29,7 +29,7 @@ class ProjectController extends AbstractController
     const PRICE_PER_DAY = 375;
 
     /**
-     * @Route("/", name="project_index", methods={"GET"})
+     * @Route("/{sortKey<name|date|quotation>}/{direction<asc|desc>}", name="project_index", methods={"GET"})
      * @param ProjectRepository  $project
      * @param PaginatorInterface $paginator
      * @param Request            $request
@@ -39,12 +39,14 @@ class ProjectController extends AbstractController
         ProjectRepository $project,
         PaginatorInterface $paginator,
         Request $request,
-        ProjectCalculator $projectCalculator
+        ProjectCalculator $projectCalculator,
+        string $sortKey = 'name',
+        string $direction = 'asc'
     ): Response {
         $costs = $projectCalculator->calculateProjectsFigures();
         return $this->render('project/index.html.twig', [
             'projects' => $paginator->paginate(
-                $project->findAll(),
+                $project->findBy([], [$sortKey => strtoupper($direction)]),
                 $request->query->getInt('page', 1),
                 self::NUMBER_PER_PAGE
             ),
