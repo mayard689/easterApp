@@ -1,0 +1,25 @@
+@import "vars";
+
+.new-user .fa-plus-circle {
+    font-size: 2rem;
+    color: $primary;
+}
+
+.card label {
+    color: $dark;
+    text-transform: lowercase;
+}
+
+.card label:first-letter {
+    text-transform: uppercase;
+}
+
+.card .form-text {
+    color: $dark;
+    font-size: $size-large;
+    text-transform: lowercase;
+}
+
+.card .form-text::first-letter {
+    text-transform: uppercase;
+}

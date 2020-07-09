@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Big Bill | Modifier une catégorie{% endblock %}
+
+{% block body %}
+    <h1>Modifier une catégorie</h1>
+
+    {{ include('category/_form.html.twig') }}
+
+    <div class="row mt-4 float-right">
+        <div class="col-12">
+            <a href="{{ path('category_index') }}" class="btn btn-outline-primary form-btn">Revenir sur la page précédente</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('category') }}
+{% endblock %}
