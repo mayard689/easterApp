@@ -15,7 +15,7 @@ $('.easy-autocomplete')
 
 // eslint-disable-next-line no-undef
 $(document, '#specific_feature_name')
-    .on('focus', () => {
+    .on('input', () => {
         // eslint-disable-next-line no-undef
         const input = $('#specific_feature_name')
             .val();
@@ -61,9 +61,6 @@ function fetchFeature(input) {
                 // eslint-disable-next-line no-undef
                 $('#specific_feature_category')
                     .val(features[0].id);
-            } else {
-                // eslint-disable-next-line no-use-before-define
-                clearInput();
             }
         });
 }

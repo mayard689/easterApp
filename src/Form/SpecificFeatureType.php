@@ -20,7 +20,7 @@ class SpecificFeatureType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'name',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control name_feat',
                     'autocomplete' => 'off',
                 ]
             ])
@@ -28,7 +28,7 @@ class SpecificFeatureType extends AbstractType
                 'attr' => ['class' => 'form-control']
             ])
             ->add('description', TextareaType::class, [
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control', 'rows' => 3]
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
