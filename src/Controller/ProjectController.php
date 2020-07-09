@@ -63,7 +63,8 @@ class ProjectController extends AbstractController
                 self::NUMBER_PER_PAGE
             ),
             'costs' => $costs,
-            'newDirection' => $direction=='asc'?'desc':'asc'
+            'newDirection' => $direction=='asc'?'desc':'asc',
+            'sort' => $sort
         ]);
     }
 
