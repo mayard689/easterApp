@@ -28,12 +28,11 @@ class ExportController extends AbstractController
     public function index(
         Project $project,
         ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository,
         string $variant = 'high'
     ): Response {
 
 
-        $featureCategories = $projectRepository->getCategories($project);
+        $projectSynthesis = $projectCalculator->getProjectSynthesis($project);
 
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
@@ -48,7 +47,7 @@ class ExportController extends AbstractController
             'project' => $project,
             'costs' => $projectCalculator->calculateProjectsFigures(),
             'variant' => $variant,
-            'featureCategories' => $featureCategories,
+            'projectSynthesis' => $projectSynthesis,
 
 
         ]);

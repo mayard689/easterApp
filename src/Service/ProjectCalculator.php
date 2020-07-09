@@ -107,6 +107,10 @@ class ProjectCalculator
      */
     public function getProjectSynthesis(Project $project) : array
     {
+        $velocity = $project->getExpert() / 100 * self::EXPERT_SPEED_COEFFICIENT
+            + $project->getConfirmed() / 100 * self::CONFIRMED_SPEED_COEFFICIENT
+            + $project->getJunior() / 100 * self::JUNIOR_SPEED_COEFFICIENT;
+
         $synthesis=[];
 
         $variants = $this->quotationRepository->findAll();
@@ -126,8 +130,9 @@ class ProjectCalculator
                     );
                 }
 
-                $synthesis[$variantName][$category]['cost'] += ProjectController::PRICE_PER_DAY * $feature->getDay();
-                $synthesis[$variantName][$category]['load'] += $feature->getDay();
+                $synthesis[$variantName][$category]['cost'] +=
+                    (ProjectController::PRICE_PER_DAY * $feature->getDay()) * $velocity;
+                $synthesis[$variantName][$category]['load'] += $feature->getDay() * $velocity;
             }
         }
 
