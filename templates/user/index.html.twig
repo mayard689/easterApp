@@ -23,6 +23,7 @@
         </thead>
         <tbody>
         {% for user in users %}
+            {% if app.user.email != user.email %}
             <tr>
                 <td class="text-center">{{ user.lastname }}</td>
                 <td class="text-center">{{ user.firstname }}</td>
@@ -36,6 +37,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="5" class="text-center">Pas d'utilisateur enregistré</td>
