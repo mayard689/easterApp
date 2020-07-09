@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ project.name }}</title>
+    <link href='build/app.css' rel="stylesheet">
+</head>
+<body>
+    <h1>{{ project.name }}</h1>
+        <div> Ce projet les fonctionnalités suivantes :</div>
+            <ul>
+                <li></li>
+            </ul>
+        <div>Avec une charge estimée de :{%  set highLoadTip = costs[project.id]['load']['high']|number_format(2, '.', ',') ~ ' jours' %}
+        {{ highLoadTip }}
+        </div>
+        <div>Pour un prix estimé de : {%  set highCostTip = costs[project.id]['cost']['high']|number_format(2, '.', ',') ~ ' €' %}
+        {{ highCostTip }}
+        </div>
+</body>
+</html>
