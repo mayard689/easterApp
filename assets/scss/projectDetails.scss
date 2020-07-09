@@ -73,7 +73,6 @@
     font-family: FontAwesome, serif;
     content: "\f0d7";
     float: right;
-    color: $grey;
     transition-duration: 0.5s;
 }
 
@@ -93,19 +92,6 @@
 
 .nav-pills .nav-link {
     position: relative;
-}
-
-.nav-pills .default::after {
-    content: '';
-    position: absolute;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    top: 0;
-    right: 0;
-    border-style: solid;
-    border-width: 0 15px 15px 0;
-    border-color: $background-color $green $background-color $background-color;
 }
 
 .variant-nav-link {
