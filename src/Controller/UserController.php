@@ -116,22 +116,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
-     */
-    public function show(User $user): Response
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/{id}/changerole", name="user_role", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
      * @return Response
      */
-    public function edit(Request $request, User $user): Response
+    public function changeRole(Request $request, User $user): Response
     {
         $form = $this->createForm(ChangeRoleType::class, $user);
         $form->handleRequest($request);

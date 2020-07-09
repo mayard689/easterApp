@@ -116,7 +116,7 @@
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#add-feature">
-                Ajouter une fonctionnalité <i class="fas fa-plus-circle ml-1"></i>
+                <i class="fas fa-plus-circle m-1"></i>Ajouter une fonctionnalité
             </button>
 
         </div>
@@ -128,8 +128,14 @@
 </div>
 
 <div class="button-panel container">
-    <button class="btn btn-primary form-btn">{{ buttonName }}<i class="fas fa-check ml-1"> </i></button>
-    <a class="btn btn-outline-primary form-btn" href="{{ path('project_index') }}">Revenir à la liste des
-        projets <i class="fa fa-arrow-left ml-1"></i>
+
+    <button class="btn btn-primary form-btn"><i class="fas fa-check m-1"> </i> {{ buttonName }}</button>
+
+    <a class="btn btn-outline-primary form-btn" href="{{ path('export', {'id': project.id, 'variant':activeVariant }) }}" target="_blank">
+        <i class="fa fa-file-pdf-o  m-1"></i>Exporter au format PDF
+    </a>
+
+    <a class="btn btn-outline-primary form-btn" href="{{ path('project_index') }}">
+        <i class="fa fa-arrow-left m-1"></i> Revenir à la liste des projets
     </a>
 </div>
