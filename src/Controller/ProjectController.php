@@ -162,7 +162,7 @@ class ProjectController extends AbstractController
             'load' => $load,
             'form' => $form->createView(),
             'formFeature' => $formFeature->createView(),
-            'variant' => $variant,
+            'activeVariant' => $variant,
             'price_per_day' => self::PRICE_PER_DAY,
             'variants' => $quotationRepository->findAll(),
             'projectSynthesis' => $projectSynthesis,

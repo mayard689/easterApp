@@ -19,8 +19,13 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         'Art En Burger',
         'Tour Eiffel',
         'Versailles',
-        'Wild Code School Odyssey',
+        'Wild Code School Odyssey Plus',
         'Lab\'O',
+        'Chambord',
+        'Palais de l\'Elysée',
+        'Les Catacombes de Paris',
+        'Observatoire de Nice',
+        'Le grand Palais'
     ];
 
     public function load(ObjectManager $manager)

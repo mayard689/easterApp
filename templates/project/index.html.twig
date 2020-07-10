@@ -7,23 +7,35 @@
     <div class="text-right">
         <a class=" btn btn-primary mb-3" href="{{ path('project_new') }}">Ajouter un projet<i class="fas fa-plus-circle ml-1"></i></a>
     </div>
-    <table class="table table-striped table-hover">
+    <table class="table table-hover project-index">
         <thead>
             <tr>
-                <th class="text-center"><a href="{{ path('project_index')}}?sort=name&direction={{ newDirection}}">Nom du projet <i class="{{ sort=='name'?'':'text-muted' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
-                <th class="text-center"><a href="{{ path('project_index')}}?sort=date&direction={{ newDirection}}">Date de création <i class="{{ sort=='date'?'':'text-muted' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
-                <th class="text-center">Description</th>
-                <th class="text-center">Chiffrage</th>
-                <th class="text-center"><a href="{{ path('project_index')}}?sort=quotation&direction={{ newDirection}}">Variante Préférée <i class="{{ sort=='quotation'?'':'text-muted' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
-                <th class="text-center">Actions</th>
+                <th class="text-center name"><a href="{{ path('project_index')}}?sort=name&direction={{ newDirection}}">Nom du projet <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+                <th class="text-center date"><a href="{{ path('project_index')}}?sort=date&direction={{ newDirection}}">Création <i class="sort-{{ sort=='date'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+                <th class="text-center description">Description</th>
+                <th class="text-center cost">Chiffrage</th>
+                <th class="text-center variant"><a href="{{ path('project_index')}}?sort=quotation&direction={{ newDirection}}">Variante <i class="sort-{{ sort=='quotation'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+                <th class="text-center action">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for project in projects %}
             <tr>
-                <td class="text-center">{{ project.name }} </td>
-                <td class="text-center">{{ project.date ? project.date|date('d-m-Y') : '' }}</td>
-                <td class="text-center">{{ project.description }}</td>
+                <th class="text-center name">
+                    <span class="text-overflow-dynamic-container">
+                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" data-html="true" title="<p>{{ project.name }}</p>">
+                            {{ project.name }}
+                        </span>
+                    </span>
+                </th>
+                <td class="text-center date">{{ project.date ? project.date|date('d/m/Y') : '' }}</td>
+                <td class="text-center description">
+                    <span class="text-overflow-dynamic-container">
+                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" data-html="true" title="<p>{{ project.description }}</p>">
+                            {{ project.description }}
+                        </span>
+                    </span>
+                </td>
 
                 {%  set highCostTip = costs[project.id]['cost']['high']|number_format(2, '.', ',') ~ ' €' %}
                 {%  set middleCostTip = costs[project.id]['cost']['middle']|number_format(2, '.', ',') ~ ' €' %}
@@ -33,7 +45,7 @@
                 {%  set middleLoadTip = costs[project.id]['load']['middle']|number_format(2, '.', ',') ~ ' jours' %}
                 {%  set lowLoadTip = costs[project.id]['load']['low']|number_format(2, '.', ',') ~ ' jours' %}
 
-                <td class="text-center text-nowrap"
+                <td class="text-center text-nowrap cost"
                     data-toggle="tooltip"
                     data-placement="left"
                     data-html="true"
@@ -51,9 +63,9 @@
                     <p class="small">({{ _context[project.quotation.name ~ 'LoadTip'] }})</p>
                 </td>
 
-                <td class="text-center small">{{ project.quotation.name }}</td>
+                <td class="text-center variant">{{ project.quotation.name }}</td>
 
-                <td class="btn-group">
+                <td class="btn-group action">
                     {% if is_granted('ROLE_ADMIN') %}
                     {{ include('project/_delete_form.html.twig') }}
                     {% endif %}
@@ -76,5 +88,5 @@
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
-    {{ encore_entry_link_tags('newProject') }}
+    {{ encore_entry_link_tags('index') }}
 {% endblock %}

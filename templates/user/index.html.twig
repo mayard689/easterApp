@@ -10,7 +10,7 @@
             <i class="fas fa-plus-circle"></i>
         </a>
     </div>
-    <table class="table table-striped table-hover">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th class="text-center">Nom</th>
@@ -25,7 +25,7 @@
         {% for user in users %}
             <tr>
                 <td class="text-center">{{ user.lastname }}</td>
-                <td class="text-center">{{ user.firstname }}</td>
+                <th class="text-center">{{ user.firstname }}</th>
                 <td class="text-center">{{ user.creationDate ? user.creationDate|date('Y-m-d') : '' }}</td>
                 <td class="text-center">{{ user.email }}</td>
                 <td class="text-center">{{ user.roles|join|replace({'ROLE_USER': ''}) == 'ROLE_ADMIN' ? 'Administrateur' : 'Utilisateur' }}</td>

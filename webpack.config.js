@@ -23,7 +23,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('projectDetails', './assets/scss/projectDetails.scss')
-    .addEntry('newProject', './assets/scss/newProject.scss')
+    .addStyleEntry('index', './assets/scss/projectIndex.scss')
     .addStyleEntry('user', './assets/scss/user.scss')
     .addStyleEntry('security', './assets/scss/security.scss')
     .addStyleEntry('profile', './assets/scss/profile.scss')
