@@ -10,18 +10,25 @@
     </thead>
     <tbody>
 
-    {% for featureCategory in featureCategories %}
+    {%  for featureCategory in projectSynthesis[variant]|keys %}
         <tr>
-            <td colspan="4" class="feature-category w-50">
-                <div><a class="collapse-toggler" data-toggle="collapse" href="#collapseDescription{{ featureCategory.id }}" aria-expanded="true" aria-controls="collapseDescription{{ featureCategory.id }}">
-                    Catégorie : {{ featureCategory.name }}
-                </a></div>
+            <td class="feature-category">
+                <div>
+                    Catégorie : {{ featureCategory }}
+                </div>
             </td>
-
+            <td class="feature-category">
+                Coût : {{ projectSynthesis[variant][featureCategory].cost }} €.
+            </td>
+            <td class="feature-category">
+                Charge : {{ projectSynthesis[variant][featureCategory].load }} j*h
+            </td>
+            <td class="feature-category">
+            </td>
         </tr>
 
         {% for projectFeature in form.projectFeatures %}
-            {% if featureCategory.id == projectFeature.vars.data.category.id %}
+            {% if featureCategory == projectFeature.vars.data.category.name %}
                 {{ include('project/_featureLine.html.twig') }}
             {%  endif %}
         {% endfor %}

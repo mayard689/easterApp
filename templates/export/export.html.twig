@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ project.name }}</title>
+    <link href='build/app.css' rel="stylesheet">
+</head>
+<body>
+<h1>{{ project.name }}</h1>
+
+<p class="text-dark">Cher client, </p>
+<p class="text-dark">Voici ci-dessous notre meilleure proposition concernant votre demande à notre
+entreprise Easter APP sur le projet {{ project.name }}.</p>
+
+<p class="text-dark"> Il inclut les fonctionnalités suivantes :</p>
+<div>
+    <table class="w-75 text-center container">
+        <thead>
+        <tr>
+            <th scope="col">Catégorie</th>
+            <th class="text-center" scope="col">Coût</th>
+            <th class="text-center" scope="col">Charge estimée</th>
+            <th class="text-center" scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for featureCategory in projectSynthesis[variant]|keys %}
+            <tr>
+                <td class="feature-category">
+                    <div>
+                        {{ featureCategory }}
+                    </div>
+                </td>
+                <td class="feature-category">
+                    {{ projectSynthesis[variant][featureCategory].cost }} €.
+                </td>
+                <td class="feature-category">
+                    {{ projectSynthesis[variant][featureCategory].load }} j*h
+                </td>
+                <td class="feature-category">
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<table>
+    <p class="text-dark">Pour une charge de travail de
+
+        {% set highLoadTip = costs[project.id]['load']['high']|number_format(2, '.', ',') ~ ' jours' %}
+        {% set middleLoadTip = costs[project.id]['load']['middle']|number_format(2, '.', ',') ~ ' jours' %}
+        {% set lowLoadTip = costs[project.id]['load']['low']|number_format(2, '.', ',') ~ ' jours' %}
+
+        {{ _context[variant ~ 'LoadTip'] }},
+    son prix total est estimé à
+        {% set highCostTip = costs[project.id]['cost']['high']|number_format(2, '.', ',') ~ ' €' %}
+        {% set middleCostTip = costs[project.id]['cost']['middle']|number_format(2, '.', ',') ~ ' €' %}
+        {% set lowCostTip = costs[project.id]['cost']['low']|number_format(2, '.', ',') ~ ' €' %}
+
+        {{ _context[variant ~ 'CostTip'] }}.
+    </p>
+</table>
+
+<p class="text-dark">Si ce devis vous convient, n'hésitez pas à nous recontacter pour confirmer ou non votre choix.
+    Cette offre est valade pour une durée de 30 jours. Nous restons à votre disposition pour toutes demandes
+    complémentaires</p>
+<p class="text-dark">Cordialement, L'équipe Easter APP</p>
+</body>
+</html>
