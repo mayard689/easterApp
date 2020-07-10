@@ -4,8 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Feature;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -32,22 +30,6 @@ class FeatureRepository extends ServiceEntityRepository
             ->leftJoin('f.category', 'c')
             ->andWhere('f.name LIKE :input')
             ->setParameter('input', '%' . $input . '%')
-            ->orderBy('f.name', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @param string|null $input
-     * @return int|mixed|string
-     */
-    public function featureFetch(?string $input)
-    {
-        return $this->createQueryBuilder('f')
-            ->select('f.name', 'f.description', 'f.day', 'c.id', 'c.name categoryName')
-            ->leftJoin('f.category', 'c')
-            ->andWhere('f.name = :input')
-            ->setParameter('input', $input)
             ->orderBy('f.name', 'ASC')
             ->getQuery()
             ->getResult();

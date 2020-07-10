@@ -5,6 +5,7 @@ const options = {
     getValue: 'name',
 };
 
+
 // eslint-disable-next-line no-undef
 $('#specific_feature_name')
     .easyAutocomplete(options);
@@ -20,33 +21,17 @@ $(document, '#specific_feature_name')
         const input = $('#specific_feature_name')
             .val();
         // eslint-disable-next-line no-restricted-globals
-        if (input.length > 2) {
-            // eslint-disable-next-line no-use-before-define
-            fetchFeature(input);
-        } else {
+        if (input.length < 3) {
             // eslint-disable-next-line no-use-before-define
             clearInput();
         }
-    });
-
-// eslint-disable-next-line no-undef
-$(document, 'li .eac-item')
-    .on('click', () => {
-        // eslint-disable-next-line no-undef
-        const input = $('#specific_feature_name')
-            .val();
-        if (input.length > 2) {
-            // eslint-disable-next-line no-use-before-define
-            fetchFeature(input);
-        } else {
-            // eslint-disable-next-line no-use-before-define
-            clearInput();
-        }
+        // eslint-disable-next-line no-use-before-define
+        fetchFeature(input);
     });
 
 function fetchFeature(input) {
     // eslint-disable-next-line no-console
-    fetch(`/feature/fetch/${input}`)
+    fetch(`/feature/search/${input}`)
         .then(response => response.json())
         // eslint-disable-next-line no-console
         .then((features) => {
