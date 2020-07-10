@@ -3,11 +3,14 @@
 .project-header {
     padding-top: $padding-large;
     padding-bottom: $padding-large;
-}
 
-.project-card{
-    border : thin solid $primary;
-    padding : $padding;
+    h1 {
+        font-size: 36px;
+        color:$secondary;
+        padding:0;
+        margin:0;
+        width:100%;
+    }
 }
 
 .skill {
@@ -16,10 +19,6 @@
 
     label {
         width: 100px;
-
-        &::before {
-            content: '% ';
-        }
     }
 
     /* remove number input arrows Chrome, Safari, Edge, Opera */
@@ -33,12 +32,17 @@
     input[type=number] {
         -moz-appearance: textfield;
     }
+
+    &::after{
+        content : "%";
+    }
 }
 
 .description {
     textarea {
         width: 100%;
     }
+    color : $text-light;
 }
 
 .normal textarea {
@@ -49,7 +53,7 @@
     font-size: $size-small;
 }
 
-.name, .description, .application, .ability, .load {
+.name, .description, .application, .ability, .load, .cost {
     display: flex;
     align-items: center;
 }
@@ -65,10 +69,6 @@
     display: none;
 }
 
-.project-header .form-group:last-child {
-    margin-bottom: 0;
-}
-
 .collapse-toggler:after {
     font-family: FontAwesome, serif;
     content: "\f0d7";
@@ -79,11 +79,6 @@
 .collapse-toggler.collapsed:after {
     transform: rotateZ(0.25turn);
     transition-duration: 0.5s;
-
-}
-
-.feature-line {
-    transition: 5s;
 }
 
 .feature-category {
@@ -102,4 +97,9 @@
 
 .input-like {
     padding: .25rem .5rem;
+}
+
+.figures-card{
+    background:$light;
+    padding:$padding;
 }

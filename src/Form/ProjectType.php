@@ -35,7 +35,7 @@ class ProjectType extends AbstractType
             ])
             ->add('quotation', EntityType::class, [
                 'class' => Quotation::class,
-                'choice_label' => 'name',
+                'choice_label' => 'nameCapitalized',
             ])
         ;
     }

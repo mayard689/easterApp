@@ -1,4 +1,5 @@
 <div class="project-header container">
+<<<<<<< HEAD
     {% if formFeature is defined and form_errors(formFeature.name) %}
         <div class="alert alert-danger mb-5">
             {{ form_errors(formFeature.name) }}
@@ -29,58 +30,73 @@
                     {{ (price_per_day * load)|number_format(2, '.', ' ') }} €
                 </p>
             </div>
+=======
+
+    <div class="row form-group my-4">
+        <div class="col-sm-12 col-md-8 name">
+            <h1>{{ form_widget(form.name,{'attr': {'class': 'w-100'}}) }}</h1>
+            {{ form_errors(form.name) }}
+>>>>>>> 2dfa83a344d4fc8f963d94c36f561140af693536
         </div>
 
-        <div class="row form-group my-4">
-            <div class="col-sm-12 col-md-2 description normal">
-                {{ form_label(form.description, "Description du projet") }}
-            </div>
-            <div class="col-sm-12 col-md-10 description normal">
-                {{ form_widget(form.description,{'attr': {'rows': '3'}}) }}
-            </div>
-        </div>
+        <div class="col-sm-12 col-md-4 figures-card  justify-content-between">
 
-        <div class="row form-group my-4">
-            <div class="col-sm-12 col-md-2">
-                {{ form_label(form.quotation, "Chiffrage par défaut") }}
-            </div>
-            <div class="col-sm-12 col-md-2">
-                {{ form_widget(form.quotation) }}
-            </div>
-        </div>
-
-        <div class="row form-group my-4">
-            <div class="col-sm-12 col-md-2 application">
-                {{ form_label(form.application, "Application de type : ") }}
-            </div>
-            <div class="col-sm-12 col-md-2 application">
-                {{ form_widget(form.application) }}
-                {{ form_errors(form.application) }}
-            </div>
-        </div>
-        <div class="form-group">
             <div class="row input-align">
-                <div class="col-sm-12 col-md-3 col-lg-2 skill">
-                    {{ form_widget(form.junior) }}
-                    {{ form_label(form.junior, "Junior") }}
+                <div class="col-sm-12 col-md-3 load">
+                    <i class='fas fa-user-clock h4'> </i><p class="input-like">{{ load ?? 0 }}</p>
                 </div>
-                <div class="col-sm-12 col-md-3 col-lg-2 skill">
-                    {{ form_widget(form.expert) }}
-                    {{ form_label(form.expert, "Expert") }}
+
+                <div class="col-sm-12 col-md-5 cost">
+                    <i class="fa fa-eur h4 py-1"> </i><p class="input-like">
+                        {{ (price_per_day * load)|number_format(2, '.', ' ') }}
+                    </p>
                 </div>
-                <div class="col-sm-12 col-md-3 col-lg-3 skill">
-                    {{ form_widget(form.confirmed) }}
-                    {{ form_label(form.confirmed, "Confirmé") }}
+                <div class="col-sm-12 col-md-4 text-center text-{{ project.quotation.name }}">
+                    {{ form_widget(form.quotation) }}
                 </div>
             </div>
-        </div>
+            <div class="row input-align">
 
-        <div class="row">
-            {{ form_errors(form.expert) }}
-            {{ form_errors(form.junior) }}
-            {{ form_errors(form.confirmed) }}
+                <div class="col-sm-12 col-md-3 col-lg-4 skill text-junior">
+                    {{ form_label(form.junior, "Junior") }}{{ form_widget(form.junior) }}
+                </div>
+
+
+                <div class="col-sm-12 col-md-3 col-lg-4 skill text-confirmed">
+                    {{ form_label(form.confirmed, "Confirmé") }}{{ form_widget(form.confirmed) }}
+                </div>
+
+
+                <div class="col-sm-12 col-md-3 col-lg-4 skill text-expert">
+                    {{ form_label(form.expert, "Expert") }}{{ form_widget(form.expert) }}
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                {{ form_errors(form.expert) }}
+                {{ form_errors(form.junior) }}
+                {{ form_errors(form.confirmed) }}
+            </div>
         </div>
     </div>
+
+    <div class="row form-group my-4">
+        <div class="col-sm-12 col-md-2 application">
+            <h2 class="m-0">{{ form_widget(form.application) }}</h2>
+            {{ form_errors(form.application) }}
+        </div>
+    </div>
+
+    <div class="row form-group my-4">
+        <div class="col-12 description normal">
+            {{ form_widget(form.description,{'attr': {'rows': '3'}}) }}
+        </div>
+    </div>
+
+
+
 </div>
 <div class="container">
     {% if not project.id is null %}
