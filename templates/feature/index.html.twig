@@ -9,9 +9,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Nom</th>
-            <th>Charge</th>
-            <th>Catégorie</th>
+            <th><a href="{{ path('feature_index')}}?sort=name&direction={{ newDirection}}">Nom de la fonctionnalité <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+            <th><a href="{{ path('feature_index')}}?sort=day&direction={{ newDirection}}">Charge <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+            <th><a href="{{ path('feature_index')}}?sort=category.name&direction={{ newDirection}}">Categorie <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
             <th>Description</th>
             <th></th>
         </tr>
