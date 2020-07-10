@@ -1,14 +1,13 @@
 <div class="project-card my-5">
     <div class="d-flex justify-content-between">
         <div class="name_project">
-            <div class="col-sm-12 name">
+            <div class="col-sm-12 pl-0 name">
                 {{ form_widget(form.name) }}
-                <i class="ml-2 fas fa-pencil-alt"></i>
             </div>
             <div class="col-sm-12 name">
                 {{ form_errors(form.name) }}
             </div>
-            <div class="application col-sm-12 mt-2">
+            <div class="application pl-0 col-sm-12 mt-2">
                 <p>{{ form_widget(form.application) }}</p>
                 {{ form_errors(form.application) }}
             </div>
@@ -52,7 +51,7 @@
 </div>
 
 <div class="form-group my-4">
-    <div class="col-12 description normal">
+    <div class="col-12 p-0 description normal">
         {{ form_widget(form.description,{'attr': {'rows': '3'}}) }}
     </div>
 </div>
