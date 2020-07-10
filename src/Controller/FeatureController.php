@@ -18,6 +18,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class FeatureController extends AbstractController
 {
     const NUMBER_PER_PAGE = 10;
+    const DIRECTION=['asc','desc'];
+    const SORT=['name', 'day', 'category.name'];
 
     /**
      * @Route("/", name="feature_index", methods={"GET"})
@@ -28,6 +30,17 @@ class FeatureController extends AbstractController
      */
     public function index(FeatureRepository $feature, PaginatorInterface $paginator, Request $request): Response
     {
+        $sort=$request->query->get('sort');
+        $direction=$request->query->get('direction');
+
+        if (!in_array($direction, self::DIRECTION)) {
+            $direction = 'desc';
+        }
+
+        if (!in_array($sort, self::SORT)) {
+            $sort = 'name';
+        }
+
         return $this->render('feature/index.html.twig', [
             'features' => $paginator->paginate(
                 $feature->findBy(
@@ -36,7 +49,9 @@ class FeatureController extends AbstractController
                 ),
                 $request->query->getInt('page', 1),
                 self::NUMBER_PER_PAGE
-            )
+            ),
+            'newDirection' => $direction=='asc'?'desc':'asc',
+            'sort' => $sort
         ]);
     }
 

@@ -2,5 +2,7 @@
       onsubmit="return confirm('Voulez vous vraiment supprimer cette fonctionnalité ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ feature.id) }}">
-    <button class="btn btn-danger">Supprimer</button>
+    <button title="Supprimer" class="btn btn-sm btn-primary mr-2">
+        <i class="fas fa-trash-alt"></i>
+    </button>
 </form>

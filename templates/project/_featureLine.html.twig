@@ -28,7 +28,7 @@
     </td>
 
     <td class="text-center">
-        <button title="Supprimer la fonctionnalité" class="btn btn-sm btn-primary" type="submit" formmethod="post" formaction="{{ path('project_feature_delete', {'id': projectFeature.vars.data.id, 'variant':variant}) }}">
+        <button title="Supprimer la fonctionnalité" class="btn btn-sm btn-primary" type="submit" formmethod="post" formaction="{{ path('project_feature_delete', {'id': projectFeature.vars.data.id, 'variant':activeVariant}) }}">
             <i class="fas fa-trash-alt"></i>
         </button>
     </td>

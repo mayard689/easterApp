@@ -10,21 +10,19 @@
     </thead>
     <tbody>
 
-    {%  for featureCategory in projectSynthesis[variant]|keys %}
+    {%  for featureCategory in projectSynthesis[activeVariant]|keys %}
         <tr>
-            <td class="feature-category">
+            <td colspan="2" class="feature-category">
                 <div>
                     Catégorie : {{ featureCategory }}
                 </div>
             </td>
-            <td class="feature-category">
-                Coût : {{ projectSynthesis[variant][featureCategory].cost }} €.
+
+            <td colspan="1" class="feature-category">
+                <div class="m-0 text-center">{{ projectSynthesis[activeVariant][featureCategory].load }} j*h</div>
+                <div class="small m-0 text-center">{{ projectSynthesis[activeVariant][featureCategory].cost }} €.</div>
             </td>
-            <td class="feature-category">
-                Charge : {{ projectSynthesis[variant][featureCategory].load }} j*h
-            </td>
-            <td class="feature-category">
-            </td>
+            <td colspan="1" class="feature-category"></td>
         </tr>
 
         {% for projectFeature in form.projectFeatures %}

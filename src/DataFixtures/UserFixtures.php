@@ -21,6 +21,21 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
+        $userList = ['julia', 'julien'];
+
+        foreach ($userList as $userName) {
+            $user = new User();
+            $user->setFirstname($userName);
+            $user->setLastname('');
+            $user->setEmail($userName . '@easterapp.fr');
+            $user->setRoles(['ROLE_APPUSER']);
+            $user->setPassword($this->passwordEncoder->encodePassword(
+                $user,
+                'userpassword'
+            ));
+            $user->setCreationDate(new DateTime($faker->date()));
+            $manager->persist($user);
+        }
 
         for ($i=0; $i<10; $i++) {
             $user = new User();
@@ -33,7 +48,6 @@ class UserFixtures extends Fixture
                 'userpassword'
             ));
             $user->setCreationDate(new DateTime($faker->date()));
-
             $manager->persist($user);
         }
 
@@ -47,8 +61,19 @@ class UserFixtures extends Fixture
         $admin->setFirstname('John');
         $admin->setLastname('Doe');
         $admin->setCreationDate(new DateTime($faker->date()));
-
         $manager->persist($admin);
+
+        $admin2 = new User();
+        $admin2->setEmail('jerome@easterapp.fr');
+        $admin2->setRoles(['ROLE_ADMIN']);
+        $admin2->setPassword($this->passwordEncoder->encodePassword(
+            $admin,
+            'adminpassword'
+        ));
+        $admin2->setFirstname('jerome');
+        $admin2->setLastname('');
+        $admin2->setCreationDate(new DateTime($faker->date()));
+        $manager->persist($admin2);
 
         $manager->flush();
     }
