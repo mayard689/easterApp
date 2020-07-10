@@ -58,6 +58,7 @@
 .feature-line .input-align input {
     width: 4rem;
     text-align: right;
+    height: auto;
 }
 
 .input-align {
@@ -167,4 +168,9 @@
 
 .button-panel .panel-left .form-btn {
     margin-left: 0;
+}
+
+.form-check-inline input {
+    width: 15px;
+    height: 15px;
 }
