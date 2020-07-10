@@ -1,4 +1,4 @@
-var Encore = require('@symfony/webpack-encore');
+const Encore = require('@symfony/webpack-encore');
 
 Encore
     // directory where compiled assets will be stored
@@ -6,7 +6,7 @@ Encore
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
-    //.setManifestKeyPrefix('build/')
+    // .setManifestKeyPrefix('build/')
     .copyFiles({
         from: './assets/img',
         to: 'img/[path][name].[ext]',
@@ -28,6 +28,10 @@ Encore
     .addStyleEntry('security', './assets/scss/security.scss')
     .addStyleEntry('profile', './assets/scss/profile.scss')
     .addEntry('securityjs', './assets/js/security.js')
+    .addEntry('easyautocomplete', './assets/js/easyautocomplete.js')
+    .addStyleEntry('easyAutocomplete', './assets/scss/easyAutocomplete.scss')
+    // .addEntry('page1', './assets/js/page1.js')
+    // .addEntry('page2', './assets/js/page2.js')
     .addStyleEntry('category', './assets/scss/category.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -51,27 +55,37 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // enables @babel/preset-env polyfills
-    .configureBabel(() => {}, {
+    .configureBabel(() => {
+    }, {
         useBuiltIns: 'usage',
-        corejs: 3
+        corejs: 3,
     })
 
     // enables Sass/SCSS support
     .enableSassLoader()
 
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
+// uncomment if you use TypeScript
+// .enableTypeScriptLoader()
 
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes()
+// uncomment to get integrity="..." attributes on your script & link tags
+// requires WebpackEncoreBundle 1.4 or higher
+// .enableIntegrityHashes()
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 
-    // uncomment if you use API Platform Admin (composer req api-admin)
-    //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+// uncomment if you use API Platform Admin (composer req api-admin)
+// .enableReactPreset()
+// .addEntry('admin', './assets/js/admin.js')
+// eslint-disable-next-line semi-style
 ;
 
-module.exports = Encore.getWebpackConfig();
+// module.exports = Encore.getWebpackConfig();
+const config = Encore.getWebpackConfig();
+// disable amd loader
+config.module.rules.unshift({
+    parser: {
+        amd: false,
+    },
+});
+module.exports = config;

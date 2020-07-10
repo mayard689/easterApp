@@ -18,17 +18,22 @@ class FeatureType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'name',
-                'attr' => ['class' => 'form-control']
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'feature_name',
+                    'autocomplete' => 'off',
+                ]
             ])
             ->add('day', TextType::class, [
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control', 'id' => 'day']
             ])
             ->add('description', TextareaType::class, [
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control', 'id' => 'description']
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
+                'placeholder' => '',
                 'attr' => ['class' => 'form-control']
             ]);
     }

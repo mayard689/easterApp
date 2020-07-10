@@ -18,4 +18,20 @@ class FeatureRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Feature::class);
     }
+
+    /**
+     * @param string|null $input
+     * @return int|mixed|string
+     */
+    public function featureLikeSearch(?string $input)
+    {
+        return $this->createQueryBuilder('f')
+            ->select('f.name', 'f.description', 'f.day', 'c.id', 'c.name categoryName')
+            ->leftJoin('f.category', 'c')
+            ->andWhere('f.name LIKE :input')
+            ->setParameter('input', '%' . $input . '%')
+            ->orderBy('f.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

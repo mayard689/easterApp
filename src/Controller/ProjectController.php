@@ -8,6 +8,7 @@ use App\Entity\ProjectFeature;
 use App\Form\FeatureType;
 use App\Form\ProjectType;
 use App\Form\SpecificFeatureType;
+use App\Repository\FeatureRepository;
 use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\QuotationRepository;
@@ -16,6 +17,7 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -124,7 +126,7 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         $feature = new Feature();
-        $formFeature = $this->createForm(FeatureType::class, $feature);
+        $formFeature = $this->createForm(SpecificFeatureType::class, $feature);
         $formFeature->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -140,9 +142,9 @@ class ProjectController extends AbstractController
             $projectFeature->setDay($feature->getDay());
             $projectFeature->setCategory($feature->getCategory());
 
-            $projectFeature->setIsHigh(true);
-            $projectFeature->setIsMiddle(true);
-            $projectFeature->setIsLow(true);
+            $projectFeature->setIsHigh($formFeature['isHigh']->getData());
+            $projectFeature->setIsMiddle($formFeature['isMiddle']->getData());
+            $projectFeature->setIsLow($formFeature['isLow']->getData());
 
             $feature->setIsStandard(false);
 
@@ -261,5 +263,20 @@ class ProjectController extends AbstractController
             'formFeature' => $form->createView(),
             'id' => $project->getId(),
         ]);
+    }
+
+    /**
+     * @Route("feature/search/{input}", name="feature_search")
+     * @param string            $input
+     * @param FeatureRepository $featureRepository
+     * @return JsonResponse
+     */
+    public function searchFeature(string $input, FeatureRepository $featureRepository): ?JsonResponse
+    {
+        if (strlen($input) > 2) {
+            $feature = $featureRepository->featureLikeSearch($input);
+            return $this->json($feature);
+        }
+        return null;
     }
 }
