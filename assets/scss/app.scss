@@ -89,6 +89,39 @@ a, a:hover {
     text-decoration: none;
 }
 
+.text-high{
+    color:$high;
+}
+
+.text-middle{
+    color:$middle;
+}
+
+.text-low{
+    color:$low;
+}
+
+.text-expert{
+    color:$expert;
+    label{
+        color:$expert;
+    }
+}
+
+.text-junior{
+    color:$junior;
+    label{
+        color:$junior;
+    }
+}
+
+.text-confirmed{
+    color:$confirmed;
+    label{
+        color:$confirmed;
+    }
+}
+
 .main {
     width:100%;
 }
