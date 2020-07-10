@@ -47,6 +47,8 @@ class ExportController extends AbstractController
             'costs' => $projectCalculator->calculateProjectsFigures(),
             'variant' => $variant,
             'projectSynthesis' => $projectSynthesis,
+
+
         ]);
 
         // Load HTML to Dompdf
