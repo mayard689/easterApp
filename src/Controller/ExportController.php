@@ -29,6 +29,8 @@ class ExportController extends AbstractController
         ProjectCalculator $projectCalculator,
         string $variant = 'high'
     ): Response {
+        
+        
         $projectSynthesis = $projectCalculator->getProjectSynthesis($project);
 
         // Configure Dompdf according to your needs
@@ -46,6 +48,8 @@ class ExportController extends AbstractController
             'variant' => $variant,
             'projectSynthesis' => $projectSynthesis,
         ]);
+        
+        
 
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
