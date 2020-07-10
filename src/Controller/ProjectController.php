@@ -31,7 +31,7 @@ class ProjectController extends AbstractController
     const SORT=['name', 'date', 'quotation'];
 
     /**
-     *      * @Route("/", name="project_index", methods={"GET"})
+     * @Route("/", name="project_index", methods={"GET"})
      * @param ProjectRepository  $project
      * @param PaginatorInterface $paginator
      * @param Request            $request

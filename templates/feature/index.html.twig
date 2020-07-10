@@ -4,16 +4,19 @@
 
 {% block body %}
     <h1>Liste des fonctionnalités récurrentes</h1>
-    <a class="btn btn-sm btn-primary float-right " href="{{ path('feature_new') }}"><i
-                class="fas fa-plus-circle"></i></a>
+
+    <div class="text-right">
+        <a class=" btn btn-primary mb-3" href="{{ path('feature_new') }}">Ajouter une fonctionnalité<i class="fas fa-plus-circle ml-1"></i></a>
+    </div>
     <table class="table feature-index table-hover">
+
         <thead>
         <tr>
-            <th>Nom</th>
-            <th>Charge</th>
-            <th>Catégorie</th>
+            <th><a href="{{ path('feature_index')}}?sort=name&direction={{ newDirection}}">Nom de la fonctionnalité <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+            <th><a href="{{ path('feature_index')}}?sort=day&direction={{ newDirection}}">Charge <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+            <th><a href="{{ path('feature_index')}}?sort=category.name&direction={{ newDirection}}">Categorie <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
             <th>Description</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -29,9 +32,12 @@
                             {{ feature.description }}
                         </span>
                     </span>
-                </td>
 
-                <td>
+                <td class="btn-group float-right">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {{ include('feature/_delete_form.html.twig') }}
+                    {% endif %}
+
                     <a class="btn btn-sm btn-primary" href="{{ path('feature_edit', {'id': feature.id}) }}">
                         <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </a>
