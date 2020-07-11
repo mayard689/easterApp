@@ -51,7 +51,7 @@ Next continue from the step 2 of the install paragraph.
 ##### php version
 
 This application is made on php 7.2. It may happen that `composer install` release an error message saying that composer.lock is made for php 7.3 and cannot be installed on 7.2 php version.
-To  the application on php 7.2, run the following command  
+To install the application on php 7.2, run the following command  
 `composer dump_autoload`
 
 Next continue from the step 2 of the install paragraph.
