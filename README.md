@@ -43,7 +43,7 @@ The initial administrator account is `johndoe@easterapp.fr` with password `admin
 
 Depending on your php installation, the `composer install` command can trigger an error message saying that some extension are missing.
 
-If you are using php 7.2 on unbuntu and the message say that mbstring is missing run the following command :  
+If you are using php 7.2 on Ubuntu and the message say that mbstring is missing run the following command :  
 `sudo apt-get install php7.2-mbstring`
 
 Next continue from the step 2 of the install paragraph.
