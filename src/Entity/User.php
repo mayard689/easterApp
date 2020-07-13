@@ -15,7 +15,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cet e-mail")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Il existe déjà un compte avec cet e-mail",
+ *     groups={"User","UserUpdate"}
+ * )
  * @Vich\Uploadable
  */
 class User implements UserInterface, Serializable
