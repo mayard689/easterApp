@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title 'Big Bill | 404 page non trouvée' %}
+
+
+{% block body %}
+
+    <div class="text-center error-content">
+
+        <div class="error404">
+            <h1 class="h1">Big Bill</h1>
+            <h2>Oups! :(</h2>
+            <p>Désolé, la page que vous cherchez est introuvable.</p>
+            <a class="btn btn-primary" href="{{ path('project_index') }}">Revenir à l'accueil</a>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('errors') }}
+{% endblock %}

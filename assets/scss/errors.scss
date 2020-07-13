@@ -1,0 +1,23 @@
+@import "vars";
+
+.error-content {
+    height: 100vh;
+    position: relative;
+}
+
+.error404 {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    h2 {
+        font-weight: bold;
+        font-size: $size-xxl;
+    }
+
+    p {
+        font-size: $size-large;
+    }
+}
