@@ -9,9 +9,9 @@ use Doctrine\Persistence\ObjectManager;
 class ApplicationFixtures extends Fixture
 {
     const APPLICATIONS=[
-        'Web',
-        'Mobile',
-        'Plateforme'
+        'Application Web',
+        'Application Mobile',
+        'Application Plateforme'
     ];
 
     public function load(ObjectManager $manager)

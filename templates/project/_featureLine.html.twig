@@ -2,7 +2,8 @@
     <th class="w-50" scope="row">
 
         <div class="ml-4">
-            <a class="collapse-toggler collapsed" data-toggle="collapse" href="#collapseDescription{{ loop.index }}" aria-expanded="false" aria-controls="collapseDescription{{ loop.index }}">
+            <a class="collapse-toggler collapsed" data-toggle="collapse" href="#collapseDescription{{ loop.index }}"
+               aria-expanded="false" aria-controls="collapseDescription{{ loop.index }}">
                 {{ projectFeature.vars.data.feature.name }}
             </a>
         </div>
@@ -18,7 +19,7 @@
     </th>
 
     <td class="text-center ">
-        {{ form_widget(projectFeature.category, {'attr': {'class': 'category' }})  }}
+        {{ form_widget(projectFeature.category, {'attr': {'class': 'category' }}) }}
         {{ form_errors(projectFeature.category) }}
     </td>
 
@@ -28,7 +29,8 @@
     </td>
 
     <td class="text-center">
-        <button title="Supprimer la fonctionnalité" class="btn btn-sm btn-primary" type="submit" formmethod="post" formaction="{{ path('project_feature_delete', {'id': projectFeature.vars.data.id, 'variant':activeVariant}) }}">
+        <button title="Supprimer la fonctionnalité" class="btn btn-sm btn-primary" type="submit" formmethod="post"
+                formaction="{{ path('project_feature_delete', {'id': projectFeature.vars.data.id, 'variant':activeVariant}) }}">
             <i class="fas fa-trash-alt"></i>
         </button>
     </td>

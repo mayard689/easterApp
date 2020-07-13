@@ -1,9 +1,24 @@
 
 /* colors */
+$white: #ffffff;
 $dark:#222222;
 $primary:#046077;
 $secondary:#043341;
 $light:#C5DADF;
+$light-grey:#F0EFEA;
+
+$high:#C30000;
+$middle:orange;
+$low:green;
+
+$expert:#046077;
+$confirmed:#0189AB;
+$junior:#00B1DD;
+
+$text-light:grey;
+
+$grey: grey;
+$green: green;
 
 $tooltip-arrow-color:$primary;
 
@@ -19,10 +34,17 @@ $border-light: 2px solid $primary;
 $padding-large:30px;
 $margin:20px;
 $padding:10px;
+$p-1: .25rem;
+$p-2: .5rem;
 
 /* sizes */
 $size: 14px;
 $size-large: 16px;
 $size-small: 12px;
+$size-md: 22px;
+$size-xl: 1.5rem;
+$size-xxl: 1.75rem;
 
+$radius: 5px;
 $radius-light-right: 0px 3px 3px 0px;
+
