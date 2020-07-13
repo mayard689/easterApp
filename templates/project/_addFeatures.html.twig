@@ -10,8 +10,8 @@
                 </button>
             </div>
 
+            {{ form_start(formFeature) }}
             <div class="modal-body">
-                {{ form_start(formFeature) }}
                 <div class="form-group my-2">
                     {{ form_label(formFeature.name, "Nom") }}
                     {{ form_widget(formFeature.name) }}
@@ -50,9 +50,8 @@
                     <button class="btn btn-primary form-btn">Enregistrer</button>
                 </div>
             </div>
+            {{ form_end(formFeature) }}
         </div>
-        {{ form_end(formFeature) }}
-
     </div>
 </div>
 
