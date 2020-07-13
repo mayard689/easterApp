@@ -37,6 +37,25 @@ The initial administrator account is `johndoe@easterapp.fr` with password `admin
 
 8. If needed, you can fill the database with fake records for testing purpose.  bin/console doctrine:fixture:load
 
+#### Installation troubleshooting
+
+##### missing extension 
+
+Depending on your php installation, the `composer install` command can trigger an error message saying that some extension are missing.
+
+If you are using php 7.2 on Ubuntu and the message say that mbstring is missing run the following command :  
+`sudo apt-get install php7.2-mbstring`
+
+Next continue from the step 2 of the install paragraph.
+
+##### php version
+
+This application is made on php 7.2. It may happen that `composer install` release an error message saying that composer.lock is made for php 7.3 and cannot be installed on 7.2 php version.
+To install the application on php 7.2, run the following command  
+`composer dump_autoload`
+
+Next continue from the step 2 of the install paragraph.
+
 ### Working
 
 1. Run `symfony server:start` to launch your local php web server
