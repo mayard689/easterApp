@@ -15,9 +15,15 @@ class UserUpdateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastname', TextType::class)
-            ->add('firstname', TextType::class)
-            ->add('email', EmailType::class)
+            ->add('lastname', TextType::class, [
+                'empty_data' => ''
+            ])
+            ->add('firstname', TextType::class, [
+                'empty_data' => ''
+            ])
+            ->add('email', EmailType::class, [
+                'empty_data' => ''
+            ])
         ;
     }
 
