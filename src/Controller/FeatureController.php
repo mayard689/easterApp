@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/feature")
+ * @Route("/fonctionnalite")
  */
 class FeatureController extends AbstractController
 {
@@ -56,7 +56,7 @@ class FeatureController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="feature_new", methods={"GET","POST"})
+     * @Route("/ajouter", name="feature_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
@@ -83,7 +83,7 @@ class FeatureController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="feature_edit", methods={"GET","POST"})
+     * @Route("/{id}/editer", name="feature_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Feature $feature): Response
     {

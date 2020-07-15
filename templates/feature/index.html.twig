@@ -6,7 +6,7 @@
     <h1>Liste des fonctionnalités récurrentes</h1>
 
     <div class="text-right">
-        <a class=" btn btn-primary mb-3" href="{{ path('feature_new') }}">Ajouter une fonctionnalité<i class="fas fa-plus-circle ml-1"></i></a>
+        <a class=" btn btn-primary mb-3" href="{{ path('feature_new') }}"><i class="fas fa-plus-circle mr-1"></i>Ajouter une fonctionnalité</a>
     </div>
     <table class="table feature-index table-hover">
 
@@ -28,7 +28,7 @@
 
                 <td class="text-center description">
                     <span class="text-overflow-dynamic-container">
-                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" data-html="true" title="<p>{{ feature.description }}</p>">
+                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" title="{{ feature.description }}">
                             {{ feature.description }}
                         </span>
                     </span>
