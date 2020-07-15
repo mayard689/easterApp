@@ -15,7 +15,8 @@ class AvatarUpdateType extends AbstractType
         $builder
             ->add('profilePictureFile', VichImageType::class, [
                 'help'         =>
-                    'Les fichiers autorisés sont uniquement de type png ou jgep'
+                    'Les fichiers autorisés sont uniquement de type '
+                    . implode(', ', User::MIME_TYPES)
                     . ' et le poids maximal de ' . strtoupper(User::MAX_SIZE) . 'O',
                 'required'     => false,
                 'download_uri' => false,
