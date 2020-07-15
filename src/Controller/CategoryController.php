@@ -25,14 +25,12 @@ class CategoryController extends AbstractController
     /**
      * @Route("/", name="category_index", methods={"GET"})
      * @param CategoryRepository $categoryRepository
-     * @param ProjectRepository $project
      * @param PaginatorInterface $paginator
      * @param Request $request
      * @return Response
      */
     public function index(
         CategoryRepository $categoryRepository,
-        ProjectRepository $project,
         PaginatorInterface $paginator,
         Request $request
     ): Response {
