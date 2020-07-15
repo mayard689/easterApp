@@ -37,13 +37,13 @@
 </div>
 
 <div class="button-panel container">
-    <button class="btn btn-primary form-btn"> Enregistrer les modifications</button>
+    <button class="btn btn-primary form-btn"><i class="fas fa-check m-1"></i> Enregistrer les modifications</button>
     {% if id is defined %}
         {%  set route = path('project_edit', {'id':id}) %}
         {%  set label = 'Revenir à la fiche projet' %}
     {%  endif %}
     <a class="btn btn-outline-primary form-btn" href="{{ route ?? path('feature_index') }}">
-        {{  label ?? 'Revenir à la liste des fonctionnalités' }}
+        <i class="fa fa-arrow-left m-1"></i> {{  label ?? 'Revenir à la liste des fonctionnalités' }}
     </a>
 </div>
 {{ form_end(form) }}

@@ -44,9 +44,10 @@
             </div>
         </div>
         <div class="button-panel container">
-            <button class="btn btn-primary form-btn">Créer le compte de l'utilisateur</button>
-            <a class="btn btn-outline-primary form-btn" href="{{ path('user_index') }}">Revenir à la liste des
-                utilisateurs</a>
+            <button class="btn btn-primary form-btn"><i class="fas fa-plus-circle mr-1"></i>Créer le compte de l'utilisateur
+            </button>
+            <a class="btn btn-outline-primary form-btn" href="{{ path('user_index') }}">
+                <i class="fa fa-arrow-left m-1"></i>Revenir à la liste des utilisateurs</a>
         </div>
         {{ form_end(form) }}
     </section>
