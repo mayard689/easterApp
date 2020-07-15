@@ -83,20 +83,12 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $juniorPercentage=$project->getJunior();
-            $expertPercentage=$project->getExpert();
-            $confirmedPercentage=$project->getConfirmed();
-
-            if ($juniorPercentage + $confirmedPercentage + $expertPercentage == 100) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $project->setDate(new DateTime());
                 $entityManager->persist($project);
                 $entityManager->flush();
 
                 return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
-            } else {
-                $this->addFlash('danger', 'La somme des pourcentage de competence de l\'équipe doit être égale à 100');
-            }
         }
 
         return $this->render('project/new.html.twig', [
@@ -138,16 +130,8 @@ class ProjectController extends AbstractController
         $formFeature->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $juniorPercentage=$project->getJunior();
-            $expertPercentage=$project->getExpert();
-            $confirmedPercentage=$project->getConfirmed();
-
-            if ($juniorPercentage + $confirmedPercentage + $expertPercentage == 100) {
-                $this->getDoctrine()->getManager()->flush();
-                return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
-            } else {
-                $this->addFlash('danger', 'La somme des pourcentage de competence de l\'équipe doit être égale à 100');
-            }
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         if ($formFeature->isSubmitted() && $formFeature->isValid()) {
