@@ -23,7 +23,7 @@
             <tr>
                 <th class="text-center name">
                     <span class="text-overflow-dynamic-container">
-                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" data-html="true" title="<p>{{ project.name }}</p>">
+                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" title="{{ project.name }}">
                             {{ project.name }}
                         </span>
                     </span>
@@ -31,7 +31,7 @@
                 <td class="text-center date">{{ project.date ? project.date|date('d/m/Y') : '' }}</td>
                 <td class="text-center description">
                     <span class="text-overflow-dynamic-container">
-                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" data-html="true" title="<p>{{ project.description }}</p>">
+                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" title="{{ project.description }}">
                             {{ project.description }}
                         </span>
                     </span>
