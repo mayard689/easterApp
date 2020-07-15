@@ -180,6 +180,7 @@ class ProjectController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($project);
             $entityManager->flush();
+            $this->addFlash('success', 'Le projet a été supprimé avec succès');
         }
 
         return $this->redirectToRoute('project_index');
@@ -207,6 +208,7 @@ class ProjectController extends AbstractController
         if (!$projectCalculator->isActive($projectFeature)) {
             $entityManager->remove($projectFeature);
         }
+        $this->addFlash('success', 'La fonctionnalité a été supprimée avec succès');
         $entityManager->flush();
         /** @var Project */
         $project = $projectFeature->getProject();
