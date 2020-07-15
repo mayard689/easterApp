@@ -34,6 +34,8 @@ class ProjectFeature
     /**
      * @ORM\Column(type="text")
      *
+     * @Assert\NotBlank
+     *
      */
     private $description;
 
