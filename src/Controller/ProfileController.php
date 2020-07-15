@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/profile", name="profile_")
+ * @Route("/profil", name="profile_")
  */
 class ProfileController extends AbstractController
 {
@@ -60,7 +60,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/password", name="password")
+     * @Route("/mot-de-passe", name="password")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return Response
