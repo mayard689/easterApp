@@ -131,7 +131,7 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId(), 'variant' => $variant]);
         }
 
         if ($formFeature->isSubmitted() && $formFeature->isValid()) {
@@ -153,7 +153,7 @@ class ProjectController extends AbstractController
             $entityManager->persist($feature);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
+            return $this->redirectToRoute('project_edit', ['id' => $project->getId(), 'variant' => $variant]);
         }
 
         $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
@@ -199,8 +199,7 @@ class ProjectController extends AbstractController
         ProjectCalculator $projectCalculator,
         string $variant = 'high'
     ): Response {
-        $variant = ucfirst($variant);
-        $projectFeature->{'setIs' . $variant}(false);
+        $projectFeature->{'setIs' . ucfirst($variant)}(false);
 
         // check if the projectFeature is used in at least one variant
         // if projectFeature is not used anymore by any variant of the project, removes it
@@ -211,7 +210,7 @@ class ProjectController extends AbstractController
         /** @var Project */
         $project = $projectFeature->getProject();
         $projectId = $project->getId();
-        return $this->redirectToRoute('project_edit', ['id' => $projectId, 'estimation' => $variant]);
+        return $this->redirectToRoute('project_edit', ['id' => $projectId, 'variant' => $variant]);
     }
 
     /**
