@@ -23,3 +23,7 @@
 .card .form-text::first-letter {
     text-transform: uppercase;
 }
+
+.custom-file-label::after {
+    content: "Choisissez une image";
+}
