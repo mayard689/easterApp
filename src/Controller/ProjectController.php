@@ -273,7 +273,7 @@ class ProjectController extends AbstractController
      */
     public function searchFeature(string $input, FeatureRepository $featureRepository): ?JsonResponse
     {
-        if (strlen($input) > 2) {
+        if (strlen($input) !== 0) {
             $feature = $featureRepository->featureLikeSearch($input);
             return $this->json($feature);
         }
