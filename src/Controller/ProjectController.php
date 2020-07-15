@@ -83,12 +83,12 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $project->setDate(new DateTime());
-            $entityManager->persist($project);
-            $entityManager->flush();
+                $entityManager = $this->getDoctrine()->getManager();
+                $project->setDate(new DateTime());
+                $entityManager->persist($project);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
+                return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
         }
 
         return $this->render('project/new.html.twig', [
