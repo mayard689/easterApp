@@ -29,7 +29,7 @@
                 <td class="text-center">{{ user.creationDate ? user.creationDate|date('Y-m-d') : '' }}</td>
                 <td class="text-center">{{ user.email }}</td>
                 <td class="text-center">{{ user.roles|join|replace({'ROLE_USER': ''}) == 'ROLE_ADMIN' ? 'Administrateur' : 'Utilisateur' }}</td>
-                <td class="btn-group">
+                <td class="btn-row">
                     {{ include('user/_delete_form.html.twig') }}
                     <a class="btn btn-sm btn-primary ml-2 {{ app.user == user ? 'disabled' }}" href="{{ path('user_role', {'id': user.id}) }}"
                        title="Modifier le rôle de l'utilisateur">

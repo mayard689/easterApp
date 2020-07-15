@@ -190,3 +190,10 @@ th {
         margin: 0;
     }
 }
+
+.btn-row{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+}
