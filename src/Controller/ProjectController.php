@@ -71,7 +71,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="project_new", methods={"GET","POST"})
+     * @Route("/ajouter", name="project_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      * @throws \Exception
@@ -100,7 +100,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit/{variant<high|middle|low>}", name="project_edit", methods={"GET","POST"})
+     * @Route("/{id}/editer/{variant<high|middle|low>}", name="project_edit", methods={"GET","POST"})
      * @param Request                  $request
      * @param Project                  $project
      * @param QuotationRepository      $quotationRepository
@@ -187,7 +187,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("Feature/{id}/{variant<high|middle|low>}", name="project_feature_delete", methods="POST")
+     * @Route("fonctionnalite/{id}/{variant<high|middle|low>}", name="project_feature_delete", methods="POST")
      * @param ProjectFeature         $projectFeature
      * @param EntityManagerInterface $entityManager
      * @param ProjectCalculator      $projectCalculator
@@ -217,7 +217,8 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/add-feature/{variant<high|middle|low>}", name="project_feature_add", methods={"GET", "POST"})
+     * @Route("/{id}/ajouter/fonctionnalite/{variant<high|middle|low>}",
+     *     name="project_feature_add", methods={"GET", "POST"})
      * @param Request           $request
      * @param Project           $project
      * @param ProjectCalculator $projectCalculator

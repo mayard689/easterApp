@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 /**
- * @Route("/password")
+ * @Route("/mot-de-passe")
  */
 class PasswordController extends AbstractController
 {
@@ -91,7 +91,7 @@ class PasswordController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/add/{token}", name="password_add")
+     * @Route("/{id}/ajouter/{token}", name="password_add")
      * @param User $user
      * @param mixed $token
      * @param Request $request
@@ -139,7 +139,7 @@ class PasswordController extends AbstractController
     }
 
     /**
-     * @Route("{/id}/reset/{token}", name="password_reset")
+     * @Route("{/id}/reinitialiser/{token}", name="password_reset")
      * @param User $user
      * @param TokenGeneratorInterface $token
      * @param Request $request
