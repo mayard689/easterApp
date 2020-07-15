@@ -49,7 +49,7 @@ class ProjectController extends AbstractController
         $direction=$request->query->get('direction');
 
         if (!in_array($direction, self::DIRECTION)) {
-            $direction = 'desc';
+            $direction = 'asc';
         }
 
         if (!in_array($sort, self::SORT)) {
