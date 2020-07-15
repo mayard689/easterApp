@@ -45,9 +45,6 @@ class Feature
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Veuillez indiquer une description pour cette fonctionnalité !")
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="La description ne doit pas dépasser {{ limit }} caractères ! "
      * )
      */
     private $description;
@@ -109,7 +106,7 @@ class Feature
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
