@@ -31,7 +31,7 @@ class UserFixtures extends Fixture
             $user->setRoles(['ROLE_ADMIN']);
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
-                'userpassword1A!'
+                'adminpassword1A!'
             ));
             $user->setCreationDate(new DateTime($faker->date()));
             $manager->persist($user);
