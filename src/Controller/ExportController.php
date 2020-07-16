@@ -23,7 +23,6 @@ class ExportController extends AbstractController
      * @param string $variant
      * @return Response
      */
-
     public function index(
         Project $project,
         ProjectCalculator $projectCalculator,

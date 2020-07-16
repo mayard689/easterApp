@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Liste des projets</h1>
     <div class="text-right">
-        <a class=" btn btn-primary mb-3" href="{{ path('project_new') }}">Ajouter un projet<i class="fas fa-plus-circle ml-1"></i></a>
+        <a class=" btn btn-primary mb-3" href="{{ path('project_new') }}"><i class="fas fa-plus-circle mr-1"></i>Ajouter un projet</a>
     </div>
     <table class="table table-hover project-index">
         <thead>
@@ -23,7 +23,7 @@
             <tr>
                 <th class="text-center name">
                     <span class="text-overflow-dynamic-container">
-                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" data-html="true" title="<p>{{ project.name }}</p>">
+                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" title="{{ project.name }}">
                             {{ project.name }}
                         </span>
                     </span>
@@ -31,7 +31,7 @@
                 <td class="text-center date">{{ project.date ? project.date|date('d/m/Y') : '' }}</td>
                 <td class="text-center description">
                     <span class="text-overflow-dynamic-container">
-                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" data-html="true" title="<p>{{ project.description }}</p>">
+                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" title="{{ project.description }}">
                             {{ project.description }}
                         </span>
                     </span>
@@ -65,7 +65,7 @@
 
                 <td class="text-center variant">{{ project.quotation.name }}</td>
 
-                <td class="btn-group action">
+                <td class="btn-row action">
                     {% if is_granted('ROLE_ADMIN') %}
                     {{ include('project/_delete_form.html.twig') }}
                     {% endif %}
