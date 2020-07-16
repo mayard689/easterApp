@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Repository\FeatureRepository;
+use App\Repository\ProjectFeatureRepository;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectCalculator;
 use Knp\Component\Pager\PaginatorInterface;
@@ -109,15 +111,30 @@ class CategoryController extends AbstractController
      * @Route("/{id}", name="category_delete", methods={"DELETE"})
      * @param Request $request
      * @param Category $category
+     * @param FeatureRepository $feature
+     * @param ProjectFeatureRepository $projectFeature
      * @return Response
      */
-    public function delete(Request $request, Category $category): Response
-    {
+    public function delete(
+        Request $request,
+        Category $category,
+        FeatureRepository $feature,
+        ProjectFeatureRepository $projectFeature
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($category);
-            $entityManager->flush();
-            $this->addFlash('success', 'La catégorie a été supprimée avec succès');
+            $featureList = $feature->findBy(['category' => $category->getId()]);
+            $projectFeatureList = $projectFeature->findBy(['category' => $category->getId()]);
+
+            if (!empty($featureList) || !empty($projectFeatureList)) {
+                $this->addFlash('danger', 'La catégorie ' . $category->getName() . ' ne peut 
+                être supprimée, car elle est utilisée.');
+            } else {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($category);
+                $entityManager->flush();
+                $this->addFlash('success', 'La catégorie ' . $category->getName() . ' a 
+                été supprimée avec succès');
+            }
         }
 
         return $this->redirectToRoute('category_index');
