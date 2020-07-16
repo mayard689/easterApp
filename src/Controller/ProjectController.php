@@ -152,7 +152,7 @@ class ProjectController extends AbstractController
             $entityManager->persist($projectFeature);
             $entityManager->persist($feature);
             if ($projectFeature->getSelectVariant() === false) {
-                $this->addFlash('danger', 'Vous devez sélectionner une variant où insérer la fonctionnalité');
+                $this->addFlash('danger', 'Vous devez choisir où insérer la fonctionnalité (high, middle, low)');
             } else {
                 $entityManager->flush();
                 $this->addFlash('success', 'Fonctionnalité ajoutée avec succès');
