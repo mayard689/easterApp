@@ -139,10 +139,15 @@
             border-color: $light-grey;
         }
 
-        .input-like {
+        .input-info-header {
             font-size: $size-md;
             color: $dark;
             border-color: $light-grey;
+
+            &:focus, &:hover {
+                border: none;
+                background-color: inherit;
+            }
         }
 
         .select {
