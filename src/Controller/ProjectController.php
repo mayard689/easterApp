@@ -135,30 +135,27 @@ class ProjectController extends AbstractController
         }
 
         if ($formFeature->isSubmitted() && $formFeature->isValid()) {
-            if ($formFeature['isHigh']->getData() === false
-                && $formFeature['isMiddle']->getData() === false
-                && $formFeature['isLow']->getData() === false
-            ) {
-                $this->addFlash('danger', 'Vous devez choisir une ou plusieurs variantes où insérer la fonctionnalité');
+            $projectFeature = new ProjectFeature();
+            $projectFeature->setProject($project);
+            $projectFeature->setFeature($feature);
+            $projectFeature->setDescription($feature->getDescription());
+            $projectFeature->setDay($feature->getDay());
+            $projectFeature->setCategory($feature->getCategory());
+
+            $projectFeature->setIsHigh($formFeature['isHigh']->getData());
+            $projectFeature->setIsMiddle($formFeature['isMiddle']->getData());
+            $projectFeature->setIsLow($formFeature['isLow']->getData());
+
+            $feature->setIsStandard(false);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($projectFeature);
+            $entityManager->persist($feature);
+            if ($projectFeature->getSelectVariant() === false) {
+                $this->addFlash('danger', 'Vous devez sélectionner une variant où insérer la fonctionnalité');
             } else {
-                $projectFeature = new ProjectFeature();
-                $projectFeature->setProject($project);
-                $projectFeature->setFeature($feature);
-                $projectFeature->setDescription($feature->getDescription());
-                $projectFeature->setDay($feature->getDay());
-                $projectFeature->setCategory($feature->getCategory());
-
-                $projectFeature->setIsHigh($formFeature['isHigh']->getData());
-                $projectFeature->setIsMiddle($formFeature['isMiddle']->getData());
-                $projectFeature->setIsLow($formFeature['isLow']->getData());
-
-                $feature->setIsStandard(false);
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($projectFeature);
-                $entityManager->persist($feature);
                 $entityManager->flush();
-
+                $this->addFlash('success', 'Fonctionnalité ajoutée avec succès');
                 return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
             }
         }
