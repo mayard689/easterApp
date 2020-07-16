@@ -17,11 +17,11 @@
                 <div class="input-align d-flex justify-content-between align-items-center">
                     <div class="load d-flex align-items-center">
                         <i class='fas fa-user-clock'> </i>
-                        <p class="input-like">{{ load ?? 0 }}h</p>
+                        <p class="input-info-header">{{ load ?? 0 }}j*h</p>
                     </div>
                     <div class="cost d-flex align-items-center">
                         <i class="fa fa-eur"> </i>
-                        <p class="input-like">
+                        <p class="input-info-header">
                             {{ (price_per_day * load)|number_format(2, '.', ' ') }}
                         </p>
                     </div>
