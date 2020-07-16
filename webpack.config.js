@@ -34,6 +34,7 @@ Encore
     // .addEntry('page2', './assets/js/page2.js')
     .addStyleEntry('category', './assets/scss/category.scss')
     .addStyleEntry('errors', './assets/scss/errors.scss')
+    .addEntry('uploadform', './assets/js/uploadform.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

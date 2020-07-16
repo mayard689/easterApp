@@ -97,3 +97,8 @@
     {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('profile') }}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('uploadform') }}
+{% endblock %}
