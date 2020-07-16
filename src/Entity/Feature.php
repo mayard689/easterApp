@@ -33,7 +33,7 @@ class Feature
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\NotBlank(message="Veuillez indiquer un datage pour cette fonctionnalité !")
+     * @Assert\NotBlank(message="Veuillez indiquer une charge pour cette fonctionnalité !")
      * @Assert\Positive(message="La charge doit être supérieure à 0 !")
      * @Assert\Type(
      *     type="float",

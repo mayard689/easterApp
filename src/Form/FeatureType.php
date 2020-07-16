@@ -7,6 +7,7 @@ use App\Entity\Feature;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +26,7 @@ class FeatureType extends AbstractType
                     'autocomplete' => 'off',
                 ]
             ])
-            ->add('day', TextType::class, [
+            ->add('day', NumberType::class, [
                 'attr' => ['class' => 'form-control', 'id' => 'day']
             ])
             ->add('description', TextareaType::class, [
