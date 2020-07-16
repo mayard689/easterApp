@@ -25,7 +25,7 @@
                             {{ (price_per_day * load)|number_format(2, '.', ' ') }}
                         </p>
                     </div>
-                    <div class="select text-center text-{{ project.quotation.name }}">
+                    <div class="select text-center">
                         {{ form_widget(form.quotation) }}
                     </div>
                 </div>
@@ -44,6 +44,7 @@
                     {{ form_errors(form.expert) }}
                     {{ form_errors(form.junior) }}
                     {{ form_errors(form.confirmed) }}
+                    {{form_errors(form) }}
                 </div>
             </div>
         </div>

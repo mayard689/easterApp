@@ -180,6 +180,7 @@ th {
     background-color: $light;
     border: thin solid $primary;
     font-weight: 800;
+    color:$primary;
 
     h6 {
         color: $dark;
@@ -189,4 +190,11 @@ th {
     p {
         margin: 0;
     }
+}
+
+.btn-row{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
 }
