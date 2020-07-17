@@ -36,10 +36,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/$, roles: ROLE_APPUSER }
-        - { path: ^/feature, roles: ROLE_APPUSER }
-        - { path: ^/user, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_APPUSER }
-        - { path: ^/category, roles: ROLE_ADMIN }
+        - { path: ^/fonctionnalite, roles: ROLE_APPUSER }
+        - { path: ^/utilisateur, roles: ROLE_ADMIN }
+        - { path: ^/profil, roles: ROLE_APPUSER }
+        - { path: ^/categorie, roles: ROLE_ADMIN }
 
     role_hierarchy:
         ROLE_APPUSER: ROLE_USER

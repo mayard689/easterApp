@@ -93,6 +93,18 @@ class Project
      */
     private $quotation;
 
+    /**
+     * @Assert\EqualTo(
+     *     value=100,
+     *     message="Le total des pourcentages doit être égal à 100%"
+     * )
+     * @return int
+     */
+    public function getTotalEmployee() :int
+    {
+        return $this->getJunior() + $this->getConfirmed() + $this->getExpert();
+    }
+
     public function __construct()
     {
         $this->projectFeatures = new ArrayCollection();

@@ -6,20 +6,20 @@
     <h1>Liste des catégories</h1>
 
     <div class="text-right">
-        <a class=" btn btn-primary mb-3" href="{{ path('category_new') }}">Ajouter une catégorie<i class="fas fa-plus-circle ml-1"></i></a>
+        <a class=" btn btn-primary mb-3" href="{{ path('category_new') }}"><i class="fas fa-plus-circle mr-1"></i>Ajouter une catégorie</a>
     </div>
     <table class="table table-hover">
         <thead>
         <tr>
             <th class="text-center">Nom</th>
-            <th class="text-right">Actions</th>
+            <th class="text-center">Actions</th>
         </tr>
         </thead>
         <tbody>
         {% for category in categories %}
             <tr>
                 <th class="text-center">{{ category.name }}</th>
-                <td class="btn-group float-right">
+                <td class="btn-row">
                     {% if is_granted('ROLE_ADMIN') %}
                         {{ include('category/_delete_form.html.twig') }}
                     {% endif %}

@@ -1,0 +1,59 @@
+<div class="project-card my-5">
+    <div class="d-flex justify-content-between">
+        <div class="name_project">
+            <div class="col-sm-12 pl-0 name">
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="col-sm-12 name">
+                {{ form_errors(form.name) }}
+            </div>
+            <div class="application pl-0 col-sm-12 mt-2">
+                <p>{{ form_widget(form.application) }}</p>
+                {{ form_errors(form.application) }}
+            </div>
+        </div>
+        <div class="stat_project">
+            <div class="wrapper">
+                <div class="input-align d-flex justify-content-between align-items-center">
+                    <div class="load d-flex align-items-center">
+                        <i class='fas fa-user-clock'> </i>
+                        <p class="input-info-header">{{ load ?? 0 }}j*h</p>
+                    </div>
+                    <div class="cost d-flex align-items-center">
+                        <i class="fa fa-eur"> </i>
+                        <p class="input-info-header">
+                            {{ (price_per_day * load)|number_format(2, '.', ' ') }}
+                        </p>
+                    </div>
+                    <div class="select text-center">
+                        {{ form_widget(form.quotation) }}
+                    </div>
+                </div>
+                <div class="input-align mt-2 d-flex justify-content-between">
+                    <div class="skill text-confirmed d-flex align-items-center">
+                        {{ form_label(form.junior, "Junior") }}{{ form_widget(form.junior) }} %
+                    </div>
+                    <div class="skill text-confirmed d-flex align-items-center mx-3">
+                        {{ form_label(form.confirmed, "Confirmé") }}{{ form_widget(form.confirmed) }} %
+                    </div>
+                    <div class="skill text-confirmed d-flex align-items-center">
+                        {{ form_label(form.expert, "Expert") }}{{ form_widget(form.expert) }} %
+                    </div>
+                </div>
+                <div class="row mt-4 stat_errors">
+                    {{ form_errors(form.expert) }}
+                    {{ form_errors(form.junior) }}
+                    {{ form_errors(form.confirmed) }}
+                    {{form_errors(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-group my-4">
+    <div class="col-12 p-0 description normal">
+        {{ form_widget(form.description,{'attr': {'rows': '3'}}) }}
+    </div>
+</div>
+

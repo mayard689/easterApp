@@ -10,12 +10,12 @@
 
 body {
     background-color: $background-color;
-    color:$dark;
-    display:flex;
+    color: $dark;
+    display: flex;
     font-family: 'Helvetica';
 }
 
-.btn{
+.btn {
     font-family: 'Helvetica';
 }
 
@@ -26,25 +26,25 @@ body {
 h1 {
     text-align: center;
     font-size: 48px;
-    color:$secondary;
-    padding:$padding-large;
-    margin:0;
+    color: $secondary;
+    padding: $padding-large;
+    margin: 0;
 }
 
 h2 {
     font-size: 18px;
-    color:$primary;
+    color: $primary;
     text-transform: capitalize;
 }
 
-p{
-    font-size:$size;
+p {
+    font-size: $size;
     color: $primary;
 }
 
 .button-panel {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding-top: $padding-large;
     padding-bottom: $padding-large;
 }
@@ -61,26 +61,25 @@ p{
     flex-direction: column;
 }
 
-input, textarea, select, .input-like{
-    background:transparent;
-    border:thin solid $light;
+input, textarea, select, .input-like, .input-info-header {
+    background: transparent;
+    border: thin solid $light;
     border-radius: 2px;
-    padding:0.25em;
+    padding: 0.25em;
     height: max-content;
     width: max-content;
-    margin-bottom:0;
+    margin-bottom: 0;
 
-    &:focus, &:hover{
-        border : thin solid $primary;
-        background : $light;
+    &:focus, &:hover {
+        border: thin solid $primary;
+        background: $light;
     }
 }
 
 label {
     color: $primary;
     font-size: $size;
-    text-transform: capitalize;
-    margin:0;
+    margin: 0;
     vertical-align: center;
 }
 
@@ -89,69 +88,112 @@ a, a:hover {
     text-decoration: none;
 }
 
+.text-high {
+    color: $high;
+}
+
+.text-middle {
+    color: $middle;
+}
+
+.text-low {
+    color: $low;
+}
+
+.text-expert {
+    color: $expert;
+
+    label {
+        color: $expert;
+    }
+}
+
+.text-junior {
+    color: $junior;
+
+    label {
+        color: $junior;
+    }
+}
+
+.text-confirmed {
+    color: $confirmed;
+
+    label {
+        color: $confirmed;
+    }
+}
+
 .main {
-    width:100%;
+    width: 100%;
 }
 
-.text-half{
-    color:$light;
+.text-half {
+    color: $light;
 }
 
-.sort-active{
-    color:$primary;
+.sort-active {
+    color: $primary;
 }
 
-.sort-inactive{
-    color:$light;
+.sort-inactive {
+    color: $light;
 }
 
-.table-striped>tbody>td:nth-child(odd){
-    background-color:$light;
+.table-striped > tbody > td:nth-child(odd) {
+    background-color: $light;
 }
 
-table{
+table {
     overflow: auto;
-    max-height:100px;
-    height:100px;
-    min-height:100px;
-    border:none;
+    max-height: 100px;
+    height: 100px;
+    min-height: 100px;
+    border: none;
 }
 
-thead{
-    background-color:$background-color;
-    color:$primary;
+thead {
+    background-color: $background-color;
 
-    tr{
-        th{
-            color:$light;
+    tr {
+        th {
+            color: $text-light;
         }
     }
 }
 
-th{
+th {
     font-size: $size-large;
-    color:$primary;
+    color: $primary;
     text-transform: capitalize;
 }
 
-.table th, .table td{
+.table th, .table td {
     vertical-align: middle;
-    padding-top:0.5rem;
-    padding-bottom:0.5rem;
-    border:none;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border: none;
 }
 
 .tooltip-inner {
     background-color: $light;
     border: thin solid $primary;
-    font-weight:800;
+    font-weight: 800;
+    color:$primary;
 
-    h6{
-        color:$dark;
-        padding-top:$padding;
+    h6 {
+        color: $dark;
+        padding-top: $padding;
     }
 
-    p{
-        margin:0;
+    p {
+        margin: 0;
     }
+}
+
+.btn-row{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
 }

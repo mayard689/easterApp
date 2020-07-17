@@ -14,12 +14,23 @@
     text-transform: uppercase;
 }
 
+.card .custom-file label {
+    text-transform: none;
+}
+
+.card .custom-file label:first-letter {
+    text-transform: none;
+}
+
 .card .form-text {
     color: $dark;
     font-size: 16px;
-    text-transform: lowercase;
 }
 
 .card .form-text::first-letter {
     text-transform: uppercase;
+}
+
+.custom-file-label::after {
+    content: "Choisissez une image";
 }

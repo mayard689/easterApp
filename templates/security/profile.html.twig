@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-primary float-right">Enregistrer</button>
+                    <button class="btn btn-primary float-right"><i class="fas fa-check m-1"></i>Enregistrer</button>
                 </div>
             </div>
             {{ form_end(formUpdateAvatar) }}
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button class="btn btn-primary float-right">Enregistrer</button>
+                            <button class="btn btn-primary float-right"><i class="fas fa-check m-1"></i>Enregistrer</button>
                         </div>
                     </div>
                     {{ form_end(form) }}
@@ -84,7 +84,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="{{ path('profile_password') }}" class="btn btn-primary float-right">Modifier le mot de passe</a>
+                            <a href="{{ path('profile_password') }}" class="btn btn-primary float-right">
+                                <i class="fas fa-pencil-alt mr-1" aria-hidden="true"></i>Modifier le mot de passe</a>
                         </div>
                     </div>
                 </div>
@@ -96,4 +97,9 @@
 {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('profile') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('uploadform') }}
 {% endblock %}

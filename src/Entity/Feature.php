@@ -33,11 +33,11 @@ class Feature
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\NotBlank(message="Veuillez indiquer un datage pour cette fonctionnalité !")
-     * @Assert\Positive(message="Le datage doit être supérieur à 0 !")
+     * @Assert\NotBlank(message="Veuillez indiquer une charge pour cette fonctionnalité !")
+     * @Assert\Positive(message="La charge doit être supérieure à 0 !")
      * @Assert\Type(
      *     type="float",
-     *     message="Le datage {{ value }} doit être de type {{ type }}."
+     *     message="La charge {{ value }} doit être de type {{ type }}."
      * )
      */
     private $day;
@@ -45,9 +45,6 @@ class Feature
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Veuillez indiquer une description pour cette fonctionnalité !")
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="La description ne doit pas dépasser {{ limit }} caractères ! "
      * )
      */
     private $description;
@@ -109,7 +106,7 @@ class Feature
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 

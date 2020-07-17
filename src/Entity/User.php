@@ -15,7 +15,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cet e-mail")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Il existe déjà un compte avec cet e-mail",
+ *     groups={"User","UserUpdate"}
+ * )
  * @Vich\Uploadable
  */
 class User implements UserInterface, Serializable
@@ -174,7 +178,7 @@ class User implements UserInterface, Serializable
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -247,7 +251,7 @@ class User implements UserInterface, Serializable
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): self
+    public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
 
@@ -259,7 +263,7 @@ class User implements UserInterface, Serializable
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
 

@@ -1,66 +1,13 @@
-# Project 3 - Starter Kit - Symfony 4.4.*
+# Easter App
 
-![Wild Code School](https://wildcodeschool.fr/wp-content/uploads/2019/01/logo_pink_176x60.png)
+This application in a project cost evaluation application.
+It helps you to calculate a project cost based on the project feature and the project team experience.
 
-This starter kit is here to easily start a repository for your students.
+You can edit up to 3 project variants to evaluate the best cost/performance solution.
 
-It's symfony website-skeleton project with some additional tools to validate code standards.
+Once this best solution is choosen, you can print it as a pdf document.
 
-* GrumPHP, as pre-commit hook, will run 2 tools when `git commit` is run :
-  
-    * PHP_CodeSniffer to check PSR2 
-    * PHPStan will check PHP recommendation
-     
-  If tests fail, the commit is canceled and a warning message is displayed to developper.
-
-* Travis CI, as Continuous Integration will be run when a branch with active pull request is updated on github. It will run :
-
-    * Tasks to check if vendor, .idea, env.local are not versionned,
-    * PHP_CodeSniffer to check PSR2,
-    * PHPStan will check PHP recommendation.
- 
-
-## Getting Started for trainers
-
-Before your students can code, you have some work to do !
-
-### Prerequisites
-
-Create a repository on Github in WildCodeSchool organization following this exemple :
-**ville-session-language-project** as **bordeaux-0219-php-servyy**
-
-### Get starter kit
-
-1. Clone this project
-2. Remove `.git` folder to remove history
-3. `git init`
-4. Link to your project repository you'll give to your students : `git remote add origin ...`
-5. Edit `.travis.yml` file to change default e-mails settings to get notification checking tasks end
-6. Remove trainers instructions
-5. `git add .`
-6. `git commit -m "Init project repository"`
-7. `git push -u origin master`
-
-### Check on Travis
-
-1. Go on [https://travis-ci.com](https://travis-ci.com).
-2. Sign up if you don't have account,
-3. Look for your project in search bar on the left,
-4. As soon as your repository have a `.travis.yml` in root folder, Travis should detect it and run test.
-
-> You can watch this screenshot to see basic configuration : ![basic config](http://images.innoveduc.fr/symfony4/travis-config.png)
-
-
-
-### Configure you repository - Settings options
-
-1. Add your students team as contributor .
-2. Disallow both on 'dev' and 'master' branches your students writing credentials. 
-3. Disallow merge available while one approbation is not submitted on PR.
-
-> You can watch this very tiny short video : (Loom : verrouillage branches GitHub)[https://www.loom.com/share/ad0c641d0b9447be9e40fa38a499953b]
-
-## Getting Started for Projects
+## Getting Started
 
 ### Prerequisites
 
@@ -72,6 +19,42 @@ Create a repository on Github in WildCodeSchool organization following this exem
 1. Clone this project
 2. Run `composer install`
 3. Run `yarn install`
+
+4. Set the database url into the env.local file  
+```DATABASE_URL=mysql://databaseUserName:databaseUserPassword@databaseServerIpAdress:databaseServerPort/databaseName```
+
+5. Set the e-mail dsn into the env.local file (so the application can send e-mail)  
+```MAILER_DSN=smtp://*emailAdress*:*mailboxUserPassword*@default```  
+```MAILER_FROM_ADDRESS=*emailAdress*```  
+
+6. Make the database, tables and create an administrator account  
+```bin/console doctrine:database:create``` 
+```bin/console doctrine:schema:update --force```  
+```php bin/console doctrine:fixtures:load --group=UserFixtures --append```  
+
+7. Change your admin login and password
+The initial administrator account is `johndoe@easterapp.fr` with password `adminpassword`. Make sure to change them to prevent anyone to access your data
+
+8. If needed, you can fill the database with fake records for testing purpose.  bin/console doctrine:fixture:load
+
+#### Installation troubleshooting
+
+##### missing extension 
+
+Depending on your php installation, the `composer install` command can trigger an error message saying that some extension are missing.
+
+If you are using php 7.2 on Ubuntu and the message say that mbstring is missing run the following command :  
+`sudo apt-get install php7.2-mbstring`
+
+Next continue from the step 2 of the install paragraph.
+
+##### php version
+
+This application is made on php 7.2. It may happen that `composer install` release an error message saying that composer.lock is made for php 7.3 and cannot be installed on 7.2 php version.
+To install the application on php 7.2, run the following command  
+`composer dump_autoload`
+
+Next continue from the step 2 of the install paragraph.
 
 ### Working
 
@@ -86,20 +69,9 @@ Create a repository on Github in WildCodeSchool organization following this exem
 3. Run `./bin/eslint assets/js` to launch ESLint JS linter
 3. Run `./bin/sass-lint -c sass-linter.yml` to launch Sass-lint SASS/CSS linter
 
-### Windows Users
-
-If you develop on Windows, you should edit you git configuration to change your end of line rules with this command :
-
-`git config --global core.autocrlf true`
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-
 ## Built With
 
-* [Symfony](https://github.com/symfony/symfony)
+* [Symfony 4.4](https://github.com/symfony/symfony)
 * [GrumPHP](https://github.com/phpro/grumphp)
 * [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 * [PHPStan](https://github.com/phpstan/phpstan)
@@ -107,10 +79,13 @@ Add additional notes about how to deploy this on a live system
 * [ESLint](https://eslint.org/)
 * [Sass-Lint](https://github.com/sasstools/sass-lint)
 * [Travis CI](https://github.com/marketplace/travis-ci)
+* [Webpack Encore](https://symfony.com/doc/current/frontend.html#webpack-encore)
+* [Dompdf](http://dompdf.github.com/)
+* [Mjml](http://mjml.io)
+* [Easyautocomplete](http://easyautocomplete.com/)
+* [Paginator](https://github.com/KnpLabs/KnpPaginatorBundle)
+* [Vich uploader 1.11](https://github.com/dustin10/VichUploaderBundle)
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -118,6 +93,11 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 ## Authors
 
 Wild Code School trainers team
+
+Adrien MAILLARD  
+Benoît CHOCOT  
+Anthony ROSSIGNOL  
+Dewi DIERICK  
 
 ## License
 

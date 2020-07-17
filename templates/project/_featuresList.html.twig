@@ -4,8 +4,7 @@
     <tr>
         <th scope="col">Nom de la fonctionnalité</th>
         <th class="text-center" scope="col">Catégorie de la fonctionnalité</th>
-        <th class="text-center" scope="col">Charge estimée</th>
-        <th class="text-center" scope="col"></th>
+        <th colspan="2" class="text-left" scope="col">Charge estimée</th>
     </tr>
     </thead>
     <tbody>
@@ -14,13 +13,13 @@
         <tr>
             <td colspan="2" class="feature-category">
                 <div>
-                    Catégorie : {{ featureCategory }}
+                    {{ featureCategory }}
                 </div>
             </td>
 
             <td colspan="1" class="feature-category">
-                <div class="m-0 text-center">{{ projectSynthesis[activeVariant][featureCategory].load }} j*h</div>
-                <div class="small m-0 text-center">{{ projectSynthesis[activeVariant][featureCategory].cost }} €.</div>
+                <div class="m-0 text-center">{{ projectSynthesis[activeVariant][featureCategory].load | number_format(2, '.', ' ') }} j*h</div>
+                <div class="small m-0 text-center">{{ projectSynthesis[activeVariant][featureCategory].cost | number_format(2, '.', ' ') }} €.</div>
             </td>
             <td colspan="1" class="feature-category"></td>
         </tr>
@@ -31,7 +30,7 @@
             {%  endif %}
         {% endfor %}
     {% else %}
-        <td>Pas de fonctionnalité enregistrée !</td>
+        <td colspan="4">Pas de fonctionnalité enregistrée !</td>
     {% endfor %}
 
     </tbody>

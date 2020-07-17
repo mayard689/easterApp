@@ -47,6 +47,11 @@ class Quotation
         return $this->name;
     }
 
+    public function getNameCapitalized(): ?string
+    {
+        return strtoupper($this->name);
+    }
+
     public function setName(string $name): self
     {
         $this->name = $name;

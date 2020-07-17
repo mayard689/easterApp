@@ -6,34 +6,34 @@
     <h1>Liste des fonctionnalités récurrentes</h1>
 
     <div class="text-right">
-        <a class=" btn btn-primary mb-3" href="{{ path('feature_new') }}">Ajouter une fonctionnalité<i class="fas fa-plus-circle ml-1"></i></a>
+        <a class=" btn btn-primary mb-3" href="{{ path('feature_new') }}"><i class="fas fa-plus-circle mr-1"></i>Ajouter une fonctionnalité</a>
     </div>
     <table class="table feature-index table-hover">
 
         <thead>
         <tr>
-            <th><a href="{{ path('feature_index')}}?sort=name&direction={{ newDirection}}">Nom de la fonctionnalité <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
-            <th><a href="{{ path('feature_index')}}?sort=day&direction={{ newDirection}}">Charge <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
-            <th><a href="{{ path('feature_index')}}?sort=category.name&direction={{ newDirection}}">Categorie <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th class="text-center"><a href="{{ path('feature_index')}}?sort=name&direction={{ newDirection}}">Nom de la fonctionnalité <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+            <th class="text-center"><a href="{{ path('feature_index')}}?sort=day&direction={{ newDirection}}">Charge <i class="sort-{{ sort=='day'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+            <th class="text-center"><a href="{{ path('feature_index')}}?sort=category.name&direction={{ newDirection}}">Categorie <i class="sort-{{ sort=='category.name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Actions</th>
         </tr>
         </thead>
         <tbody>
         {% for feature in features %}
             <tr>
-                <th>{{ feature.name }}</th>
-                <td>{{ feature.day }}</td>
-                <td>{{ feature.category.name }}</td>
+                <th class="text-center">{{ feature.name }}</th>
+                <td class="text-center">{{ feature.day }}</td>
+                <td class="text-center">{{ feature.category.name }}</td>
 
                 <td class="text-center description">
                     <span class="text-overflow-dynamic-container">
-                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" data-html="true" title="<p>{{ feature.description }}</p>">
+                        <span class="text-overflow-dynamic-ellipsis" data-toggle="tooltip" title="{{ feature.description }}">
                             {{ feature.description }}
                         </span>
                     </span>
 
-                <td class="btn-group float-right">
+                <td class="btn-row">
                     {% if is_granted('ROLE_ADMIN') %}
                         {{ include('feature/_delete_form.html.twig') }}
                     {% endif %}

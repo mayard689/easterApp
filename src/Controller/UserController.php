@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 /**
- * @Route("/user")
+ * @Route("/utilisateur")
  */
 class UserController extends AbstractController
 {
@@ -44,7 +44,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @Route("/ajouter", name="user_new", methods={"GET","POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param MailManager $mailManager
@@ -116,7 +116,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/changerole", name="user_role", methods={"GET","POST"})
+     * @Route("/{id}/modifier/droits", name="user_role", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
      * @return Response
@@ -125,6 +125,10 @@ class UserController extends AbstractController
     {
         $form = $this->createForm(ChangeRoleType::class, $user);
         $form->handleRequest($request);
+
+        if ($user == $this->getUser()) {
+            return $this->redirectToRoute('user_index');
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();

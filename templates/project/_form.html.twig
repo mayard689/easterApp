@@ -1,88 +1,14 @@
 <div class="project-header container">
+
     {% if formFeature is defined and form_errors(formFeature.name) %}
         <div class="alert alert-danger mb-5">
             {{ form_errors(formFeature.name) }}
         </div>
     {% endif %}
-    <div class="project-card">
-        <div class="row form-group my-4">
-            <div class="col-sm-12 col-md-2 name">
-                {{ form_label(form.name, "Nom du projet") }}
-            </div>
-            <div class="col-sm-12 col-md-6 name">
-                {{ form_widget(form.name) }}
-                {{ form_errors(form.name) }}
-            </div>
-            <div class="col-sm-12 col-md-2 load d-flex justify-content-end">
-                <label>Charge Totale : </label>
-            </div>
-            <div class="col-sm-12 col-md-2 load d-flex justify-content-end">
-                <p class="input-like">{{ load ?? 0 }}</p>
-            </div>
-        </div>
-        <div class="row form-group my-4">
-            <div class="col-sm-12 offset-md-8 col-md-2 load d-flex justify-content-end">
-                <label>Total HT : </label>
-            </div>
-            <div class="col-sm-12 col-md-2 load d-flex justify-content-end">
-                <p class="input-like">
-                    {{ (price_per_day * load)|number_format(2, '.', ' ') }} €
-                </p>
-            </div>
-        </div>
 
-        <div class="row form-group my-4">
-            <div class="col-sm-12 col-md-2 description normal">
-                {{ form_label(form.description, "Description du projet") }}
-            </div>
-            <div class="col-sm-12 col-md-10 description normal">
-                {{ form_widget(form.description,{'attr': {'rows': '3'}}) }}
-            </div>
-        </div>
-
-        <div class="row form-group my-4">
-            <div class="col-sm-12 col-md-2">
-                {{ form_label(form.quotation, "Chiffrage par défaut") }}
-            </div>
-            <div class="col-sm-12 col-md-2">
-                {{ form_widget(form.quotation) }}
-            </div>
-        </div>
-
-        <div class="row form-group my-4">
-            <div class="col-sm-12 col-md-2 application">
-                {{ form_label(form.application, "Application de type : ") }}
-            </div>
-            <div class="col-sm-12 col-md-2 application">
-                {{ form_widget(form.application) }}
-                {{ form_errors(form.application) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row input-align">
-                <div class="col-sm-12 col-md-3 col-lg-2 skill">
-                    {{ form_widget(form.junior) }}
-                    {{ form_label(form.junior, "Junior") }}
-                </div>
-                <div class="col-sm-12 col-md-3 col-lg-2 skill">
-                    {{ form_widget(form.expert) }}
-                    {{ form_label(form.expert, "Expert") }}
-                </div>
-                <div class="col-sm-12 col-md-3 col-lg-3 skill">
-                    {{ form_widget(form.confirmed) }}
-                    {{ form_label(form.confirmed, "Confirmé") }}
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            {{ form_errors(form.expert) }}
-            {{ form_errors(form.junior) }}
-            {{ form_errors(form.confirmed) }}
-        </div>
-    </div>
+    {% include 'project/_projectHeader.html.twig' %}
 </div>
-<div class="container">
+<div class="container my-5">
     {% if not project.id is null %}
         <div class="table-tools d-flex justify-content-between">
             <ul class="nav nav-pills">
@@ -92,21 +18,24 @@
                            href="{{ path('project_edit', {'id': project.id, 'variant':variant.name}) }}">
 
                             {% if variant.name =='low' %}
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bar-chart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bar-chart-fill"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="4" height="5" x="1" y="10" rx="1"/>
                                     <rect class='text-half' width="4" height="9" x="6" y="6" rx="1"/>
                                     <rect class='text-half' width="4" height="14" x="11" y="1" rx="1"/>
                                 </svg>
                             {% endif %}
                             {% if variant.name =='middle' %}
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bar-chart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bar-chart-fill"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="4" height="5" x="1" y="10" rx="1"/>
                                     <rect width="4" height="9" x="6" y="6" rx="1"/>
                                     <rect class='text-half' width="4" height="14" x="11" y="1" rx="1"/>
                                 </svg>
                             {% endif %}
                             {% if variant.name =='high' %}
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bar-chart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bar-chart-fill"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="4" height="5" x="1" y="10" rx="1"/>
                                     <rect width="4" height="9" x="6" y="6" rx="1"/>
                                     <rect width="4" height="14" x="11" y="1" rx="1"/>
@@ -131,15 +60,17 @@
     {% endif %}
 </div>
 
-<div class="button-panel container">
+<div class="button-panel container d-flex ">
 
-    <button class="btn btn-primary form-btn"><i class="fas fa-check m-1"> </i> {{ buttonName }}</button>
-    {%  if not project.id is null %}
-    <a class="btn btn-outline-primary form-btn" href="{{ path('export', {'id': project.id, 'variant':activeVariant }) }}" target="_blank">
-        <i class="fa fa-file-pdf-o  m-1"></i>Exporter au format PDF
-    </a>
-    {%  endif %}
-    <a class="btn btn-outline-primary form-btn" href="{{ path('project_index') }}">
-        <i class="fa fa-arrow-left m-1"></i> Revenir à la liste des projets
-    </a>
+        <a class="btn btn-outline-primary form-btn" href="{{ path('project_index') }}">
+            <i class="fa fa-arrow-left m-1"></i> Revenir à la liste des projets
+        </a>
+        {% if not project.id is null %}
+            <a class="btn btn-outline-primary form-btn"
+               href="{{ path('export', {'id': project.id, 'variant':activeVariant }) }}" target="_blank">
+                <i class="fa fa-file-pdf-o  m-1"></i>Exporter au format PDF
+            </a>
+        {% endif %}
+        <button class="btn btn-primary form-btn"><i class="fas fa-check m-1"> </i> {{ buttonName }}</button>
+
 </div>

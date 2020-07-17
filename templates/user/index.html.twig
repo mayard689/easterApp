@@ -4,11 +4,9 @@
 
 {% block body %}
     <h1>Liste des utilisateurs</h1>
-
-    <div class="new-user text-right">
-        <a href="{{ path('user_new') }}" class="btn" title="Nouvel utilisateur">
-            <i class="fas fa-plus-circle"></i>
-        </a>
+    <div class="text-right">
+        <a class=" btn btn-primary mb-3" href="{{ path('user_new') }}"><i class="fas fa-plus-circle mr-1"></i>Ajouter un
+            utilisateur</a>
     </div>
     <table class="table table-hover">
         <thead>
@@ -29,12 +27,20 @@
                 <td class="text-center">{{ user.creationDate ? user.creationDate|date('Y-m-d') : '' }}</td>
                 <td class="text-center">{{ user.email }}</td>
                 <td class="text-center">{{ user.roles|join|replace({'ROLE_USER': ''}) == 'ROLE_ADMIN' ? 'Administrateur' : 'Utilisateur' }}</td>
-                <td class="btn-group">
+                <td class="btn-row">
                     {{ include('user/_delete_form.html.twig') }}
-                    <a class="btn btn-sm btn-primary ml-2 {{ app.user == user ? 'disabled' }}" href="{{ path('user_role', {'id': user.id}) }}"
-                       title="Modifier le rôle de l'utilisateur">
-                        <i class="fas fa-lock"></i>
-                    </a>
+                    {% if app.user == user %}
+                        <a class="btn btn-sm btn-primary ml-2 disabled" href="{{ path('user_index') }}"
+                           title="Modifier le rôle de l'utilisateur">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        </a>
+                    {% else %}
+                        <a class="btn btn-sm btn-primary ml-2 {{ app.user == user ? 'disabled' }}"
+                           href="{{ path('user_role', {'id': user.id}) }}"
+                           title="Modifier le rôle de l'utilisateur">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

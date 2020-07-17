@@ -34,6 +34,8 @@ class ProjectFeature
     /**
      * @ORM\Column(type="text")
      *
+     * @Assert\NotBlank
+     *
      */
     private $description;
 
@@ -172,5 +174,13 @@ class ProjectFeature
         $this->isLow = $isLow;
 
         return $this;
+    }
+
+    public function getSelectVariant()
+    {
+        if ($this->isLow === false && $this->isMiddle === false && $this->isHigh === false) {
+            return false;
+        }
+        return true;
     }
 }
