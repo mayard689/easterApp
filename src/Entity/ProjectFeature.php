@@ -175,4 +175,12 @@ class ProjectFeature
 
         return $this;
     }
+
+    public function getSelectVariant()
+    {
+        if ($this->isLow === false && $this->isMiddle === false && $this->isHigh === false) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -29,8 +29,8 @@ class ProjectController extends AbstractController
 {
     const NUMBER_PER_PAGE = 10;
     const PRICE_PER_DAY = 375;
-    const DIRECTION=['asc','desc'];
-    const SORT=['name', 'date', 'quotation'];
+    const DIRECTION = ['asc', 'desc'];
+    const SORT = ['name', 'date', 'quotation'];
 
     /**
      * @Route("/", name="project_index", methods={"GET"})
@@ -45,8 +45,8 @@ class ProjectController extends AbstractController
         Request $request,
         ProjectCalculator $projectCalculator
     ): Response {
-        $sort=$request->query->get('sort');
-        $direction=$request->query->get('direction');
+        $sort = $request->query->get('sort');
+        $direction = $request->query->get('direction');
 
         if (!in_array($direction, self::DIRECTION)) {
             $direction = 'asc';
@@ -65,7 +65,7 @@ class ProjectController extends AbstractController
                 self::NUMBER_PER_PAGE
             ),
             'costs' => $costs,
-            'newDirection' => $direction=='asc'?'desc':'asc',
+            'newDirection' => $direction == 'asc' ? 'desc' : 'asc',
             'sort' => $sort
         ]);
     }
@@ -151,9 +151,13 @@ class ProjectController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($projectFeature);
             $entityManager->persist($feature);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('project_edit', ['id' => $project->getId(), 'variant' => $variant]);
+            if ($projectFeature->getSelectVariant() === false) {
+                $this->addFlash('danger', 'Vous devez choisir où insérer la fonctionnalité (high, middle, low)');
+            } else {
+                $entityManager->flush();
+                $this->addFlash('success', 'Fonctionnalité ajoutée avec succès');
+                return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
+            }
         }
 
         $load = $projectCalculator->calculateProjectLoad($project, $featuresToBeShown);
@@ -173,6 +177,9 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/{id}", name="project_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Project $project
+     * @return Response
      */
     public function delete(Request $request, Project $project): Response
     {
