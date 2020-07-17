@@ -62,5 +62,7 @@ class UserFixtures extends Fixture
         $admin->setLastname('Doe');
         $admin->setCreationDate(new DateTime($faker->date()));
         $manager->persist($admin);
+
+        $manager->flush();
     }
 }

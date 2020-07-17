@@ -126,6 +126,10 @@ class UserController extends AbstractController
         $form = $this->createForm(ChangeRoleType::class, $user);
         $form->handleRequest($request);
 
+        if ($user == $this->getUser()) {
+            return $this->redirectToRoute('user_index');
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
