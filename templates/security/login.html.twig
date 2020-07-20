@@ -17,58 +17,35 @@
             </div>
         </div>
     {% endif %}
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 {% endblock %}
 
-{% block body %}
-    <div class="row">
-        <div class="col-12">
-            <h1>Big Bill</h1>
+{% block form %}
+    <form method="post">
+        <div class="row form-group">
+            <label class="pb-2" for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                   class="form-control" required autofocus>
         </div>
-    </div>
-
-    <div class="row align-items-center justify-content-center">
-        <div class="col-md-6 col-md-offset-4">
-            <div class="form-card card">
-                <form method="post">
-                    {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img src="{{ asset('build/img/lock.png') }}" alt="car-key">
-                            <h2 class="text-center pt-3 pb-3">Bienvenue</h2>
-                            <div class="row form-group">
-                                <label for="inputEmail">Email</label>
-                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                                       class="form-control" required autofocus>
-                            </div>
-                            <div class="row form-group">
-                                <label for="inputPassword">Mot de passe</label>
-                                <div class="input-group pt-2">
-                                    <input type="password" name="password" id="inputPassword" class="form-control"
-                                           required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-primary button_password" type="button"><i
-                                                    class="fas fa-eye"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-group d-flex justify-content-center">
-                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                <button class="btn btn-primary">Se connecter</button>
-                            </div>
-                            <div class="row d-flex justify-content-center">
-                                <a href="{{ path('password_forgot_request') }}">Mot de passe oublié</a>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+        <div class="row form-group">
+            <label class="pb-2" for="inputPassword">Mot de passe</label>
+            <div class="input-group">
+                <input type="password" name="password" id="inputPassword" class="form-control"
+                       required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary button_password" type="button"><i
+                                class="fas fa-eye"></i></button>
+                </div>
             </div>
         </div>
-    </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('securityjs') }}
+        <div class="row form-group d-flex justify-content-center">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <button class="btn btn-primary">Se connecter</button>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <a href="{{ path('password_forgot_request') }}">Mot de passe oublié</a>
+        </div>
+    </form>
 {% endblock %}

@@ -23,7 +23,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 class PasswordController extends AbstractController
 {
     /**
-     * @Route("/forgot", name="password_forgot_request")
+     * @Route("/oublier", name="password_forgot_request")
      * @param Request $request
      * @param MailManager $mailManager
      * @param TokenGeneratorInterface $tokenGenerator
@@ -86,7 +86,9 @@ class PasswordController extends AbstractController
         }
 
         return $this->render('security/requestpassword.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' => 'Mot de passe oublié ?',
+            'icon' => 'envelope'
         ]);
     }
 
@@ -134,7 +136,8 @@ class PasswordController extends AbstractController
 
         return $this->render('security/password.html.twig', [
             'form' => $form->createView(),
-            'title' => 'Saisissez votre mot de passe'
+            'title' => 'Saisissez votre mot de passe',
+            'icon' => 'lock'
         ]);
     }
 
@@ -184,7 +187,8 @@ class PasswordController extends AbstractController
 
         return $this->render('security/password.html.twig', [
             'form' => $form->createView(),
-            'title' => 'Modifier votre mot de passe'
+            'title' => 'Modifier votre mot de passe',
+            'icon' => 'lock'
         ]);
     }
 

@@ -7,6 +7,11 @@ body {
 .form-card .card {
     padding: 31%;
     margin-top: -27%;
+    background-color: $white;
+}
+
+.form-card h2 {
+    font-size: 24px;
 }
 
 .form-card h2, .form-card p {
@@ -25,7 +30,7 @@ body {
 .form-card .card-body{
     padding: 15%;
     margin-bottom: -50%;
-    background: $light;
+    background: $white;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba($dark, 0.2), 0 6px 20px 0 rgba($dark, 0.19);
 }
