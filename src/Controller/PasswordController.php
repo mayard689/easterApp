@@ -136,7 +136,8 @@ class PasswordController extends AbstractController
 
         return $this->render('security/password.html.twig', [
             'form' => $form->createView(),
-            'title' => 'Saisissez votre mot de passe'
+            'title' => 'Saisissez votre mot de passe',
+            'icon' => 'lock'
         ]);
     }
 
@@ -186,7 +187,8 @@ class PasswordController extends AbstractController
 
         return $this->render('security/password.html.twig', [
             'form' => $form->createView(),
-            'title' => 'Modifier votre mot de passe'
+            'title' => 'Modifier votre mot de passe',
+            'icon' => 'lock'
         ]);
     }
 
