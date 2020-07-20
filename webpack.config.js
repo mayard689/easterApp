@@ -27,6 +27,7 @@ Encore
     .addStyleEntry('user', './assets/scss/user.scss')
     .addStyleEntry('security', './assets/scss/security.scss')
     .addStyleEntry('profile', './assets/scss/profile.scss')
+    .addStyleEntry('navbar', './assets/scss/navbar.scss')
     .addEntry('securityjs', './assets/js/security.js')
     .addEntry('easyautocomplete', './assets/js/easyautocomplete.js')
     .addStyleEntry('easyAutocomplete', './assets/scss/easyAutocomplete.scss')
