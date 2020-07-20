@@ -1,14 +1,14 @@
 <div class="project-card my-5">
     <div class="d-flex justify-content-between">
         <div class="name_project">
-            <div class="col-sm-12 pl-0 name">
+            <div class="col-sm-12 pl-0 name" data-toggle="tooltip" title="Indiquer le nom du projet.">
                 {{ form_widget(form.name) }}
             </div>
             <div class="col-sm-12 name">
                 {{ form_errors(form.name) }}
             </div>
             <div class="application pl-0 col-sm-12 mt-2">
-                <p>{{ form_widget(form.application) }}</p>
+                <p>{{ form_widget(form.application, {'attr': {'data-toggle': 'tooltip', 'title': 'Indiquer le type du projet.'}}) }}</p>
                 {{ form_errors(form.application) }}
             </div>
         </div>
@@ -25,18 +25,18 @@
                             {{ (price_per_day * load)|number_format(2, '.', ' ') }}
                         </p>
                     </div>
-                    <div class="select text-center">
+                    <div class="select text-center" data-toggle="tooltip" title="Indiquer la variante 'préférée' du projet.">
                         {{ form_widget(form.quotation) }}
                     </div>
                 </div>
                 <div class="input-align mt-2 d-flex justify-content-between">
-                    <div class="skill text-confirmed d-flex align-items-center">
+                    <div class="skill text-confirmed d-flex align-items-center" data-toggle="tooltip" title="Indiquer la proportion de ressources 'juniors' dans l'équipe projet.">
                         {{ form_label(form.junior, "Junior") }}{{ form_widget(form.junior) }} %
                     </div>
-                    <div class="skill text-confirmed d-flex align-items-center mx-3">
+                    <div class="skill text-confirmed d-flex align-items-center mx-3" data-toggle="tooltip" title="Indiquer la proportion de ressources 'confirmées' dans l'équipe projet.">
                         {{ form_label(form.confirmed, "Confirmé") }}{{ form_widget(form.confirmed) }} %
                     </div>
-                    <div class="skill text-confirmed d-flex align-items-center">
+                    <div class="skill text-confirmed d-flex align-items-center" data-toggle="tooltip" title="Indiquer la proportion de ressources 'expertes' dans l'équipe projet.">
                         {{ form_label(form.expert, "Expert") }}{{ form_widget(form.expert) }} %
                     </div>
                 </div>
@@ -52,7 +52,7 @@
 </div>
 
 <div class="form-group my-4">
-    <div class="col-12 p-0 description normal">
+    <div class="col-12 p-0 description normal" data-toggle="tooltip" title="Indiquer la description du projet.">
         {{ form_widget(form.description,{'attr': {'rows': '3'}}) }}
     </div>
 </div>

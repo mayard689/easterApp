@@ -1,7 +1,7 @@
 <tr class="feature-line">
     <th class="w-50" scope="row">
 
-        <div class="ml-4">
+        <div class="ml-4" data-toggle="tooltip" title="Cliquer sur le triangle pour éditer la description de cette fonctionnalité.">
             <a class="collapse-toggler collapsed" data-toggle="collapse" href="#collapseDescription{{ loop.index }}"
                aria-expanded="false" aria-controls="collapseDescription{{ loop.index }}">
                 {{ projectFeature.vars.data.feature.name }}
@@ -18,12 +18,12 @@
         {{ form_errors(projectFeature.feature) }}
     </th>
 
-    <td class="text-center ">
+    <td class="text-center" data-toggle="tooltip" title="Choisir la catégorie de cette fonctionnalité.">
         {{ form_widget(projectFeature.category, {'attr': {'class': 'category' }}) }}
         {{ form_errors(projectFeature.category) }}
     </td>
 
-    <td class="text-center input-align">
+    <td class="text-center input-align" data-toggle="tooltip" title="Indiquer le nombre de jours-homme nécéssaires.">
         {{ form_widget(projectFeature.day) }} j*h
         {{ form_errors(projectFeature.day) }}
     </td>
