@@ -26,9 +26,10 @@ class FeatureRepository extends ServiceEntityRepository
     public function featureLikeSearch(?string $input)
     {
         return $this->createQueryBuilder('f')
-            ->select('f.name', 'f.description', 'f.day', 'c.id', 'c.name categoryName')
+            ->select('f.id', 'f.name', 'f.isStandard', 'f.description', 'f.day', 'c.id', 'c.name categoryName')
             ->leftJoin('f.category', 'c')
             ->andWhere('f.name LIKE :input')
+            ->andWhere('f.isStandard = true')
             ->setParameter('input', '%' . $input . '%')
             ->orderBy('f.name', 'ASC')
             ->getQuery()
