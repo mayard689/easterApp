@@ -23,7 +23,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 class PasswordController extends AbstractController
 {
     /**
-     * @Route("/oublié", name="password_forgot_request")
+     * @Route("/oublier", name="password_forgot_request")
      * @param Request $request
      * @param MailManager $mailManager
      * @param TokenGeneratorInterface $tokenGenerator
