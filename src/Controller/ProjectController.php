@@ -280,8 +280,10 @@ class ProjectController extends AbstractController
      * @param FeatureRepository $featureRepository
      * @return JsonResponse
      */
-    public function searchFeature(string $input, FeatureRepository $featureRepository): ?JsonResponse
-    {
+    public function searchFeature(
+        string $input,
+        FeatureRepository $featureRepository
+    ): ?JsonResponse {
         if (strlen($input) !== 0) {
             $feature = $featureRepository->featureLikeSearch($input);
             return $this->json($feature);
