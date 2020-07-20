@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ project.name }}</title>
-    <link href='build/app.css' rel="stylesheet">
+    <title class="text-dark">{{ project.name }}</title>
+    <link href="{{ absolute_url(asset('build/app.css')) }}" rel="stylesheet">
 </head>
-<body>
 <h1>{{ project.name }}</h1>
+<body class="m-5">
+<img class="float-right" src="{{ asset('build/img/Points.svg') }}" alt="entete">
 
 <p class="text-dark">Cher client, </p>
 <p class="text-dark">Voici ci-dessous notre meilleure proposition concernant votre demande à notre
-entreprise Easter APP sur le projet {{ project.name }}.</p>
+    entreprise Easter APP sur le projet {{ project.name }}.</p>
 
 <p class="text-dark"> Il inclut les fonctionnalités suivantes :</p>
 <div>
-    <table class="w-75 text-center container">
+    <table class="w-75 text-left">
         <thead>
-        <tr>
-            <th scope="col">Catégorie</th>
-            <th class="text-center" scope="col">Coût</th>
-            <th class="text-center" scope="col">Charge estimée</th>
-            <th class="text-center" scope="col"></th>
+        <tr >
+            <th class="text-dark" scope="col">Catégorie</th>
+            <th class="text-dark" scope="col">Coût</th>
+            <th class="text-dark" scope="col">Charge estimée</th>
+            <th class="text-dark" scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -61,8 +62,12 @@ entreprise Easter APP sur le projet {{ project.name }}.</p>
 </table>
 
 <p class="text-dark">Si ce devis vous convient, n'hésitez pas à nous recontacter pour confirmer ou non votre choix.
-    Cette offre est valable pour une durée de 30 jours. Nous restons à votre disposition pour toutes demandes
+    Cette offre est valable pour une durée de 30 jours.</p>
+<p class="text-dark">    Nous restons à votre disposition pour toutes demandes
     complémentaires</p>
 <p class="text-dark">Cordialement, L'équipe Easter APP</p>
+<img src="{{ asset('build/img/vagues.svg') }}" alt="vagues">
+<img src="{{ asset('build/img/Black%20Copy.png') }}" alt="logo">
+
 </body>
 </html>

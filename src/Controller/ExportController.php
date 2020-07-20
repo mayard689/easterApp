@@ -35,6 +35,7 @@ class ExportController extends AbstractController
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->set('isRemoteEnabled', true);
 
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
