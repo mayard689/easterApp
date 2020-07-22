@@ -14,7 +14,7 @@
         <tr>
             <th class="text-center"><a href="{{ path('feature_index')}}?sort=name&direction={{ newDirection}}">Nom de la fonctionnalité <i class="sort-{{ sort=='name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
             <th class="text-center"><a href="{{ path('feature_index')}}?sort=day&direction={{ newDirection}}">Charge <i class="sort-{{ sort=='day'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
-            <th class="text-center"><a href="{{ path('feature_index')}}?sort=category.name&direction={{ newDirection}}">Categorie <i class="sort-{{ sort=='category.name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
+            <th class="text-center"><a href="{{ path('feature_index')}}?sort=category.name&direction={{ newDirection}}">Catégorie <i class="sort-{{ sort=='category.name'?'active':'inactive' }} fas fa-angle-{{ newDirection=='asc'?'up':'down' }}"></i></a></th>
             <th class="text-center">Description</th>
             <th class="text-center">Actions</th>
         </tr>

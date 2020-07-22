@@ -17,7 +17,7 @@ class AvatarUpdateType extends AbstractType
                 'help'         =>
                     'Les fichiers autorisés sont uniquement de type '
                     . implode(', ', User::MIME_TYPES)
-                    . ' et le poids maximal de ' . strtoupper(User::MAX_SIZE) . 'O',
+                    . ' et le poids maximal de ' . strtoupper(User::MAX_SIZE) . 'o',
                 'required'     => false,
                 'download_uri' => false,
                 'allow_delete' => false,
