@@ -5,6 +5,7 @@ $(document).ready(() => {
     $('#project-edit-form').keydown((event) => {
         if (event.keyCode === 13) {
             event.preventDefault();
+            // eslint-disable-next-line no-undef
             $('#project-save-button').click();
             return false;
         }
