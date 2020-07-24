@@ -6,7 +6,7 @@
 
     {% include 'project/_addFeatures.html.twig' %}
 
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'id': 'project-edit-form'}}) }}
     {% include 'project/_form.html.twig' with {'buttonName': 'Enregistrer les modifications'} %}
     {{ form_end(form) }}
 
