@@ -6,19 +6,20 @@
 
     {% include 'project/_addFeatures.html.twig' %}
 
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'id': 'project-edit-form'}}) }}
     {% include 'project/_form.html.twig' with {'buttonName': 'Enregistrer les modifications'} %}
     {{ form_end(form) }}
 
 {% endblock %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
+    {{ parent() }}
     {{ encore_entry_link_tags('projectDetails') }}
     {{ encore_entry_link_tags('easyAutocomplete') }}
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    {{ encore_entry_script_tags('app') }}
+    {{ parent() }}
+    {{ encore_entry_script_tags('formEnterLocker') }}
     {{ encore_entry_script_tags('easyautocomplete') }}
 {% endblock %}
