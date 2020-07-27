@@ -26,7 +26,6 @@ class ProjectFeatureRepository extends ServiceEntityRepository
         $result = $this->createQueryBuilder('project_feature')
             ->where('project_feature.project = :project')
             ->setParameter('project', $project->getId())
-            ->innerJoin('project_feature.feature', 'feature')
             ->innerJoin('project_feature.category', 'category')
             ->innerJoin('project_feature.project', 'project')
             ->andWhere('project_feature.is'.ucfirst($variant).' = 1')

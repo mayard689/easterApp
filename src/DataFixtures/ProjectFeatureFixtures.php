@@ -67,7 +67,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
     private function makeSpecificFeature(Project $project, int $specificIndex) : ProjectFeature
     {
         $projectFeature=$this->makeGenericFeature($project);
-        $projectFeature->setFeature($this->getReference('specific_feature_'.$specificIndex));
+        $projectFeature->setName("_".$this->faker->word);
         return $projectFeature;
     }
 
@@ -83,7 +83,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
         $projectFeature=$this->makeGenericFeature($project);
 
         $chosenFeature=array_rand($featureIndexes);
-        $projectFeature->setFeature($this->getReference('feature_'.$featureIndexes[$chosenFeature]));
+        $projectFeature->setName($this->getReference('feature_'.$featureIndexes[$chosenFeature])->getName());
         unset($featureIndexes[$chosenFeature]);
 
         return $projectFeature;

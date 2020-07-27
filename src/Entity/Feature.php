@@ -56,11 +56,6 @@ class Feature
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjectFeature::class, mappedBy="feature", orphanRemoval=true)
-     */
-    private $projectFeatures;
-
-    /**
      * @ORM\Column(type="boolean")
      *
      * @Assert\Type("bool")
@@ -69,7 +64,6 @@ class Feature
 
     public function __construct()
     {
-        $this->projectFeatures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,37 +115,6 @@ class Feature
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|ProjectFeature[]
-     */
-    public function getProjectFeatures(): Collection
-    {
-        return $this->projectFeatures;
-    }
-
-    public function addProjectFeature(ProjectFeature $projectFeature): self
-    {
-        if (!$this->projectFeatures->contains($projectFeature)) {
-            $this->projectFeatures[] = $projectFeature;
-            $projectFeature->setFeature($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProjectFeature(ProjectFeature $projectFeature): self
-    {
-        if ($this->projectFeatures->contains($projectFeature)) {
-            $this->projectFeatures->removeElement($projectFeature);
-            // set the owning side to null (unless already changed)
-            if ($projectFeature->getFeature() === $this) {
-                $projectFeature->setFeature(null);
-            }
-        }
 
         return $this;
     }

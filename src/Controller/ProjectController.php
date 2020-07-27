@@ -6,6 +6,7 @@ use App\Entity\Feature;
 use App\Entity\Project;
 use App\Entity\ProjectFeature;
 use App\Form\FeatureType;
+use App\Form\ProjectFeatureType;
 use App\Form\ProjectType;
 use App\Form\SpecificFeatureType;
 use App\Repository\FeatureRepository;
@@ -105,7 +106,6 @@ class ProjectController extends AbstractController
      * @param Project                  $project
      * @param QuotationRepository      $quotationRepository
      * @param ProjectCalculator        $projectCalculator
-     * @param ProjectRepository        $projectRepository
      * @param ProjectFeatureRepository $projectFeatureRepos
      * @param string                   $variant
      * @return Response
@@ -115,7 +115,6 @@ class ProjectController extends AbstractController
         Project $project,
         QuotationRepository $quotationRepository,
         ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository,
         ProjectFeatureRepository $projectFeatureRepos,
         string $variant = 'high'
     ): Response {
@@ -125,8 +124,9 @@ class ProjectController extends AbstractController
         $form->get('projectFeatures')->setData($featuresToBeShown);
         $form->handleRequest($request);
 
-        $feature = new Feature();
-        $formFeature = $this->createForm(SpecificFeatureType::class, $feature);
+        $projectFeature = new ProjectFeature();
+        $projectFeature->setProject($project);
+        $formFeature = $this->createForm(SpecificFeatureType::class, $projectFeature);
         $formFeature->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -135,22 +135,8 @@ class ProjectController extends AbstractController
         }
 
         if ($formFeature->isSubmitted() && $formFeature->isValid()) {
-            $projectFeature = new ProjectFeature();
-            $projectFeature->setProject($project);
-            $projectFeature->setFeature($feature);
-            $projectFeature->setDescription($feature->getDescription());
-            $projectFeature->setDay($feature->getDay());
-            $projectFeature->setCategory($feature->getCategory());
-
-            $projectFeature->setIsHigh($formFeature['isHigh']->getData());
-            $projectFeature->setIsMiddle($formFeature['isMiddle']->getData());
-            $projectFeature->setIsLow($formFeature['isLow']->getData());
-
-            $feature->setIsStandard(false);
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($projectFeature);
-            $entityManager->persist($feature);
             if ($projectFeature->getSelectVariant() === false) {
                 $this->addFlash('danger', 'Vous devez choisir où insérer la fonctionnalité (high, middle, low)');
             } else {
@@ -220,58 +206,6 @@ class ProjectController extends AbstractController
         $project = $projectFeature->getProject();
         $projectId = $project->getId();
         return $this->redirectToRoute('project_edit', ['id' => $projectId, 'variant' => $variant]);
-    }
-
-    /**
-     * @Route("/{id}/ajouter/fonctionnalite/{variant<high|middle|low>}",
-     *     name="project_feature_add", methods={"GET", "POST"})
-     * @param Request           $request
-     * @param Project           $project
-     * @param ProjectCalculator $projectCalculator
-     * @param ProjectRepository $projectRepository
-     * @return Response
-     */
-    public function addProjectFeature(
-        Request $request,
-        Project $project,
-        ProjectCalculator $projectCalculator,
-        ProjectRepository $projectRepository,
-        string $variant = 'high'
-    ): Response {
-
-        $feature = new Feature();
-        $form = $this->createForm(SpecificFeatureType::class, $feature);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $projectFeature = new ProjectFeature();
-            $projectFeature->setProject($project);
-            $projectFeature->setFeature($feature);
-            $projectFeature->setDescription($feature->getDescription());
-            $projectFeature->setDay($feature->getDay());
-            $projectFeature->setCategory($feature->getCategory());
-
-            $projectFeature->setIsHigh($form['isHigh']->getData());
-            $projectFeature->setIsMiddle($form['isMiddle']->getData());
-            $projectFeature->setIsLow($form['isLow']->getData());
-
-            $feature->setIsStandard(false);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($projectFeature);
-            $entityManager->persist($feature);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('project_edit', ['id' => $project->getId()]);
-        }
-
-        $form->get('is' . ucfirst($variant))->setData(true);
-
-        return $this->render('feature/new.html.twig', [
-            'feature' => $feature,
-            'formFeature' => $form->createView(),
-            'id' => $project->getId(),
-        ]);
     }
 
     /**

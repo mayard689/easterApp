@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Feature;
+use App\Entity\ProjectFeature;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -32,23 +33,21 @@ class SpecificFeatureType extends AbstractType
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
+                'required' => true,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('isHigh', CheckboxType::class, [
-                'mapped' => false,
                 'required' => false,
                 'label' => 'High',
                 'attr' => ['class' => 'form-control mr-2']
             ])
             ->add('isMiddle', CheckboxType::class, [
-                'mapped' => false,
                 'required' => false,
                 'label' => 'Middle',
                 'attr' => ['class' => 'form-control mr-2']
             ])
             ->add('isLow', CheckboxType::class, [
-                'mapped' => false,
                 'required' => false,
                 'label' => 'Low',
                 'attr' => ['class' => 'form-control mr-2']
@@ -58,7 +57,7 @@ class SpecificFeatureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Feature::class,
+            'data_class' => ProjectFeature::class,
         ]);
     }
 }

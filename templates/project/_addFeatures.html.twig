@@ -11,6 +11,7 @@
             </div>
 
             {{ form_start(formFeature) }}
+
             <div class="modal-body">
                 <div class="form-group my-2">
                     {{ form_label(formFeature.name, "Nom") }}
@@ -26,7 +27,8 @@
                 </div>
                 <div class="form-group my-2">
                     {{ form_label(formFeature.category, "Catégorie") }}
-                    {{ form_widget(formFeature.category) }}
+                    {{ form_widget(formFeature.category, {'attr': {'required': 'true'}}) }}
+                    {{ form_errors(formFeature.category) }}
                 </div>
 
                 <div class="form-group my-2">
