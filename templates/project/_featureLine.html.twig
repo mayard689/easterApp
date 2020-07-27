@@ -4,7 +4,7 @@
         <div class="ml-4" data-toggle="tooltip" title="Cliquer sur le triangle pour éditer la description de cette fonctionnalité.">
             <a class="collapse-toggler collapsed" data-toggle="collapse" href="#collapseDescription{{ loop.index }}"
                aria-expanded="false" aria-controls="collapseDescription{{ loop.index }}">
-                {{ projectFeature.vars.data.feature.name }}
+                {{ projectFeature.vars.data.name }}
             </a>
         </div>
         <div class="collapse ml-4" id="collapseDescription{{ loop.index }}">
@@ -14,8 +14,6 @@
             </div>
         </div>
 
-        {{ form_widget(projectFeature.feature, {'attr': {'class': 'hidden-field'}}) }}
-        {{ form_errors(projectFeature.feature) }}
     </th>
 
     <td class="text-center" data-toggle="tooltip" title="Choisir la catégorie de cette fonctionnalité.">

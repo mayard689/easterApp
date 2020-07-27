@@ -16,7 +16,6 @@ class ProjectFeatureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('feature', EntityType::class, ['class' => Feature::class, 'choice_label' => 'name'])
             ->add('description')
             ->add('day')
             ->add('category', EntityType::class, ['class' => Category::class, 'choice_label' => 'name',

@@ -68,6 +68,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
     {
         $projectFeature=$this->makeGenericFeature($project);
         $projectFeature->setFeature($this->getReference('specific_feature_'.$specificIndex));
+        $projectFeature->setName($this->getReference('specific_feature_'.$specificIndex)->getName());
         return $projectFeature;
     }
 
@@ -84,6 +85,7 @@ class ProjectFeatureFixtures extends Fixture implements DependentFixtureInterfac
 
         $chosenFeature=array_rand($featureIndexes);
         $projectFeature->setFeature($this->getReference('feature_'.$featureIndexes[$chosenFeature]));
+        $projectFeature->setName($this->getReference('feature_'.$featureIndexes[$chosenFeature])->getName());
         unset($featureIndexes[$chosenFeature]);
 
         return $projectFeature;

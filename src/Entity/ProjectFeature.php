@@ -49,9 +49,8 @@ class ProjectFeature
 
     /**
      * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="projectFeatures")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      *
-     * @Assert\NotBlank
      */
     private $feature;
 
@@ -74,6 +73,11 @@ class ProjectFeature
      * @ORM\Column(type="boolean")
      */
     private $isLow;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     public function getId(): ?int
     {
@@ -182,5 +186,17 @@ class ProjectFeature
             return false;
         }
         return true;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }
