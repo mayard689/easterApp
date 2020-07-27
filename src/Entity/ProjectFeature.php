@@ -48,7 +48,7 @@ class ProjectFeature
     private $project;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="projectFeatures")
+     * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="projectFeatures", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      *
      * @Assert\NotBlank
