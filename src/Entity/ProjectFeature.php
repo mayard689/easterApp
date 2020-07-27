@@ -4,10 +4,25 @@ namespace App\Entity;
 
 use App\Repository\ProjectFeatureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectFeatureRepository::class)
+ * @Table(name="project_feature",
+ *    uniqueConstraints={
+ *        @UniqueConstraint(name="name_project",
+ *            columns={"name", "project_id"})
+ *    }
+ * )
+ * @Entity
+ * @UniqueEntity(
+ *      fields={"name","project"},
+ *      message="Cette fonctionnalité existe déjà dans le projet."
+ * )
  */
 class ProjectFeature
 {
@@ -48,13 +63,6 @@ class ProjectFeature
     private $project;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Feature::class, inversedBy="projectFeatures")
-     * @ORM\JoinColumn(nullable=true)
-     *
-     */
-    private $feature;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Category::class)
      */
     private $category;
@@ -76,6 +84,8 @@ class ProjectFeature
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @assert\Valid()
      */
     private $name;
 
@@ -116,18 +126,6 @@ class ProjectFeature
     public function setProject(?Project $project): self
     {
         $this->project = $project;
-
-        return $this;
-    }
-
-    public function getFeature(): ?Feature
-    {
-        return $this->feature;
-    }
-
-    public function setFeature(?Feature $feature): self
-    {
-        $this->feature = $feature;
 
         return $this;
     }
