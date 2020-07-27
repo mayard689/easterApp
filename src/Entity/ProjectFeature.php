@@ -64,6 +64,9 @@ class ProjectFeature
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class)
+     *
+     * @assert\Valid()
+     * @Assert\NotBlank
      */
     private $category;
 

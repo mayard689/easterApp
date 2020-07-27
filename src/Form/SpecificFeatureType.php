@@ -33,6 +33,7 @@ class SpecificFeatureType extends AbstractType
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
+                'required' => true,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'form-control']
             ])
