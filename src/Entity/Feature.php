@@ -64,7 +64,6 @@ class Feature
 
     public function __construct()
     {
-        $this->projectFeatures = new ArrayCollection();
     }
 
     public function getId(): ?int
