@@ -34,6 +34,7 @@ class ExportController extends AbstractController
 
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
+        $pdfOptions->setFontDir('public/build/fonts/');
         $pdfOptions->setIsHtml5ParserEnabled(true);
         $pdfOptions->setIsRemoteEnabled(true);
         $pdfOptions->setTempDir('public/build/img/');
