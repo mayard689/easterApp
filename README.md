@@ -27,15 +27,27 @@ Once this best solution is choosen, you can print it as a pdf document.
 ```MAILER_DSN=smtp://*emailAdress*:*mailboxUserPassword*@default```  
 ```MAILER_FROM_ADDRESS=*emailAdress*```  
 
-6. Make the database, tables and create an administrator account  
+6. Make the database and tables  
 ```bin/console doctrine:database:create``` 
 ```bin/console doctrine:schema:update --force```  
-```php bin/console doctrine:fixtures:load --group=UserFixtures --append```  
 
-7. Change your admin login and password
+7. Fill the quotation and application tables with needed values
+
+You can use fixtures :
+```php bin/console doctrine:fixtures:load --group=QuotationFixtures --append``` 
+```php bin/console doctrine:fixtures:load --group=ApplicationFixtures --append``` 
+
+Or you can use sql request :
+```INSERT INTO `application` (`id`, `name`) VALUES (1, 'Application Web'), (2, 'Application Mobile'), (3, 'Application Plateforme');```
+```INSERT INTO `quotation` (`id`, `name`) VALUES (1, 'high'), (2, 'middle'), (3, 'low');```
+
+8. Create the first user
+```php bin/console doctrine:fixtures:load --group=UserFixtures --append``` 
+
+9. Change your admin login and password
 The initial administrator account is `johndoe@easterapp.fr` with password `adminpassword`. Make sure to change them to prevent anyone to access your data
 
-8. If needed, you can fill the database with fake records for testing purpose.  bin/console doctrine:fixture:load
+10. If needed, you can fill the database with fake records for testing purpose.  `bin/console doctrine:fixture:load`
 
 #### Installation troubleshooting
 
