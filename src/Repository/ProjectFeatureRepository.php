@@ -21,8 +21,17 @@ class ProjectFeatureRepository extends ServiceEntityRepository
         parent::__construct($registry, ProjectFeature::class);
     }
 
+    /**
+     * @param Project $project : The project you want to find he feature
+     * @param string $variant : The variant the features must be attached to
+     * @return ArrayCollection
+     */
     public function findProjectFeatures(Project $project, string $variant) : ArrayCollection
     {
+        if (! in_array($variant, ['high', 'middle', 'low'])) {
+            return new ArrayCollection([]);
+        }
+
         $result = $this->createQueryBuilder('project_feature')
             ->where('project_feature.project = :project')
             ->setParameter('project', $project->getId())
