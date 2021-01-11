@@ -7,10 +7,10 @@
                 {{ projectFeature.vars.data.name }}
             </a>
         </div>
+        <div class="error">{{ form_errors(projectFeature.description) }}</div>
         <div class="collapse ml-4" id="collapseDescription{{ loop.index }}">
             <div class="mt-3 description small">
                 {{ form_widget(projectFeature.description,{'attr': {'rows': '3'}}) }}
-                {{ form_errors(projectFeature.description) }}
             </div>
         </div>
 
@@ -18,12 +18,12 @@
 
     <td class="text-center" data-toggle="tooltip" title="Choisir la catégorie de cette fonctionnalité.">
         {{ form_widget(projectFeature.category, {'attr': {'class': 'category' }}) }}
-        {{ form_errors(projectFeature.category) }}
+        <div class="error">{{ form_errors(projectFeature.category) }}</div>
     </td>
 
     <td class="text-center input-align" data-toggle="tooltip" title="Indiquer le nombre de jours-homme nécéssaires.">
         {{ form_widget(projectFeature.day) }} j*h
-        {{ form_errors(projectFeature.day) }}
+        <div class="error">{{ form_errors(projectFeature.day) }}</div>
     </td>
 
     <td class="text-center">

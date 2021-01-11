@@ -49,7 +49,9 @@ class ProjectFeature
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     *     message = "La description ne doit pas être vide"
+     * )
      *
      */
     private $description;
