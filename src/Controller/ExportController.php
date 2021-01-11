@@ -39,7 +39,7 @@ class ExportController extends AbstractController
         $pdfOptions->setIsRemoteEnabled(true);
         $pdfOptions->setTempDir('public/build/img');
 
-        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->set('defaultFont', 'Helvetica');
 
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
@@ -51,8 +51,6 @@ class ExportController extends AbstractController
             'costs' => $projectCalculator->calculateProjectsFigures(),
             'variant' => $variant,
             'projectSynthesis' => $projectSynthesis,
-
-
         ]);
 
         // Load HTML to Dompdf
